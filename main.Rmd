@@ -96,6 +96,8 @@ Found both our project landscape and regional, annual AGB estimates to be unbias
 
 ### Combination of LiDAR and other imagery for biomass estimation
 
+
+
 Long-standing research question in lidar remote sensing for AGB estimation is to understand whether the addition of passive optical imagery to airborne lidar can further improve AGB modeling performance (Dengsheng Lu et al., 2016).
 
 Combination of lidar and QuickBird image did not improve AGB estimation in mixed coniferous forests in California; lidar data alone provided a better performance (Hyde et al., 2006)
@@ -107,6 +109,18 @@ As a result research has shifted to use non-parametric algorithms such as KNN, a
 ## Field data
 
 ### Shana sampling plots
+
+Applications of LiDAR for forest inventory require further investment into field plot data collections to estimate most stand attributes of interest (volume, basal area, biomass, etc.) (Hudak et al., 2020)
+
+
+s. However, the caveat is that they collectively represent a spatially biased sample of forests
+in the region. This is a key distinction of our project datasets from FIA plot data, which provide an
+unbiased, systematic sample of forest conditions in
+space and time, as is needed in support of forest
+planning and monitoring, reporting, and verification
+(MRV) (Tinkham et al 2018, Hurtt et al 2019).
+
+
 
 Sampling plot data from the Forest Inventory and Analysis National Program (FIA). Sampling plots are available 
 
@@ -120,6 +134,12 @@ Van Kane (meeting Apr 29):
 Forest plots are triangle with 4 circular subplots, just pretend they are representative of 1 ha of forest
 
 Sampling techniques used: https://www.fia.fs.fed.us/program-features/index.php
+
+![FIA Forest Plot](figures/fiaplot.png)
+\
+Figure 2: FIA sampling plot layout. a) generated canopy height model from lidar and b) landsat 30m imagery overlay (taken from Hudak et al., 2020)
+
+
 
 ### Biomass estimation in the field
 
@@ -151,6 +171,19 @@ Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list
 
 
 ### Landsat
+
+Hudak 2020:
+However, the 30 m resolution of Landsat TM is
+less than satisfying to land managers that seek to make
+operational decisions at the local level. Moreover,
+Landsat and for that matter all passive optical imagery
+suffers from lack of sensitivity in cases of high canopy
+closure (Smith et al 2009) or in high biomass forests,
+with the signal saturating at an AGB density of ~150–
+250 Mg ha-1 or more depending on the study (Huete
+et al 1997, Steininger 2000, Dong et al 2003, Avitabile
+et al 2012, Zhu and Liu 2015, Durante et al 2019).
+
 
 __Papers:__
 Jonathan Kane paper (Kolden et al., 2012). We characterized unburned area within fire perimeters by fire size and severity, characterized distance to an unburned area across the burned portion of the fire, and investigated patch dynamics of unburned patches within the fire perimeter. From 1984 through 2009, the total area within the fire perimeters that was classified as unburned from dNBR was 37% for Yosemite, 17% for Glacier, and 14% for Yukon-Charley.
