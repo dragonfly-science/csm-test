@@ -13,6 +13,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Method
+
+
+## Summary
+
+* Workflows to calculate biomass from FIA plots (Shana) are in practice (Hudak et al., 2020) 
+
+* Landtrendr (Landsat, Google Earth) can be used to study forest regeneration patterns via normalised burn ratio (NBR) over large time intervals (30 years). Data can be used to estimate damage in areas which take longer to recover. 
+
+
+
 ## Sentinel 2
 
 
@@ -50,6 +60,9 @@ Estimating ABG in sub-tropical Nepal using Sentinel 2 (Pandit et al., 2018). Fie
 
 
 ### Normalised Burn Ratio
+
+The NBR index has been traditionally used to map burn severity [63]. However, recently, it also
+has been used to assess forest disturbances, such as those caused by selective logging (Shimizu et al., 2017). (Lima et al. 2019)
 
 The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones. The formula is similar to NDVI, except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths (Fig 1).
 \
@@ -135,6 +148,20 @@ Forest plots are triangle with 4 circular subplots, just pretend they are repres
 
 Sampling techniques used: https://www.fia.fs.fed.us/program-features/index.php
 
+Spatial mismatch between the 7.3 m radius, round configuration of an FIA subplot and 30 m × 30 m square Landsat pixels (Tinkham et al 2018). Inevitably, the four subplots will intersect a different number of pixels and in varying proportions (Fig. 2, Hudak et al., 2020)
+
+Depending on the protocol and the quality of the Global Navigation Satellite System (GNSS) receiver used in the field; the
+three peripheral subplots, while systematically laid out from the center subplot by consistent distances
+(36.6 m) and bearings (120◦, 240◦, 360◦) are usually not georeferenced, making them more subject to locational inaccuracy due to additive errors in accounting for horizontal distance on slopes and for magnetic declination on compass azimuths (Zald et al 2014).
+
+Criteria to match LiDAR with FIA plots (Hudak et al., 2020):
+
+* fixed-area plots
+* georeferenced with a GNSS capable of differential correction 
+* established within ±3 years of an overlapping lidar collection 
+* not disturbed in the time between field and lidar data collections
+
+
 ![FIA Forest Plot](figures/fiaplot.png)
 \
 Figure 2: FIA sampling plot layout. a) generated canopy height model from lidar and b) landsat 30m imagery overlay (taken from Hudak et al., 2020)
@@ -154,6 +181,13 @@ ABG (kg/ha) = volume (m3 / ha) * VEF * WD * BEF +
 with volume expansion factor (VEF), average wood density (WD), biomass expansion factor (BEF)
 (Brown et al., 1989; Lehtonen et al., 2004; Wang et al., 2011)
 
+
+(Hudak et al., 2020):
+AGB was calculated from project field plot tree measurements using the default equations found in
+local variants of the Fire and Fuels Extension (FFE) of the Forest Vegetation Simulator (FVS) (Rebain 2015,
+Dixon 2018). These equations are based on a series of regional volume and biomass equations. The aboveground portion of the live and standing dead trees were summed to a single, plot-level AGB value; the belowground portion of the trees and non-tree species were excluded from the AGB estimates. These plot-level AGB estimates were the response variable for the landscape model
+
+
 ### Problems with field data
 
 (1) tree variables, including sampling, measurement, recording and grouping errors when tree variables such as DBH and height are measured;
@@ -172,6 +206,16 @@ Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list
 
 ### Landsat
 
+\
+Table. 3: Landsat 8-9 Operational Land Imager (OLI) and Thermal Infrared Sensor (TIRS) (USGS)
+```{r, echo=FALSE}
+landsat <- read.csv(file="tables/landsat.csv",  
+                                   header = TRUE)
+knitr::kable(landsat)
+```
+
+
+
 Hudak 2020:
 However, the 30 m resolution of Landsat TM is
 less than satisfying to land managers that seek to make
@@ -183,6 +227,15 @@ with the signal saturating at an AGB density of ~150–
 250 Mg ha-1 or more depending on the study (Huete
 et al 1997, Steininger 2000, Dong et al 2003, Avitabile
 et al 2012, Zhu and Liu 2015, Durante et al 2019).
+
+
+__LandTrendr__ is set of spectral-temporal segmentation algorithms that are useful for change detection in a time series of moderate resolution satellite imagery (primarily Landsat) and for generating trajectory-based spectral time series data largely absent of inter-annual signal noise. Can be used to assess forest regeneration over larger timescales (Fig. 3). They provide a github repository evaluating how to extract the data from Google Earth (https://emapr.github.io/LT-GEE/landtrendr.html).
+
+
+
+![LandTrendr](figures/landtrendr.png)
+Figure 3: Normalised Burn Ratio (NBR) 
+
 
 
 __Papers:__
