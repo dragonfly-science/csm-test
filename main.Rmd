@@ -1,5 +1,5 @@
 ---
-title: "main"
+title: "Method"
 author: "Fabian"
 date: "30/04/2021"
 output:
@@ -12,24 +12,57 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
-## R Markdown
+# Method
+## Sentinel 2
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Here an overview of Sentinel 2 bands with description, resolution and spectral coverage (arcgis.com).
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
+Table. 1
 ```{r, echo=FALSE}
 sentinel2 <- read.csv(file="tables/sentinel2.csv",  
                                    header = TRUE)
-knitr::kable(head(sentinel2))
+knitr::kable(sentinel2)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+## Vegetation Indices
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r, echo=FALSE}
+vegindices <- read.csv(file="tables/vegindices.csv",  
+                                   header = TRUE)
+knitr::kable(vegindices)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Vegetation indices including near-infrared wavelength have weaker relationships with biomass than those including shortwave infrared wavelength, especially for forest sites with complex stand structures. The results of image transformations such as the first principal component from the PCA showed stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass (Lu et al., 2016)
+
+Estimation of forest AGB using Sentinel-2-derived information was based on the extension of a tree-based model called Random Forest (Breiman, 2001). In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction (Pandit et al., 2018). The paper ranks importance of spectral band data and vegetation indices from above (Tab. 1) as a typical output of a random forest.
+
+## Field data
+
+### Shana sampling plots
+
+* Allometric: DBH, size classes (e.g. saplings) > height groups, largest tree measured, height to live crown, crown ratio, crown width, age data sparse and based on 1-2 cores
+* Biomass derived from LiDAR datasets
+* plot center GPS using Javad
+* plot date and size
+* Ancillary data: Slope, ground cover, vegetation cover by type (e.g. shrub, forb, etc), modal vegetation height by different types of vegetation, fuel models, fuels data, seedlings, site history (e.g. plantation, if there was a fire, etc)
+
+### Problems with field data
+
+(1) tree variables, including sampling, measurement, recording and grouping errors when tree variables such as DBH and height are measured;
+(2) conversion coefficients and models including variation of conversion factors from volume to biomass and then to carbon, inappropriate selection and usage of allometric models for relationship of tree volume and DBH and height, and incorrect regression models relating forest biomass/carbon to spectral variables;
+(3) uncertainties of spectral values due to unbalanced platforms, scanner motions, poor atmospheric conditions, and slope; inappropriate spatial interpolation methods for geometrical and radiometric corrections, and incorrect methods for image enhancement and analysis;
+(4) sample plot locations, including global positing system (GPS) coordinates used to locate the sample plots, geometric correction and the uncertainties due to mismatch of sample plots with spatial resolutions of remotely sensed data; 
+(5) differences in sizes of sample plots and image pixels, disagreement between remotely sensed data and plot observations when portions of trees on boundaries are outside plots although both sample plots and pixels have the same spatial resolutions; and 
+(6) temporal differences between field plot measurements and remotely sensed data.
+
+
+
+
+
+
+
+
+
