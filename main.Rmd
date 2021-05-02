@@ -27,8 +27,7 @@ sentinel2 <- read.csv(file="tables/sentinel2.csv",
 knitr::kable(sentinel2)
 ```
 
-\
-## Vegetation Indices
+### Vegetation Indices
 
 Vegetation indices including near-infrared wavelength have weaker relationships with biomass than those including shortwave infrared wavelength, especially for forest sites with complex stand structures. The results of image transformations such as the first principal component from the PCA showed stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass (Lu et al., 2016)
 
@@ -41,8 +40,14 @@ knitr::kable(vegindices)
 ```
 
 
+__Papers:__
+\
+Estimating ABG in sub-tropical Nepal using Sentinel 2 (Pandit et al., 2018). Field-based AGB as a dependent variable, as well as spectral band values and spectral-derived vegetation indices as independent variables in the Random Forest (Breiman, 2001). In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices from above (Tab. 1) as a typical output of a random forest. (R2 = 0.81 and RMSE = 25.57 t ha-1).
+\
 
-Estimation of forest AGB using Sentinel-2-derived information was based on the extension of a tree-based model called Random Forest (Breiman, 2001). In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction (Pandit et al., 2018). The paper ranks importance of spectral band data and vegetation indices from above (Tab. 1) as a typical output of a random forest.
+
+
+
 
 ### Normalised Burn Ratio
 
@@ -71,8 +76,15 @@ Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 20
 
 Fire on Madeira, Spain (Navarro et al., 2017). Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided. 
 
+### Problems with Sentinel 2 Data
+
+
+
 
 ## LiDAR
+
+Jonathan Kane(meeting 29 April):
+We assume > 2m can be classified as canopy.
 
 ### LiDAR for biomass quantification.
 
@@ -87,7 +99,7 @@ climate metrics calculated from downscaled 30 year climate normals were used as 
 
 Found both our project landscape and regional, annual AGB estimates to be unbiased with respect to FIA estimates (Biases of 1% and 0.7%, respectively)
 
-### combination of LiDAR and other imagery for biomass estimation
+### Combination of LiDAR and other imagery for biomass estimation
 
 Long-standing research question in lidar remote sensing for AGB estimation is to understand whether the addition of passive optical imagery to airborne lidar can further improve AGB modeling performance (Dengsheng Lu et al., 2016).
 
@@ -109,13 +121,16 @@ Sampling plot data from the Forest Inventory and Analysis National Program (FIA)
 * plot date and size
 * Ancillary data: Slope, ground cover, vegetation cover by type (e.g. shrub, forb, etc), modal vegetation height by different types of vegetation, fuel models, fuels data, seedlings, site history (e.g. plantation, if there was a fire, etc)
 
-Sampling echniques used: https://www.fia.fs.fed.us/program-features/index.php
+Van Kane (meeting Apr 29): 
+Forest plots are triangle with 4 circular subplots, just pretend they are representative of 1 ha of forest
+
+Sampling techniques used: https://www.fia.fs.fed.us/program-features/index.php
 
 ### Biomass estimation in the field
 
 Collection of a large number of biomass reference data at the plot level is time-consuming and labor-intensive. It is only suitable for a small area and cannot provide the spatial distribution. However, this kind of data is a prerequisite for developing biomass estimation models (Lu et al., 2016). Allometric models most common, but require data about soil, land use history and climate influence (paper here for tropical) (Clark & Kellner, 2012).
 
-(table lu et al 2016)
+(table Lu et al 2016)
 
 Use data of national forest inventories: 
 
@@ -133,6 +148,13 @@ with volume expansion factor (VEF), average wood density (WD), biomass expansion
 (5) differences in sizes of sample plots and image pixels, disagreement between remotely sensed data and plot observations when portions of trees on boundaries are outside plots although both sample plots and pixels have the same spatial resolutions; and 
 (6) temporal differences between field plot measurements and remotely sensed data.
 
+### Forest classification
+
+Van Kane (meeting Apr 29): 
+forest service cannot reveal plot locations, only if project output is open access (ideally uni projects)
+Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list
+
+
 ### Landsat
 
 
@@ -143,6 +165,23 @@ Jonathan Kane paper (Kolden et al., 2012). We characterized unburned area within
 Most radar-based biomass estimation studies use L-band SAR data, especially the ALOS PALSAR L-band data (Mitchard et al. 2011; Carreiras et al. 2012; Rahman and Sumantyo 2013). The SAR C-band data have not been extensively used because of the C-band’s inability to capture forest biomass features (Le Toan et al. 1992; Lu 2006).
 
 In summary, it is difficult to use radar data for distinguishing vegetation types (Li et al. 2012b) because radar data reflect the roughness of land cover surfaces instead of the difference between the vegetation types, thus resulting in difficulty of biomass estimation. The speckle in radar data is another problem affecting its applications. Properly employing filtering methods to reduce noise and outliers in InSAR data is needed to improve the vegetation height estimation performance (Kellndorfer et al. 2004).
+
+### RapidEye
+
+ESA is offering access to the full RapidEye archive for scientific research and application development. Access is only available to submitted proposals that are accepted.
+
+Type	High-resolution optical imager
+Resolution (IFOV)	6.5m GSD at nadir, resampled to 5 m pixel size on orthorectified products
+Swath Width (FOV)	± 6.75º about nadir, corresponding to a swath of 77 km
+Bands	Blue	440-510 nm
+Green	520-590 nm
+Red	630-685 nm
+Red edge	690-730 nm
+NIR (Near Infrared)	760-850 nm
+\
+
+__Overall, RapidEye data are not suitable for AGB estimation__, but when AGB falls within 50–150 Mg/ha, support vector regression based on stratification of vegetation types provided good AGB estimation; Problem for biomass estimates can be fixed incorporating tree height if LiDAR data or stereo image is available (Brasilian Rainforest) (Feng et al., 2017) 
+
 
 
 
@@ -215,7 +254,11 @@ Merzlyak, M. N., Gitelson, A. A., Chivkunova, O. B., & Rakitin, V. Y. (1999). No
 
 Mutanga, O., & Skidmore, A. K. (2004). Narrow band vegetation indices overcome the saturation problem in biomass estimation. International Journal of Remote Sensing, 25(19), 3999–4014. https://doi.org/10.1080/01431160310001654923
 
+Navarro, G., Caballero, I., Silva, G., Parra, P.-C., Vázquez, Á., & Caldeira, R. (2017). Evaluation of forest fire on Madeira Island using Sentinel-2A MSI imagery. International Journal of Applied Earth Observation and Geoinformation, 58, 97–106. https://doi.org/10.1016/j.jag.2017.02.003
+
 Pandit, S., Tsuyuki, S., & Dube, T. (2018). Estimating Above-Ground Biomass in Sub-Tropical Buffer Zone Community Forests, Nepal, Using Sentinel 2 Data. Remote Sensing, 10(4), 601. https://doi.org/10.3390/rs10040601
+
+Roteta, E., Bastarrika, A., Padilla, M., Storm, T., & Chuvieco, E. (2019). Development of a Sentinel-2 burned area algorithm: Generation of a small fire database for sub-Saharan Africa. Remote Sensing of Environment, 222, 1–17. https://doi.org/10.1016/j.rse.2018.12.011
 
 Sharma, L. K., Bu, H., Denton, A., & Franzen, D. W. (2015). Active-Optical Sensors Using Red NDVI Compared to Red Edge NDVI for Prediction of Corn Grain Yield in North Dakota, U.S.A. Sensors, 15(11), 27832–27853. https://doi.org/10.3390/s151127832
 
