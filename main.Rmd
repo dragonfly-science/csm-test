@@ -77,7 +77,9 @@ Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 20
 Fire on Madeira, Spain (Navarro et al., 2017). Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided. 
 
 ### Problems with Sentinel 2 Data
-
+\
+__Papers:__
+Bamboo forest in China: Seasonality, different growth phenomena in different years. Correlation between spectral bands and biomass varies within the period of months. Biomass calculation based on DBH and age (Y. Chen et al., 2019). Also used random forest to evaluate key variables.
 
 
 
@@ -157,9 +159,10 @@ Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list
 
 ### Landsat
 
-
+__Papers:__
 Jonathan Kane paper (Kolden et al., 2012). We characterized unburned area within fire perimeters by fire size and severity, characterized distance to an unburned area across the burned portion of the fire, and investigated patch dynamics of unburned patches within the fire perimeter. From 1984 through 2009, the total area within the fire perimeters that was classified as unburned from dNBR was 37% for Yosemite, 17% for Glacier, and 14% for Yukon-Charley.
-
+\
+The complex biophysical environments and vegetation characteristics, e.g. phenology, species composition, growth phase, and health – will affect vegetation spectral signatures; thus, biomass estimation models based on optical spectral features cannot be directly transferred to different study areas for biomass mapping (Foody et al., 2003; Lu, 2005)
 
 ### Synthetic aperture radar (SAR) 
 Most radar-based biomass estimation studies use L-band SAR data, especially the ALOS PALSAR L-band data (Mitchard et al. 2011; Carreiras et al. 2012; Rahman and Sumantyo 2013). The SAR C-band data have not been extensively used because of the C-band’s inability to capture forest biomass features (Le Toan et al. 1992; Lu 2006).
