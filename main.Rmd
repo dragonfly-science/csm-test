@@ -46,12 +46,31 @@ Estimation of forest AGB using Sentinel-2-derived information was based on the e
 
 ### Normalised Burn Ratio
 
-The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones. The formula is similar to NDVI, except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths.
+The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones. The formula is similar to NDVI, except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths (Fig 1).
 \
 \
 ![Normalised Burn Ratio](figures/nbr.jpg)
 \
 Fig: 1 Comparison of the spectral response of healthy vegetation and burned areas (USFS)
+
+\
+\
+NBR uses the ratio between NIR and SWIR bands, according to the formula shown below. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero.
+\
+\
+NBR = (NIR-SWIR)/(NIR+SWIR)
+\
+\
+Burn severity can then be estimated from the difference between pre- and post-fire NBR. 
+\
+\
+__Papers:__
+
+Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the activefires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows. Available here: https://climate.esa.int/en/projects/fire/data/
+
+
+Fire on Madeira, Spain (Navarro et al., 2017). Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided. 
+
 
 ## LiDAR
 
