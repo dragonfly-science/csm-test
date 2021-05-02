@@ -90,14 +90,7 @@ We assume > 2m can be classified as canopy.
 
 ### LiDAR for biomass quantification.
 
-Recent paper with Jonathan and Van Kane (Hudak et al. 2020). Used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground biomass using machine-learning algorithms Random Forests (RF). Field plots collected by the US Forest Service (USFS) and other stakeholders in 29 areas in northwestern USA. Plot level AGB estimates were used as a response variable to predict AGB from LiDAR derived canopy height and density information (R2 = 0.8, RMSE = 115 Mg ha-1, Bias = 2 Mg ha-1).
-\
-\
-*'A stratified random sample of AGB pixels from these landscape-level AGB maps then
-served as training data for predicting AGB regionally from Landsat image time series variables
-processed through LandTrendr'*
-\
-climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha-1, Bias = 9 Mg ha-1), including higher AGB values (>400 Mg ha-1) where spectral predictors alone saturate. 
+Recent paper with Jonathan and Van Kane (Hudak et al. 2020). Used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground biomass using Random Forests (RF). Field plots collected by the US Forest Service and other in northwestern USA. Plot level AGB estimates were used as a response variable to predict AGB from LiDAR derived canopy height and density information (R2 = 0.8, RMSE = 115 Mg ha-1, Bias = 2 Mg ha-1). A stratified random sample of AGB pixels from these landscape-level AGB maps then served as training data for predicting AGB regionally from Landsat image time series variables processed through LandTrendr. Climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha-1, Bias = 9 Mg ha-1), including higher AGB values (>400 Mg ha-1) where spectral predictors alone saturate. 
 
 Found both our project landscape and regional, annual AGB estimates to be unbiased with respect to FIA estimates (Biases of 1% and 0.7%, respectively)
 
