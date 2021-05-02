@@ -185,7 +185,25 @@ NIR (Near Infrared)	760-850 nm
 
 __Overall, RapidEye data are not suitable for AGB estimation__, but when AGB falls within 50–150 Mg/ha, support vector regression based on stratification of vegetation types provided good AGB estimation; Problem for biomass estimates can be fixed incorporating tree height if LiDAR data or stereo image is available (Brasilian Rainforest) (Feng et al., 2017) 
 
+### ICESat-2
 
+Ice, Cloud and Land Evalutation Satellite, 91-day repeat
+\
+While ATLAS onboard ICESat-2 was primarily designed to determine changes in ice sheet elevation
+and mass, it will provide information about vegetation that may be used to estimate AGB. ATLAS
+is a photon counting system, operating in the visible wavelengths, at 532 nm [7]. It generates three
+pairs of tracks, with each pair approximately 3.3 km apart and each track within a pair separated
+by 90 m [11]. Lidar footprints are produced every 70 cm in the along-track direction and measure
+approximately 14 m in diameter [14]. Given the unprecedented coverage and spatial detail from
+ICESat-2, translating ICESat-2 measurements to AGB estimates would allow for large-scale AGB and
+forest carbon assessments.
+
+__Paper:__
+ICESat-2 for mapping forest biomass with deep learning (Narine et al., 2019). A first set of models were developed using vegetation indices
+calculated from single-date Landsat imagery, canopy cover, and land cover, and a second set of models
+were generated using metrics from one year of Landsat imagery with canopy cover and land cover
+maps. With the extended dataset containing metrics calculated from Landsat images acquired on different dates, substantial improvements in modelperformance for all data scenarios were noted. The R2 values increased to 0.64, 0.66, and 0.67. Comparisons with Random forest (RF) prediction models highlighted similar results, with the same R2 and root mean square error (RMSE) range (15–16 Mg/ha)
+for daytime and nighttime scenarios. ICESat-2 profiles, especially with the nighttime scenario (R2 = 0.66), highlight the potential for generating a wall-to-wall AGB product with ICESat-2 by adopting a synergistic approach with Landsat optical imagery, canopy cover, and land cover 
 
 
 # References
