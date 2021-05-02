@@ -46,7 +46,12 @@ Estimation of forest AGB using Sentinel-2-derived information was based on the e
 
 ### Normalised Burn Ratio
 
-
+The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones. The formula is similar to NDVI, except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths.
+\
+\
+![Normalised Burn Ratio](figures/nbr.jpg)
+\
+Fig: 1 Comparison of the spectral response of healthy vegetation and burned areas (USFS)
 
 ## LiDAR
 
@@ -59,7 +64,7 @@ Recent paper with Jonathan and Van Kane (Hudak et al. 2020). Used a Carbon Monit
 served as training data for predicting AGB regionally from Landsat image time series variables
 processed through LandTrendr'*
 \
-climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha−1, Bias = 9 Mg ha−1), including higher AGB values (>400 Mg ha−1) where spectral predictors alone saturate. 
+climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha-1, Bias = 9 Mg ha-1), including higher AGB values (>400 Mg ha-1) where spectral predictors alone saturate. 
 
 Found both our project landscape and regional, annual AGB estimates to be unbiased with respect to FIA estimates (Biases of 1% and 0.7%, respectively)
 
@@ -109,18 +114,18 @@ with volume expansion factor (VEF), average wood density (WD), biomass expansion
 (5) differences in sizes of sample plots and image pixels, disagreement between remotely sensed data and plot observations when portions of trees on boundaries are outside plots although both sample plots and pixels have the same spatial resolutions; and 
 (6) temporal differences between field plot measurements and remotely sensed data.
 
-### Other remotely derived info
+### Landsat
 
-Mapped versus actual burned area within wildfire perimeters: Characterizing
-the unburned (2012)
 
-using Landsat
+Jonathan Kane paper (Kolden et al., 2012). We characterized unburned area within fire perimeters by fire size and severity, characterized distance to an unburned area across the burned portion of the fire, and investigated patch dynamics of unburned patches within the fire perimeter. From 1984 through 2009, the total area within the fire perimeters that was classified as unburned from dNBR was 37% for Yosemite, 17% for Glacier, and 14% for Yukon-Charley.
 
-Jonathan Kane paper: We characterized
-unburned area within fire perimeters by fire size and severity, characterized distance to an unburned area
-across the burned portion of the fire, and investigated patch dynamics of unburned patches within the
-fire perimeter. From 1984 through 2009, the total area within the fire perimeters that was classified as
-unburned from dNBR was 37% for Yosemite, 17% for Glacier, and 14% for Yukon-Charley.
+
+### Synthetic aperture radar (SAR) 
+Most radar-based biomass estimation studies use L-band SAR data, especially the ALOS PALSAR L-band data (Mitchard et al. 2011; Carreiras et al. 2012; Rahman and Sumantyo 2013). The SAR C-band data have not been extensively used because of the C-band’s inability to capture forest biomass features (Le Toan et al. 1992; Lu 2006).
+
+In summary, it is difficult to use radar data for distinguishing vegetation types (Li et al. 2012b) because radar data reflect the roughness of land cover surfaces instead of the difference between the vegetation types, thus resulting in difficulty of biomass estimation. The speckle in radar data is another problem affecting its applications. Properly employing filtering methods to reduce noise and outliers in InSAR data is needed to improve the vegetation height estimation performance (Kellndorfer et al. 2004).
+
+
 
 # References
 
@@ -170,6 +175,8 @@ Huete, A. R. (1988). A soil-adjusted vegetation index (SAVI). Remote Sensing of 
 Hyde, P., Dubayah, R., Walker, W., Blair, J. B., Hofton, M., & Hunsaker, C. (2006). Mapping forest structure for wildlife habitat analysis using multi-sensor (LiDAR, SAR/InSAR, ETM+, Quickbird) synergy. Remote Sensing of Environment, 102(1), 63–73. https://doi.org/10.1016/j.rse.2006.01.021
 
 Jordan, C. F. (1969). Derivation of Leaf-Area Index from Quality of Light on the Forest Floor. Ecology, 50(4), 663–666. https://doi.org/10.2307/1936256
+
+Kolden, C. A., Lutz, J. A., Key, C. H., Kane, J. T., & van Wagtendonk, J. W. (2012). Mapped versus actual burned area within wildfire perimeters: Characterizing the unburned. Forest Ecology and Management, 286, 38–47. https://doi.org/10.1016/j.foreco.2012.08.020
 
 Kross, A., McNairn, H., Lapen, D., Sunohara, M., & Champagne, C. (2015). Assessment of RapidEye vegetation indices for estimation of leaf area index and biomass in corn and soybean crops. International Journal of Applied Earth Observation and Geoinformation, 34, 235–248. https://doi.org/10.1016/j.jag.2014.08.002
 
