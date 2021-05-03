@@ -12,16 +12,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
-# Method
+# Methodologies to quantify Californian forest ecosystems
 
 
 ## Summary
 
-* Workflows to calculate biomass from FIA plots (Shana) are in practice (Hudak et al., 2020) 
+* Sentinel-2 derived vegetation indices can be used to to correlate with above-ground forest biomass (AGB)
 
-* Landtrendr (Landsat, Google Earth) can be used to study forest regeneration patterns via normalised burn ratio (NBR) over large time intervals (30 years). Data can be used to estimate damage in areas which take longer to recover. 
+* LiDAR requires high resolution (< 1m) to identify individual trees, but is commonly used to estimate biomass in forests
 
-* Landsat and Sentinel-2 often fails to discriminate for vegetation phenology and does reach a saturation point (150+ t/ ha)
+* workflows to calculate biomass from FIA plots (Shana) are in practice (Hudak et al., 2020) 
+
+* Landtrendr (Landsat, Google Earth) can be used to study forest regeneration patterns via normalised burn ratio (NBR) over large time intervals (30 years). Data can be used to estimate regeneration capability of forest entities 
+
+* Landsat and Sentinel-2 often fails to discriminate for vegetation phenology and does reach a saturation point in dense forest where it fails to estimate biomass (150+ t/ ha)
 
 * Forest classes are only available on request (ideally non-profit uni, time consuming process). Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list (Van Kane, April 29 meeting)
 
@@ -56,7 +60,7 @@ knitr::kable(vegindices)
 
 __Papers:__
 \
-Estimating ABG in sub-tropical Nepal using Sentinel 2 (Pandit et al., 2018). Field-based AGB as a dependent variable, as well as spectral band values and spectral-derived vegetation indices as independent variables in the Random Forest (Breiman, 2001). In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices from above (Tab. 1) as a typical output of a random forest. (R2 = 0.81 and RMSE = 25.57 t ha-1).
+Estimating ABG in sub-tropical Nepal using Sentinel 2 (Pandit et al., 2018). Field-based AGB as a dependent variable, as well as spectral band values and spectral-derived vegetation indices as independent variables in the Random Forest (Breiman, 2001). In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices from above (Tab. 2) as a typical output of a random forest to estimate AGB (R2 = 0.81 and RMSE = 25.57 t ha-1).
 
 
 \newpage
@@ -95,7 +99,7 @@ Bamboo forest in China: Seasonality, different growth phenomena in different yea
 
 ## LiDAR
 
-LiDAR data is the new gold standard when it comes to estimating AGB. Common procedure to calculate AGB via vegetation/canopy height and measure accuracy by comparing it to AGB derived from forest plots. Everthing > 2m is typically classified as canopy (Joanathan Kane, 29 April meeting). Identification of individual trees only possible if resolution matches the size of the individual canopy (< 1m, Van Kane, 29 April meeting).
+LiDAR data is the new standard when it comes to estimating AGB. Common procedure to calculate AGB via vegetation/canopy height and measure accuracy by comparing it to AGB derived from forest plots. Everything > 2m is typically classified as canopy (Joanathan Kane, 29 April meeting). Identification of individual trees only possible if resolution matches the size of the individual canopy (< 1m, Van Kane, 29 April meeting). LiDAR is useful to estimate vegetation metrics (basal area and stem density with r2 values of 0.86–0.95 across multiple studies, Zald et al., 2014)
 
 
 Recent paper with Jonathan and Van Kane (Hudak et al. 2020):
@@ -106,7 +110,7 @@ Used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground
 ### Combination of LiDAR and other imagery for biomass estimation
 
 
-Combination of lidar and QuickBird image did not improve AGB estimation in mixed coniferous forests in California; lidar data alone provided a better performance (Hyde et al., 2006)
+Combination of LiDAR and QuickBird image did not improve AGB estimation in mixed coniferous forests in California; LiDAR data alone provided a better performance (Hyde et al., 2006)
 
 LiDAR and hyperspectral combination has lower accuracy than LiDAR alone in tropical forest Costa Rica (Clark et al., 2011).
 
@@ -134,13 +138,13 @@ Criteria to match LiDAR with FIA plots (Hudak et al., 2020):
 
 * fixed-area plots
 * georeferenced with a GNSS capable of differential correction 
-* established within ±3 years of an overlapping lidar collection 
-* not disturbed in the time between field and lidar data collections
+* established within ±3 years of an overlapping LiDAR collection 
+* not disturbed in the time between field and LiDAR data collections
 
 
 ![FIA Forest Plot](figures/fiaplot.png)
 \
-Figure 2: FIA sampling plot layout. a) generated canopy height model from lidar and b) landsat 30m imagery overlay (taken from Hudak et al., 2020)
+Figure 2: FIA sampling plot layout. a) generated canopy height model from LiDAR and b) landsat 30m imagery overlay (taken from Hudak et al., 2020)
 
 
 
@@ -157,10 +161,7 @@ ABG (kg/ha) = volume (m3 / ha) * VEF * WD * BEF + e
 \
 
 
-
-2) Calculate AGB from field plots using equations from
-
-AGB was calculated from project field plot tree measurements using the default equations found in Fire and Fuels Extension (FFE) of the Forest Vegetation Simulator (FVS) (Rebain 2015, Dixon 2018). These equations are based on a series of regional volume and biomass equations. The aboveground portion of the live and standing dead trees were summed to a single, plot-level AGB value; the belowground portion of the trees and non-tree species were excluded from the AGB estimates. These plot-level AGB estimates were the response variable for a landscape model (Hudak et al., 2020).
+2) Calculate AGB from field plots using equations from Fire and Fuels Extension (FFE) of the Forest Vegetation Simulator (FVS) (Rebain 2015, Dixon 2018). These equations are based on a series of regional volume and biomass equations. The aboveground portion of the live and standing dead trees were summed to a single, plot-level AGB value; the belowground portion of the trees and non-tree species were excluded from the AGB estimates. These plot-level AGB estimates were the response variable for a landscape model (Hudak et al., 2020).
 
 
 ### Problems with field data 
@@ -191,6 +192,7 @@ Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list
 
 ### Landsat
 
+
 \
 Table. 3: Landsat 8-9 Operational Land Imager (OLI) and Thermal Infrared Sensor (TIRS) (USGS)
 ```{r, echo=FALSE}
@@ -201,33 +203,21 @@ knitr::kable(landsat)
 
 
 
-Hudak 2020:
-However, the 30 m resolution of Landsat TM is
-less than satisfying to land managers that seek to make
-operational decisions at the local level. Moreover,
-Landsat and for that matter all passive optical imagery
-suffers from lack of sensitivity in cases of high canopy
-closure (Smith et al 2009) or in high biomass forests,
-with the signal saturating at an AGB density of ~150–
-250 Mg ha-1 or more depending on the study (Huete
-et al 1997, Steininger 2000, Dong et al 2003, Avitabile
-et al 2012, Zhu and Liu 2015, Durante et al 2019).
-
-
-__LandTrendr__ is set of spectral-temporal segmentation algorithms that are useful for change detection in a time series of moderate resolution satellite imagery (primarily Landsat) and for generating trajectory-based spectral time series data largely absent of inter-annual signal noise. Can be used to assess forest regeneration over larger timescales (Fig. 3). They provide a github repository evaluating how to extract the data from Google Earth (https://emapr.github.io/LT-GEE/landtrendr.html).
+__LandTrendr__ is set of spectral-temporal segmentation algorithms that are useful for change detection in a time series of moderate resolution satellite imagery (primarily Landsat) and for generating trajectory-based spectral time series data largely absent of inter-annual signal noise. Can be used to assess forest regeneration over larger timescales (Fig. 3). They provide a github repository evaluating how to extract the data from e.g. Google Earth (https://emapr.github.io/LT-GEE/landtrendr.html).
 
 
 
 ![LandTrendr](figures/landtrendr.png)
-Figure 3: Normalised Burn Ratio (NBR) 
+Figure 3: Pixel change over updated intervals for theNormalised Burn Ratio (NBR) 
 
 
 
 __Papers:__
-Jonathan Kane paper (Kolden et al., 2012). We characterized unburned area within fire perimeters by fire size and severity, characterized distance to an unburned area across the burned portion of the fire, and investigated patch dynamics of unburned patches within the fire perimeter. From 1984 through 2009, the total area within the fire perimeters that was classified as unburned from dNBR was 37% for Yosemite, 17% for Glacier, and 14% for Yukon-Charley.
-\
+
+Jonathan Kane paper (Kolden et al., 2012). Characterized unburned area within fire perimeters by fire size and severity, characterized distance to an unburned area across the burned portion of the fire, and investigated patch dynamics of unburned patches within the fire perimeter. From 1984 through 2009, the total area within the fire perimeters that was classified as unburned from dNBR was 37% for Yosemite, 17% for Glacier, and 14% for Yukon-Charley.
+
 The complex biophysical environments and vegetation characteristics, e.g. phenology, species composition, growth phase, and health – will affect vegetation spectral signatures; thus, biomass estimation models based on optical spectral features cannot be directly transferred to different study areas for biomass mapping (Foody et al., 2003; Lu, 2005)
-\
+
 Combination of Landsat and land cover to estimate AGB in Uganda (Avitabile et al., 2012). A regression tree-based model (Random Forest) produces good results (cross-validated R² 0.81, RMSE 13 T/ha) when trained with a sufficient number of field plots representative of the vegetation variability at national scale. Specific limitations are mainly related to saturation of the optical signal at high biomass density and cloud cover, which hinders the compilation of a radiometrically consistent multi-temporal dataset. Land cover data increases the model performance because it provides information on vegetation phenology .
 
 
@@ -239,7 +229,7 @@ In summary, it is difficult to use radar data for distinguishing vegetation type
 
 ### NASA-GEDI LiDAR
 
-GEDI has the highest resolution and densest sampling of any lidar ever put in orbit (25 m to 1 km resolution)
+GEDI has the highest resolution and densest sampling of any LiDAR ever put in orbit (25 m to 1 km resolution)
 
 Website: https://gedi.umd.edu/
 
@@ -256,7 +246,7 @@ While ATLAS onboard ICESat-2 was primarily designed to determine changes in ice 
 and mass, it will provide information about vegetation that may be used to estimate AGB. ATLAS
 is a photon counting system, operating in the visible wavelengths, at 532 nm [7]. It generates three
 pairs of tracks, with each pair approximately 3.3 km apart and each track within a pair separated
-by 90 m [11]. Lidar footprints are produced every 70 cm in the along-track direction and measure
+by 90 m [11]. LiDAR footprints are produced every 70 cm in the along-track direction and measure
 approximately 14 m in diameter [14]. Given the unprecedented coverage and spatial detail from
 ICESat-2, translating ICESat-2 measurements to AGB estimates would allow for large-scale AGB and
 forest carbon assessments.
@@ -278,25 +268,17 @@ For climate, data were used from the North American Regional Reanalysis (NARR) (
 
 ArcGIS.com. (2021). Sentinel-2 Imagery: Normalized Burn Ratio—Overview. https://www.arcgis.com/home/item.html?id=5cbafcf777e845129771e601701aaae7
 
-Breidenbach, J., Næsset, E., Lien, V., Gobakken, T., & Solberg, S. (2010). Prediction of species specific forest inventory attributes using a nonparametric semi-individual tree crown approach based on fused airborne laser scanning and multispectral data. Remote Sensing of Environment, 114, 911–924. https://doi.org/10.1016/j.rse.2009.12.004
+Avitabile, V., Baccini, A., Friedl, M. A., & Schmullius, C. (2012). Capabilities and limitations of Landsat and land cover data for aboveground woody biomass estimation of Uganda. Remote Sensing of Environment, 117, 366–380. https://doi.org/10.1016/j.rse.2011.10.012
 
 Breiman, L. (2001). Random Forests. Machine Learning, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324
 
-Broge, N. H., & Leblanc, E. (2001). Comparing prediction power and stability of broadband and hyperspectral vegetation indices for estimation of green leaf area index and canopy chlorophyll density. Remote Sensing of Environment, 76(2), 156–172. https://doi.org/10.1016/S0034-4257(00)00197-8
-
 Brown, S., Gillespie, A., & Lugo, A. (1989). Biomass Estimation Methods for Tropical Forests with Applications to Forest Inventory Data. Forest Science, 35, 881–902.
-
-Chen, J.-C., Yang, C.-M., Wu, S.-T., Chung, Y.-L., Charles, A. L., & Chen, C.-T. (2007). Leaf chlorophyll content and surface spectral reflectance of tree species along a terrain gradient in Taiwan’s Kenting National Park. 48, 71–77.
-
-Chen, Q., Baldocchi, D., Gong, P., & Kelly, M. (2006). Isolating Individual Trees in a Savanna Woodland using Small Footprint LIDAR data. Photogrammetric Engineering and Remote Sensing, 72, 923–932. https://doi.org/10.14358/PERS.72.8.923
 
 Chen, Y., Li, L., Lu, D., & Li, D. (2019). Exploring Bamboo Forest Aboveground Biomass Estimation Using Sentinel-2 Data. Remote Sensing, 11(1), 7. https://doi.org/10.3390/rs11010007
 
 Clark, D. B., & Kellner, J. R. (2012). Tropical forest biomass estimation and the fallacy of misplaced concreteness. Journal of Vegetation Science, 23(6), 1191–1196. https://doi.org/10.1111/j.1654-1103.2012.01471.x
 
-Clark, M. L., Roberts, D. A., Ewel, J. J., & Clark, D. B. (2011). Estimation of tropical rain forest aboveground biomass with small-footprint lidar and hyperspectral sensors. Remote Sensing of Environment, 115(11), 2931–2942. https://doi.org/10.1016/j.rse.2010.08.029
-
-Curran, P. J. (2001). Imaging spectrometry for ecological applications. International Journal of Applied Earth Observation and Geoinformation, 3(4), 305–312. https://doi.org/10.1016/S0303-2434(01)85037-6
+Clark, M. L., Roberts, D. A., Ewel, J. J., & Clark, D. B. (2011). Estimation of tropical rain forest aboveground biomass with small-footprint LiDAR and hyperspectral sensors. Remote Sensing of Environment, 115(11), 2931–2942. https://doi.org/10.1016/j.rse.2010.08.029
 
 Feng, Y., Lu, D., Chen, Q., Keller, M., Moran, E., dos-Santos, M. N., Bolfe, E. L., & Batistella, M. (2017). Examining effective use of data sources and modeling algorithms for improving biomass estimation in a moist tropical forest of the Brazilian Amazon. International Journal of Digital Earth, 10(10), 996–1016. https://doi.org/10.1080/17538947.2017.1301581
 
@@ -305,8 +287,6 @@ Foody, G. M., Boyd, D. S., & Cutler, M. E. J. (2003). Predictive relations of tr
 Frampton, W. J., Dash, J., Watmough, G., & Milton, E. J. (2013). Evaluating the capabilities of Sentinel-2 for quantitative estimation of biophysical variables in vegetation. ISPRS Journal of Photogrammetry and Remote Sensing, 82, 83–92. https://doi.org/10.1016/j.isprsjprs.2013.04.007
 
 Gitelson, A., & Merzlyak, M. N. (1994). Spectral Reflectance Changes Associated with Autumn Senescence of Aesculus hippocastanum L. and Acer platanoides L. Leaves. Spectral Features and Relation to Chlorophyll Estimation. Journal of Plant Physiology, 143(3), 286–292. https://doi.org/10.1016/S0176-1617(11)81633-0
-
-Gleason, C. J., & Im, J. (2011). A Review of Remote Sensing of Forest Biomass and Biofuel: Options for Small-Area Applications. GIScience & Remote Sensing, 48(2), 141–170. https://doi.org/10.2747/1548-1603.48.2.141
 
 Hardisky, M., Klemas, V., & Smart,  and. (1983). The influence of soil salinity, growth form, and leaf moisture on the spectral radiance of Spartina Alterniflora canopies. Photogrammetric Engineering and Remote Sensing, 48, 77–84.
 
@@ -326,21 +306,15 @@ Kolden, C. A., Lutz, J. A., Key, C. H., Kane, J. T., & van Wagtendonk, J. W. (20
 
 Kross, A., McNairn, H., Lapen, D., Sunohara, M., & Champagne, C. (2015). Assessment of RapidEye vegetation indices for estimation of leaf area index and biomass in corn and soybean crops. International Journal of Applied Earth Observation and Geoinformation, 34, 235–248. https://doi.org/10.1016/j.jag.2014.08.002
 
-Kwak, D.-A., Lee, W.-K., Lee, J.-H., Biging, G. S., & Gong, P. (2007). Detection of individual trees and estimation of tree height usinkwakg LiDAR data. Journal of Forest Research, 12(6), 425–434. https://doi.org/10.1007/s10310-007-0041-9
-
-Leckie, D., Gougeon, F., Hill, D., Quinn, R., Armstrong, L., & Shreenan, R. (2003). Combined high-density lidar and multispectral imagery for individual tree crown analysis. Canadian Journal of Remote Sensing, 29(5), 633–649. https://doi.org/10.5589/m03-024
-
 Lehtonen, A., Mäkipää, R., Heikkinen, J., Sievänen, R., & Liski, J. (2004). Biomass expansion factors (BEFs) for Scots pine, Norway spruce and birch according to stand age for boreal forests. Forest Ecology and Management, 188(1), 211–224. https://doi.org/10.1016/j.foreco.2003.07.008
 
 Lu, D. (2005). Aboveground biomass estimation using Landsat TM data in the Brazilian Amazon. International Journal of Remote Sensing, 26(12), 2509–2525. https://doi.org/10.1080/01431160500142145
 
-Lu, Dengsheng, Chen, Q., Wang, G., Liu, L., Li, G., & Moran, E. (2016). A survey of remote sensing-based aboveground biomass estimation methods in forest ecosystems. International Journal of Digital Earth, 9(1), 63–105. https://doi.org/10.1080/17538947.2014.990526
+Lu, D., Chen, Q., Wang, G., Liu, L., Li, G., & Moran, E. (2016). A survey of remote sensing-based aboveground biomass estimation methods in forest ecosystems. International Journal of Digital Earth, 9(1), 63–105. https://doi.org/10.1080/17538947.2014.990526
 
-Lu, Dengsheng, Chen, Q., Wang, G., Moran, E., Batistella, M., Zhang, M., Vaglio Laurin, G., & Saah, D. (2012). Aboveground Forest Biomass Estimation with Landsat and LiDAR Data and Uncertainty Analysis of the Estimates. International Journal of Forestry Research, 2012. https://doi.org/10.1155/2012/436537
+Lu, D., Chen, Q., Wang, G., Moran, E., Batistella, M., Zhang, M., Vaglio Laurin, G., & Saah, D. (2012). Aboveground Forest Biomass Estimation with Landsat and LiDAR Data and Uncertainty Analysis of the Estimates. International Journal of Forestry Research, 2012. https://doi.org/10.1155/2012/436537
 
 Merzlyak, M. N., Gitelson, A. A., Chivkunova, O. B., & Rakitin, V. Y. (1999). Non-destructive optical detection of pigment changes during leaf senescence and fruit ripening. Physiologia Plantarum, 106(1), 135–141. https://doi.org/10.1034/j.1399-3054.1999.106119.x
-
-Mutanga, O., & Skidmore, A. K. (2004). Narrow band vegetation indices overcome the saturation problem in biomass estimation. International Journal of Remote Sensing, 25(19), 3999–4014. https://doi.org/10.1080/01431160310001654923
 
 Navarro, G., Caballero, I., Silva, G., Parra, P.-C., Vázquez, Á., & Caldeira, R. (2017). Evaluation of forest fire on Madeira Island using Sentinel-2A MSI imagery. International Journal of Applied Earth Observation and Geoinformation, 58, 97–106. https://doi.org/10.1016/j.jag.2017.02.003
 
@@ -352,11 +326,7 @@ Sharma, L. K., Bu, H., Denton, A., & Franzen, D. W. (2015). Active-Optical Senso
 
 Sims, D. A., & Gamon, J. A. (2002). Relationships between leaf pigment content and spectral reflectance across a wide range of species, leaf structures and developmental stages. Remote Sensing of Environment, 81(2), 337–354. https://doi.org/10.1016/S0034-4257(02)00010-X
 
-Steininger, M. K. (2000). Satellite estimation of tropical secondary forest above-ground biomass: Data from Brazil and Bolivia. International Journal of Remote Sensing, 21(6–7), 1139–1157. https://doi.org/10.1080/014311600210119
-
 Tucker, C. J. (1979). Red and photographic infrared linear combinations for monitoring vegetation. Remote Sensing of Environment, 8(2), 127–150. https://doi.org/10.1016/0034-4257(79)90013-0
-
-Underwood, E. C., Ustin, S. L., & Ramirez, C. M. (2007). A Comparison of Spatial and Spectral Image Resolution for Mapping Invasive Plants in Coastal California. Environmental Management, 39(1), 63–83. https://doi.org/10.1007/s00267-005-0228-9
 
 Wang, G., Zhang, M., Gertner, G. Z., Oyana, T., McRoberts, R. E., & Ge, H. (2011). Uncertainties of mapping aboveground forest carbon due to plot locations using national forest inventory plot and remotely sensed data. Scandinavian Journal of Forest Research, 26(4), 360–373. https://doi.org/10.1080/02827581.2011.564204
 
