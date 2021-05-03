@@ -21,13 +21,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * Landtrendr (Landsat, Google Earth) can be used to study forest regeneration patterns via normalised burn ratio (NBR) over large time intervals (30 years). Data can be used to estimate damage in areas which take longer to recover. 
 
+* Landsat and Sentinel-2 often fails to discriminate for vegetation phenology and does reach a saturation point (150+ t/ ha)
+
+* Forest classes are only available on request (ideally non-profit uni, time consuming process). Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list (Van Kane, April 29 meeting)
 
 
 ## Sentinel 2
 
 
-Compared to Landsat multispectral bands, the Sentinel-2 multispectral bands provide two red
-edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass (Tab. 1)
+Compared to Landsat multispectral bands, the Sentinel-2 multispectral bands provide two red edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass (Tab. 1)
 
 \
 Table. 1: Overview Sentinel 2 bands (Arcgis.com)
@@ -37,6 +39,8 @@ sentinel2 <- read.csv(file="tables/sentinel2.csv",
 knitr::kable(sentinel2)
 ```
 
+
+\newpage
 ### Vegetation Indices
 
 Vegetation indices including near-infrared wavelength have weaker relationships with biomass than those including shortwave infrared wavelength, especially for forest sites with complex stand structures. The results of image transformations such as the first principal component from the PCA showed stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass (Lu et al., 2016)
@@ -53,35 +57,26 @@ knitr::kable(vegindices)
 __Papers:__
 \
 Estimating ABG in sub-tropical Nepal using Sentinel 2 (Pandit et al., 2018). Field-based AGB as a dependent variable, as well as spectral band values and spectral-derived vegetation indices as independent variables in the Random Forest (Breiman, 2001). In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices from above (Tab. 1) as a typical output of a random forest. (R2 = 0.81 and RMSE = 25.57 t ha-1).
-\
 
 
-
-
+\newpage
 
 ### Normalised Burn Ratio
 
-The NBR index has been traditionally used to map burn severity [63]. However, recently, it also
-has been used to assess forest disturbances, such as those caused by selective logging (Shimizu et al., 2017). (Lima et al. 2019)
-
-The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones. The formula is similar to NDVI, except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths (Fig 1).
+The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones (Lima et al. 2019) and can be derived from landsat or sentinel imagery. The formula is similar to NDVI, except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths (Fig 1). It can also be used to monitor forest disturbanches such as logging activities (Shimizu et al., 2017).The formula is similar to NDVI, NBR uses the ratio between NIR and SWIR bands. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero.
 \
+\
+NBR = (NIR-SWIR)/(NIR+SWIR)
+\
+\
+
 \
 ![Normalised Burn Ratio](figures/nbr.jpg)
 \
 Fig: 1 Comparison of the spectral response of healthy vegetation and burned areas (USFS)
 
 \
-\
-NBR uses the ratio between NIR and SWIR bands, according to the formula shown below. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero.
-\
-\
-NBR = (NIR-SWIR)/(NIR+SWIR)
-\
-\
-Burn severity can then be estimated from the difference between pre- and post-fire NBR. 
-\
-\
+
 __Papers:__
 
 Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the activefires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows. Available here: https://climate.esa.int/en/projects/fire/data/
@@ -90,11 +85,13 @@ Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 20
 Fire on Madeira, Spain (Navarro et al., 2017). Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided. 
 
 ### Problems with Sentinel 2 Data
+
+General problem with spatial resolution (30 m). The round FIA plots overlap with multiple pixels and sometimes the forest edge. Relatively new, so does not have the high temporal value as landsat. Will probably fail to distinguish tree phenology (e.g. growth stages) and can reach a spectral saturation point if biomass is too high.
 \
 __Papers:__
 Bamboo forest in China: Seasonality, different growth phenomena in different years. Correlation between spectral bands and biomass varies within the period of months. Biomass calculation based on DBH and age (Y. Chen et al., 2019). Also used random forest to evaluate key variables.
 
-
+\newpage
 
 ## LiDAR
 
@@ -103,39 +100,34 @@ We assume > 2m can be classified as canopy.
 
 ### LiDAR for biomass quantification.
 
-Recent paper with Jonathan and Van Kane (Hudak et al. 2020). Used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground biomass using Random Forests (RF). Field plots collected by the US Forest Service and other in northwestern USA. Plot level AGB estimates were used as a response variable to predict AGB from LiDAR derived canopy height and density information (R2 = 0.8, RMSE = 115 Mg ha-1, Bias = 2 Mg ha-1). A stratified random sample of AGB pixels from these landscape-level AGB maps then served as training data for predicting AGB regionally from Landsat image time series variables processed through LandTrendr. Climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha-1, Bias = 9 Mg ha-1), including higher AGB values (>400 Mg ha-1) where spectral predictors alone saturate. 
+Recent paper with Jonathan and Van Kane (Hudak et al. 2020):
+\
+Used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground biomass using Random Forests (RF) for a regional and landscape approach. Field plots (mostly FIA) with self calculated AGB as a response variable to predict AGB from LiDAR derived canopy height and density information (R2 = 0.8, RMSE = 115 Mg ha-1, Bias = 2 Mg ha-1). A stratified random sample of AGB pixels from landscape-level AGB maps then served as training data for predicting AGB regionally from Landsat image time series variables processed through LandTrendr. Climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha-1, Bias = 9 Mg ha-1), including higher AGB values (>400 Mg ha-1) where spectral predictors alone saturate. 
 
-Found both our project landscape and regional, annual AGB estimates to be unbiased with respect to FIA estimates (Biases of 1% and 0.7%, respectively)
 
 ### Combination of LiDAR and other imagery for biomass estimation
 
-
-
-Long-standing research question in lidar remote sensing for AGB estimation is to understand whether the addition of passive optical imagery to airborne lidar can further improve AGB modeling performance (Dengsheng Lu et al., 2016).
 
 Combination of lidar and QuickBird image did not improve AGB estimation in mixed coniferous forests in California; lidar data alone provided a better performance (Hyde et al., 2006)
 
 LiDAR and hyperspectral combination has lower accuracy than LiDAR alone in tropical forest Costa Rica (Clark et al., 2011).
 
-As a result research has shifted to use non-parametric algorithms such as KNN, artificial neural network, support vector regression (SVR) and random forest (RF). 
 
 ## Field data
 
-### Shana sampling plots
 
-Applications of LiDAR for forest inventory require further investment into field plot data collections to estimate most stand attributes of interest (volume, basal area, biomass, etc.) (Hudak et al., 2020)
+
+Application of LiDAR for forest inventory requires field plot data to ground-truth the information. Field plots need to incorporate relevant parameters (volume, basal area, biomass) (Hudak et al., 2020).
 
 
 s. However, the caveat is that they collectively represent a spatially biased sample of forests
 in the region. This is a key distinction of our project datasets from FIA plot data, which provide an
-unbiased, systematic sample of forest conditions in
-space and time, as is needed in support of forest
-planning and monitoring, reporting, and verification
-(MRV) (Tinkham et al 2018, Hurtt et al 2019).
+unbiased, systematic sample of forest conditions in space and time and are more applicable over larger areas and for successive effects such as climate change and forest regeneration rates (Tinkham et al., 2018).
 
+#####################
+### Shana sampling plots
 
-
-Sampling plot data from the Forest Inventory and Analysis National Program (FIA). Sampling plots are available 
+Sampling plot data from the Forest Inventory and Analysis National Program (FIA).
 
 * Allometric: DBH, size classes (e.g. saplings) > height groups, largest tree measured, height to live crown, crown ratio, crown width, age data sparse and based on 1-2 cores
 * Biomass derived from LiDAR datasets
@@ -143,12 +135,12 @@ Sampling plot data from the Forest Inventory and Analysis National Program (FIA)
 * plot date and size
 * Ancillary data: Slope, ground cover, vegetation cover by type (e.g. shrub, forb, etc), modal vegetation height by different types of vegetation, fuel models, fuels data, seedlings, site history (e.g. plantation, if there was a fire, etc)
 
-Van Kane (meeting Apr 29): 
-Forest plots are triangle with 4 circular subplots, just pretend they are representative of 1 ha of forest
-
 Sampling techniques used: https://www.fia.fs.fed.us/program-features/index.php
 
 Spatial mismatch between the 7.3 m radius, round configuration of an FIA subplot and 30 m × 30 m square Landsat pixels (Tinkham et al 2018). Inevitably, the four subplots will intersect a different number of pixels and in varying proportions (Fig. 2, Hudak et al., 2020)
+
+Van Kane (meeting Apr 29): 
+Forest plots are triangle with 4 circular subplots, just pretend they are representative of 1 ha of forest
 
 Depending on the protocol and the quality of the Global Navigation Satellite System (GNSS) receiver used in the field; the
 three peripheral subplots, while systematically laid out from the center subplot by consistent distances
@@ -172,23 +164,22 @@ Figure 2: FIA sampling plot layout. a) generated canopy height model from lidar 
 
 Collection of a large number of biomass reference data at the plot level is time-consuming and labor-intensive. It is only suitable for a small area and cannot provide the spatial distribution. However, this kind of data is a prerequisite for developing biomass estimation models (Lu et al., 2016). Allometric models most common, but require data about soil, land use history and climate influence (paper here for tropical) (Clark & Kellner, 2012).
 
-(table Lu et al 2016)
+Two methods: 
 
-Use data of national forest inventories: 
+1) Use data of national forest inventories. Calculate with volume expansion factor (VEF), average wood density (WD), biomass expansion factor (BEF)(Brown et al., 1989; Lehtonen et al., 2004; Wang et al., 2011):
 
-ABG (kg/ha) = volume (m3 / ha) * VEF * WD * BEF +
-
-with volume expansion factor (VEF), average wood density (WD), biomass expansion factor (BEF)
-(Brown et al., 1989; Lehtonen et al., 2004; Wang et al., 2011)
-
-
-(Hudak et al., 2020):
-AGB was calculated from project field plot tree measurements using the default equations found in
-local variants of the Fire and Fuels Extension (FFE) of the Forest Vegetation Simulator (FVS) (Rebain 2015,
-Dixon 2018). These equations are based on a series of regional volume and biomass equations. The aboveground portion of the live and standing dead trees were summed to a single, plot-level AGB value; the belowground portion of the trees and non-tree species were excluded from the AGB estimates. These plot-level AGB estimates were the response variable for the landscape model
+\
+ABG (kg/ha) = volume (m3 / ha) * VEF * WD * BEF + e
+\
 
 
-### Problems with field data
+
+2) Calculate AGB from field plots using equations from
+
+AGB was calculated from project field plot tree measurements using the default equations found in Fire and Fuels Extension (FFE) of the Forest Vegetation Simulator (FVS) (Rebain 2015, Dixon 2018). These equations are based on a series of regional volume and biomass equations. The aboveground portion of the live and standing dead trees were summed to a single, plot-level AGB value; the belowground portion of the trees and non-tree species were excluded from the AGB estimates. These plot-level AGB estimates were the response variable for a landscape model (Hudak et al., 2020).
+
+
+### Problems with field data (taken from Lu et al., 2016)
 
 (1) tree variables, including sampling, measurement, recording and grouping errors when tree variables such as DBH and height are measured;
 (2) conversion coefficients and models including variation of conversion factors from volume to biomass and then to carbon, inappropriate selection and usage of allometric models for relationship of tree volume and DBH and height, and incorrect regression models relating forest biomass/carbon to spectral variables;
@@ -242,27 +233,28 @@ __Papers:__
 Jonathan Kane paper (Kolden et al., 2012). We characterized unburned area within fire perimeters by fire size and severity, characterized distance to an unburned area across the burned portion of the fire, and investigated patch dynamics of unburned patches within the fire perimeter. From 1984 through 2009, the total area within the fire perimeters that was classified as unburned from dNBR was 37% for Yosemite, 17% for Glacier, and 14% for Yukon-Charley.
 \
 The complex biophysical environments and vegetation characteristics, e.g. phenology, species composition, growth phase, and health – will affect vegetation spectral signatures; thus, biomass estimation models based on optical spectral features cannot be directly transferred to different study areas for biomass mapping (Foody et al., 2003; Lu, 2005)
+\
+Combination of Landsat and land cover to estimate AGB in Uganda (Avitabile et al., 2012). A regression tree-based model (Random Forest) produces good results (cross-validated R² 0.81, RMSE 13 T/ha) when trained with a sufficient number of field plots representative of the vegetation variability at national scale. Specific limitations are mainly related to saturation of the optical signal at high biomass density and cloud cover, which hinders the compilation of a radiometrically consistent multi-temporal dataset. Land cover data increases the model performance because it provides information on vegetation phenology .
+
+\newpage
+## Other relevant datasets
 
 ### Synthetic aperture radar (SAR) 
 Most radar-based biomass estimation studies use L-band SAR data, especially the ALOS PALSAR L-band data (Mitchard et al. 2011; Carreiras et al. 2012; Rahman and Sumantyo 2013). The SAR C-band data have not been extensively used because of the C-band’s inability to capture forest biomass features (Le Toan et al. 1992; Lu 2006).
 
 In summary, it is difficult to use radar data for distinguishing vegetation types (Li et al. 2012b) because radar data reflect the roughness of land cover surfaces instead of the difference between the vegetation types, thus resulting in difficulty of biomass estimation. The speckle in radar data is another problem affecting its applications. Properly employing filtering methods to reduce noise and outliers in InSAR data is needed to improve the vegetation height estimation performance (Kellndorfer et al. 2004).
 
+
+### NASA-GEDI LiDAR
+
+GEDI has the highest resolution and densest sampling of any lidar ever put in orbit (25 m to 1 km resolution)
+
+Website: https://gedi.umd.edu/
+
+
 ### RapidEye
 
-ESA is offering access to the full RapidEye archive for scientific research and application development. Access is only available to submitted proposals that are accepted.
-
-Type	High-resolution optical imager
-Resolution (IFOV)	6.5m GSD at nadir, resampled to 5 m pixel size on orthorectified products
-Swath Width (FOV)	± 6.75º about nadir, corresponding to a swath of 77 km
-Bands	Blue	440-510 nm
-Green	520-590 nm
-Red	630-685 nm
-Red edge	690-730 nm
-NIR (Near Infrared)	760-850 nm
-\
-
-__Overall, RapidEye data are not suitable for AGB estimation__, but when AGB falls within 50–150 Mg/ha, support vector regression based on stratification of vegetation types provided good AGB estimation; Problem for biomass estimates can be fixed incorporating tree height if LiDAR data or stereo image is available (Brasilian Rainforest) (Feng et al., 2017) 
+ESA is offering access to the full RapidEye archive for scientific research and application development. Access is only available to submitted proposals that are accepted. 5 m pixel size (RGB, RE and NIR). __Overall, RapidEye data are not suitable for AGB estimation__, but when AGB falls within 50–150 Mg/ha, support vector regression based on stratification of vegetation types provided good AGB estimation; Problem for biomass estimates can be fixed incorporating tree height if LiDAR data or stereo image is available (Brasilian Rainforest) (Feng et al., 2017) 
 
 ### ICESat-2
 
@@ -283,6 +275,10 @@ calculated from single-date Landsat imagery, canopy cover, and land cover, and a
 were generated using metrics from one year of Landsat imagery with canopy cover and land cover
 maps. With the extended dataset containing metrics calculated from Landsat images acquired on different dates, substantial improvements in modelperformance for all data scenarios were noted. The R2 values increased to 0.64, 0.66, and 0.67. Comparisons with Random forest (RF) prediction models highlighted similar results, with the same R2 and root mean square error (RMSE) range (15–16 Mg/ha)
 for daytime and nighttime scenarios. ICESat-2 profiles, especially with the nighttime scenario (R2 = 0.66), highlight the potential for generating a wall-to-wall AGB product with ICESat-2 by adopting a synergistic approach with Landsat optical imagery, canopy cover, and land cover 
+
+### Climate data
+
+For climate, data were used from the North American Regional Reanalysis (NARR) (Mesinger et al 2006), the National Center for Environmental Prediction’s high-resolution combined model and assimilated dataset available eight-times daily 1979-2000 at 32 km resolution. Ecosystem demography model trained with hourly land surface weather data to calculate carbon assimilation rate and transpiration (2 m air temperature, dew point, downward solar radiation, precipitation, soil temperature) (Hurtt et al., 2019).
 
 
 # References
