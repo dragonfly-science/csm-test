@@ -1,7 +1,7 @@
 ---
 title: "Method"
 author: "Fabian"
-date: "30/04/2021"
+date: "03/05/2021"
 output:
   pdf_document: default
   html_document: default
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * Sentinel-2 derived vegetation indices can be used to to correlate with above-ground forest biomass (AGB)
 
-* LiDAR requires high resolution (< 1m) to identify individual trees, but is commonly used to estimate biomass in forests
+* LiDAR requires higher resolution than size of the crown to identify individual trees, but is commonly used to estimate biomass in forests
 
 * workflows to calculate biomass from FIA plots (Shana) are in practice (Hudak et al., 2020) 
 
