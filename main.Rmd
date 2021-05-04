@@ -327,6 +327,8 @@ Breiman, L. (2001). Random Forests. Machine Learning, 45(1), 5–32. https://doi
 
 Brown, S., Gillespie, A., & Lugo, A. (1989). Biomass Estimation Methods for Tropical Forests with Applications to Forest Inventory Data. Forest Science, 35, 881–902.
 
+Chan, E. P. Y., Fung, T., & Wong, F. K. K. (2021). Estimating above-ground biomass of subtropical forest using airborne LiDAR in Hong Kong. Scientific Reports, 11(1), 1751. https://doi.org/10.1038/s41598-021-81267-8
+
 Chen, Y., Li, L., Lu, D., & Li, D. (2019). Exploring Bamboo Forest Aboveground Biomass Estimation Using Sentinel-2 Data. Remote Sensing, 11(1), 7. https://doi.org/10.3390/rs11010007
 
 Clark, D. B., & Kellner, J. R. (2012). Tropical forest biomass estimation and the fallacy of misplaced concreteness. Journal of Vegetation Science, 23(6), 1191–1196. https://doi.org/10.1111/j.1654-1103.2012.01471.x
@@ -355,11 +357,17 @@ Hyde, P., Dubayah, R., Walker, W., Blair, J. B., Hofton, M., & Hunsaker, C. (200
 
 Jordan, C. F. (1969). Derivation of Leaf-Area Index from Quality of Light on the Forest Floor. Ecology, 50(4), 663–666. https://doi.org/10.2307/1936256
 
+Kaasalainen, S., Holopainen, M., Karjalainen, M., Vastaranta, M., Kankare, V., Karila, K., & Osmanoglu, B. (2015). Combining Lidar and Synthetic Aperture Radar Data to Estimate Forest Biomass: Status and Prospects. Forests, 6(1), 252–270. https://doi.org/10.3390/f6010252
+
+Köhl, M., Magnussen, S. S., & Marchetti, M. (2006). Sampling Methods, Remote Sensing and GIS Multiresource Forest Inventory. Springer-Verlag. https://doi.org/10.1007/978-3-540-32572-7
+
 Kolden, C. A., Lutz, J. A., Key, C. H., Kane, J. T., & van Wagtendonk, J. W. (2012). Mapped versus actual burned area within wildfire perimeters: Characterizing the unburned. Forest Ecology and Management, 286, 38–47. https://doi.org/10.1016/j.foreco.2012.08.020
 
 Kross, A., McNairn, H., Lapen, D., Sunohara, M., & Champagne, C. (2015). Assessment of RapidEye vegetation indices for estimation of leaf area index and biomass in corn and soybean crops. International Journal of Applied Earth Observation and Geoinformation, 34, 235–248. https://doi.org/10.1016/j.jag.2014.08.002
 
 Lehtonen, A., Mäkipää, R., Heikkinen, J., Sievänen, R., & Liski, J. (2004). Biomass expansion factors (BEFs) for Scots pine, Norway spruce and birch according to stand age for boreal forests. Forest Ecology and Management, 188(1), 211–224. https://doi.org/10.1016/j.foreco.2003.07.008
+
+Lim, K. S., & Treitz, P. M. (2004). Estimation of above ground forest biomass from airborne discrete return laser scanner data using canopy-based quantile estimators. Scandinavian Journal of Forest Research, 19(6), 558–570. https://doi.org/10.1080/02827580410019490
 
 Lu, D. (2005). Aboveground biomass estimation using Landsat TM data in the Brazilian Amazon. International Journal of Remote Sensing, 26(12), 2509–2525. https://doi.org/10.1080/01431160500142145
 
@@ -377,6 +385,8 @@ Navarro, G., Caballero, I., Silva, G., Parra, P.-C., Vázquez, Á., & Caldeira, 
 
 Pandit, S., Tsuyuki, S., & Dube, T. (2018). Estimating Above-Ground Biomass in Sub-Tropical Buffer Zone Community Forests, Nepal, Using Sentinel 2 Data. Remote Sensing, 10(4), 601. https://doi.org/10.3390/rs10040601
 
+Patenaude, G., Hill, R. A., Milne, R., Gaveau, D. L. A., Briggs, B. B. J., & Dawson, T. P. (2004). Quantifying forest above ground carbon content using LiDAR remote sensing. Remote Sensing of Environment, 93(3), 368–380. https://doi.org/10.1016/j.rse.2004.07.016
+
 Roteta, E., Bastarrika, A., Padilla, M., Storm, T., & Chuvieco, E. (2019). Development of a Sentinel-2 burned area algorithm: Generation of a small fire database for sub-Saharan Africa. Remote Sensing of Environment, 222, 1–17. https://doi.org/10.1016/j.rse.2018.12.011
 
 Sharma, L. K., Bu, H., Denton, A., & Franzen, D. W. (2015). Active-Optical Sensors Using Red NDVI Compared to Red Edge NDVI for Prediction of Corn Grain Yield in North Dakota, U.S.A. Sensors, 15(11), 27832–27853. https://doi.org/10.3390/s151127832
@@ -387,7 +397,9 @@ Tucker, C. J. (1979). Red and photographic infrared linear combinations for moni
 
 USGS. (2018). What are the band designations for the Landsat satellites? https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites?qt-news_science_products=0#qt-news_science_products
 
+Walter, J. D. C., Edwards, J., McDonald, G., & Kuchel, H. (2019). Estimating Biomass and Canopy Height With LiDAR for Field Crop Breeding. Frontiers in Plant Science, 10. https://doi.org/10.3389/fpls.2019.01145
+
 Wang, G., Zhang, M., Gertner, G. Z., Oyana, T., McRoberts, R. E., & Ge, H. (2011). Uncertainties of mapping aboveground forest carbon due to plot locations using national forest inventory plot and remotely sensed data. Scandinavian Journal of Forest Research, 26(4), 360–373. https://doi.org/10.1080/02827581.2011.564204
 
-
+Wang, D., Wan, B., Liu, J., Su, Y., Guo, Q., Qiu, P., & Wu, X. (2020). Estimating aboveground biomass of the mangrove forests on northeast Hainan Island in China using an upscaling method from field plots, UAV-LiDAR data and Sentinel-2 imagery. International Journal of Applied Earth Observation and Geoinformation, 85, 101986. https://doi.org/10.1016/j.jag.2019.101986
 
