@@ -107,13 +107,25 @@ Recent paper with Jonathan and Van Kane (Hudak et al. 2020):
 Used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground biomass using Random Forests (RF) for a regional and landscape approach. Field plots (mostly FIA) with self calculated AGB as a response variable to predict AGB from LiDAR derived canopy height and density information (R2 = 0.8, RMSE = 115 Mg ha-1, Bias = 2 Mg ha-1). A stratified random sample of AGB pixels from landscape-level AGB maps then served as training data for predicting AGB regionally from Landsat image time series variables processed through LandTrendr. Climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha-1, Bias = 9 Mg ha-1), including higher AGB values (>400 Mg ha-1) where spectral predictors alone saturate. 
 
 
-### Combination of LiDAR and other imagery for biomass estimation
+### Combination of LiDAR and other remotely sensed information for biomass estimation
 
 
-Combination of LiDAR and QuickBird image did not improve AGB estimation in mixed coniferous forests in California; LiDAR data alone provided a better performance (Hyde et al., 2006)
+A) Combination of LiDAR and QuickBird image did not improve AGB estimation in mixed coniferous forests in California; LiDAR data alone provided a better performance (Hyde et al., 2006)
 
-LiDAR and hyperspectral combination has lower accuracy than LiDAR alone in tropical forest Costa Rica (Clark et al., 2011).
+B) LiDAR and hyperspectral combination has lower accuracy than LiDAR alone in tropical forest Costa Rica (Clark et al., 2011).
 
+C) LiDAR and Synthetic Aperture Radar (SAR). Provide an overview table for all combinations and output accuracy (Fig. X, Kaasalainen et al., 2015). Upscaling refers to the extrapolation of LiDAR to areas where LiDAR is not available. Generally increases accuracy.
+
+![Normalised Burn Ratio](figures/lidarplussar.png)
+\
+Fig: X: Overview of all combination of LiDAR and radar in research (Kaasalainen et al., 2015)
+
+
+
+### LiDAR remove noise
+
+A) Lastool in QGIS (LASnoise)
+B) LiDAR360 3.1 software (GreenValley, Being,China) to remove the noise points floating between the flight altitude and the mangroves. (Wang et al., 2020)
 
 
 ### Canopy height estimates from LiDAR (methods)
@@ -140,6 +152,9 @@ Entire 1 ha study area was divided into circular plots with three plot sizes:
 (3) four-hundred 2.5m radius plots (15,100 stems) 
 
 Circular plots were considered more favorable than rectangular or square plots, since the periphery-to-area ratio was the smallest and thus minimized the number of edge trees (Köhl et al., 2006).
+
+
+Relevant plot metrics (lidar, climate) were derived by the ‘cloudmetrics’ function in FUSION version 3.7. The LiDAR metrics, and its log-transformed metrics were input into stepwise regression model as independent predictors of AGB. Significant predictors were selected (F < 0.5 were entered and F > 1.0 were removed) into the regression model. Tree sets of regression models were generated and the allometric models tended to be linear and normal after logarithmic transformation (old ecology ref available if necessary). Logarithmic transformation increased accuary. Model predicted three parameters : (1) canopy cover by first returns, (2) 95th Height Percentile and (3) median of absolute deviation from mode (MADmode). Accuracy of predication increased with plot size.
 
 ## Common LiDAR point metrics
 
