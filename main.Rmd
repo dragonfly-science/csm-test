@@ -115,6 +115,44 @@ Combination of LiDAR and QuickBird image did not improve AGB estimation in mixed
 LiDAR and hyperspectral combination has lower accuracy than LiDAR alone in tropical forest Costa Rica (Clark et al., 2011).
 
 
+
+### Canopy height estimates from LiDAR (methods)
+
+A) Australian wheat. 90 points/m2 by using sensor on farming vehicle coupled with multispectral to identify vegetation. (Walter et al., 2019).  Canopy height was extracted through percentile algorithm in R.
+
+1) identifying the 98th percentile of maximum returned height in each scan line 
+2) taking the 86th percentile of these values to provide an estimate of overall canopy height
+
+86th percentile was selected through optimization of Pearson’s correlation coefficient and RMSE between lidar derived canopy height and measured canopy height for all sample times. More details in supplementary.
+
+\
+
+B) Honkong forest with thousands of individual tree measurements (dbh, height). (Chan et al., 2021)
+
+LiDAR processed to TIN by extracting only the ground returns. Te extraction and processing were performed in ArcMap 10.5 with LAStools extension (https://rapidlasso.com/lastools/) and the FUSION 3.7 (http://forsys.cfr.washington.edu/fusion/fusionlatest.html). The canopy surface was defined using all non-ground returns with height above 2.0 m. The reason of choosing 2.0 m as the threshold was to avoid canopy returns to be mixed with ground returns. (Jonathan already said we just assume > 2m canopy, Apr 29 meeting).
+
+Canopy Surface - Ground TIN = Normalized height of canopy points -> derive LiDAR metrics
+
+Entire 1 ha study area was divided into circular plots with three plot sizes: 
+
+(1) twenty-five 10m radius plots (16,182 stems)
+(2) one-hundred 5m radius plot (15,538 stems) 
+(3) four-hundred 2.5m radius plots (15,100 stems) 
+
+Circular plots were considered more favorable than rectangular or square plots, since the periphery-to-area ratio was the smallest and thus minimized the number of edge trees (Köhl et al., 2006).
+
+## Common LiDAR point metrics
+
+LiDAR plot metrics derived from the point clouds can be grouped into four categories: 
+
+1) descriptive
+2) height percentile (canopy height distributions within the plot) estimator for carbon and AGB (Lim & Treitz, 2004; Patenaude et al., 2004)
+3) intensity
+4) canopy cover. Height percentiles, which describe the canopy height distributions within the plot, were suggested to be an estimator of AGB and its carbon content31,32
+
+
+
+
 ## Field data
 
 Application of LiDAR for forest inventory requires field plot data to ground-truth the information. Field plots need to incorporate relevant parameters (volume, basal area, biomass) (Hudak et al., 2020). FIA plot data provide an unbiased, systematic sample of forest conditions in space and time and are more applicable over larger areas and for successive effects such as climate change and forest regeneration rates (Tinkham et al., 2018).
@@ -194,7 +232,7 @@ Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list
 
 
 \
-Table. 3: Landsat 8-9 Operational Land Imager (OLI) and Thermal Infrared Sensor (TIRS) (USGS)
+Table. 3: Landsat 8-9 Operational Land Imager (OLI) and Thermal Infrared Sensor (TIRS) (USGS, 2018)
 ```{r, echo=FALSE}
 landsat <- read.csv(file="tables/landsat.csv",  
                                    header = TRUE)
@@ -208,7 +246,7 @@ __LandTrendr__ is set of spectral-temporal segmentation algorithms that are usef
 
 
 ![LandTrendr](figures/landtrendr.png)
-Figure 3: Pixel change over updated intervals for theNormalised Burn Ratio (NBR) 
+Figure 3: Pixel change over updated intervals for the Normalised Burn Ratio (NBR) 
 
 
 
@@ -253,15 +291,15 @@ forest carbon assessments.
 
 __Paper:__
 ICESat-2 for mapping forest biomass with deep learning (Narine et al., 2019). A first set of models were developed using vegetation indices
-calculated from single-date Landsat imagery, canopy cover, and land cover, and a second set of models
-were generated using metrics from one year of Landsat imagery with canopy cover and land cover
-maps. With the extended dataset containing metrics calculated from Landsat images acquired on different dates, substantial improvements in modelperformance for all data scenarios were noted. The R2 values increased to 0.64, 0.66, and 0.67. Comparisons with Random forest (RF) prediction models highlighted similar results, with the same R2 and root mean square error (RMSE) range (15–16 Mg/ha)
-for daytime and nighttime scenarios. ICESat-2 profiles, especially with the nighttime scenario (R2 = 0.66), highlight the potential for generating a wall-to-wall AGB product with ICESat-2 by adopting a synergistic approach with Landsat optical imagery, canopy cover, and land cover 
+calculated from single-date Landsat imagery, canopy cover, and land cover, and a second set of models were generated using metrics from one year of Landsat imagery with canopy cover and land cover maps. With the extended dataset containing metrics calculated from Landsat images acquired on different dates, substantial improvements in modelperformance for all data scenarios were noted. The R2 values increased to 0.64, 0.66, and 0.67. Comparisons with Random forest (RF) prediction models highlighted similar results, with the same R2 and root mean square error (RMSE) range (15–16 Mg/ha) for daytime and nighttime scenarios. ICESat-2 profiles, especially with the nighttime scenario (R2 = 0.66), highlight the potential for generating a wall-to-wall AGB product with ICESat-2 by adopting a synergistic approach with Landsat optical imagery, canopy cover, and land cover 
 
 ### Climate data
 
-For climate, data were used from the North American Regional Reanalysis (NARR) (Mesinger et al 2006), the National Center for Environmental Prediction’s high-resolution combined model and assimilated dataset available eight-times daily 1979-2000 at 32 km resolution. Ecosystem demography model trained with hourly land surface weather data to calculate carbon assimilation rate and transpiration (2 m air temperature, dew point, downward solar radiation, precipitation, soil temperature) (Hurtt et al., 2019).
+__Paper:__
+For climate, data were used from the North American Regional Reanalysis (NARR) (Mesinger et al 2006), the National Center for Environmental Prediction’s high-resolution combined model and assimilated dataset available eight-times daily 1979-2000 at 32 km resolution. Ecosystem demography model trained with hourly land surface weather data to calculate carbon assimilation rate and transpiration (2 m air temperature, dew point, downward solar radiation, precipitation, soil temperature)(Hurtt et al., 2019).
 
+(Hongkong Forest) (Chan et al., 2021):
+Three parameters to account for climatic variations: Temperature seasonality (TS), Long-term Maximum Climatological Water Defcit (CWD) and Precipitation Seasonality (PS) (Hongkong Forest)
 
 # References
 
@@ -316,6 +354,10 @@ Lu, D., Chen, Q., Wang, G., Moran, E., Batistella, M., Zhang, M., Vaglio Laurin,
 
 Merzlyak, M. N., Gitelson, A. A., Chivkunova, O. B., & Rakitin, V. Y. (1999). Non-destructive optical detection of pigment changes during leaf senescence and fruit ripening. Physiologia Plantarum, 106(1), 135–141. https://doi.org/10.1034/j.1399-3054.1999.106119.x
 
+Mesinger, F., Dimego, G., Kalnay, E., Mitchell, K., Shafran, P., Ebisuzaki, W., Jović, D., Woollen, J., Rogers, E., Berbery, E., Ek, M., Fan, Y., Grumbine, R., Higgins, W., Li, H., Lin, Y., Manikin, G., Parrish, D., & Shi, W. (2006). North American Regional Reanalysis. BAMS, 3, 343–360. https://doi.org/10.1175/BAMS-87-3-343
+
+Narine, L. L., Popescu, S. C., & Malambo, L. (2019). Synergy of ICESat-2 and Landsat for Mapping Forest Aboveground Biomass with Deep Learning. Remote Sensing, 11(12), 1503. https://doi.org/10.3390/rs11121503
+
 Navarro, G., Caballero, I., Silva, G., Parra, P.-C., Vázquez, Á., & Caldeira, R. (2017). Evaluation of forest fire on Madeira Island using Sentinel-2A MSI imagery. International Journal of Applied Earth Observation and Geoinformation, 58, 97–106. https://doi.org/10.1016/j.jag.2017.02.003
 
 Pandit, S., Tsuyuki, S., & Dube, T. (2018). Estimating Above-Ground Biomass in Sub-Tropical Buffer Zone Community Forests, Nepal, Using Sentinel 2 Data. Remote Sensing, 10(4), 601. https://doi.org/10.3390/rs10040601
@@ -327,6 +369,8 @@ Sharma, L. K., Bu, H., Denton, A., & Franzen, D. W. (2015). Active-Optical Senso
 Sims, D. A., & Gamon, J. A. (2002). Relationships between leaf pigment content and spectral reflectance across a wide range of species, leaf structures and developmental stages. Remote Sensing of Environment, 81(2), 337–354. https://doi.org/10.1016/S0034-4257(02)00010-X
 
 Tucker, C. J. (1979). Red and photographic infrared linear combinations for monitoring vegetation. Remote Sensing of Environment, 8(2), 127–150. https://doi.org/10.1016/0034-4257(79)90013-0
+
+USGS. (2018). What are the band designations for the Landsat satellites? https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites?qt-news_science_products=0#qt-news_science_products
 
 Wang, G., Zhang, M., Gertner, G. Z., Oyana, T., McRoberts, R. E., & Ge, H. (2011). Uncertainties of mapping aboveground forest carbon due to plot locations using national forest inventory plot and remotely sensed data. Scandinavian Journal of Forest Research, 26(4), 360–373. https://doi.org/10.1080/02827581.2011.564204
 
