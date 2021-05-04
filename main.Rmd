@@ -95,6 +95,10 @@ General problem with spatial resolution (30 m). The round FIA plots overlap with
 __Papers:__
 Bamboo forest in China: Seasonality, different growth phenomena in different years. Correlation between spectral bands and biomass varies within the period of months. Biomass calculation based on DBH and age (Y. Chen et al., 2019). Also used random forest to evaluate key variables.
 
+### Sentinel-2 cleaning
+
+The Sen2Cor atmospheric correlation processor (version 2.5.5) was used to conduct atmospheric correction. The Sen2Cor processor was developed for formatting and generating Sentinel-2 Level-2A products. The processor is freely available from the European Space Agency website (http://step.esa.int/main/third-party-plugins-2/sen2cor/). Resampled the Level-2A images to a 10 m spatial resolution utilizing the nearest neighbor algorithm, while Bands 1, 9, and 10 were discarded because they were dedicated for atmospheric correction and had coarse resolutions of 60 m. Afterwards, the images were co-registered to the LiDAR point clouds with an accuracy of less than 0.5 pixels. (Wang et al., 2020)
+
 \newpage
 
 ## LiDAR
@@ -125,8 +129,16 @@ Fig: X: Overview of all combination of LiDAR and radar in research (Kaasalainen 
 ### LiDAR remove noise
 
 A) Lastool in QGIS (LASnoise)
-B) LiDAR360 3.1 software (GreenValley, Being,China) to remove the noise points floating between the flight altitude and the mangroves. (Wang et al., 2020)
+B) LiDAR360 3.1 software (GreenValley, Being,China) to remove the noise points floating between the flight altitude and the mangroves. (Wang et al., 2020). Triangulated irregular network (TIN) densification as a filtering algorithm to deal with complex forest landscapes (Zhao et al., 2016). See IPTD details below.
 
+
+Improved progressive TIN densification filtering algorithm (IPTD) performs better than other general filtering algorithms (Fig. Y). The strength of 537 the IPTD lies in its ability to retain hilltops and handle break lines and steep slopes. Four parameters are used in the IPTD, i.e., k (neighboring number), r (threshold), 0 (iterative angle), and s (iterative distance). Densifies ground points and accounts for ground surface structure with (upward/downward densification) (Zhao et al., 2016).
+
+
+
+![Improved progressive TIN densification](figures/iptd.png)
+\
+Fig: Y: Comparison of kappa values (total error, TE) for LiDAR filtering algorithms for 15 sites tested. Lowest value in bold (Zhao et al., 2016)   
 
 ### Canopy height estimates from LiDAR (methods)
 
@@ -154,17 +166,33 @@ Entire 1 ha study area was divided into circular plots with three plot sizes:
 Circular plots were considered more favorable than rectangular or square plots, since the periphery-to-area ratio was the smallest and thus minimized the number of edge trees (Köhl et al., 2006).
 
 
-Relevant plot metrics (lidar, climate) were derived by the ‘cloudmetrics’ function in FUSION version 3.7. The LiDAR metrics, and its log-transformed metrics were input into stepwise regression model as independent predictors of AGB. Significant predictors were selected (F < 0.5 were entered and F > 1.0 were removed) into the regression model. Tree sets of regression models were generated and the allometric models tended to be linear and normal after logarithmic transformation (old ecology ref available if necessary). Logarithmic transformation increased accuary. Model predicted three parameters : (1) canopy cover by first returns, (2) 95th Height Percentile and (3) median of absolute deviation from mode (MADmode). Accuracy of predication increased with plot size.
+Relevant plot metrics (LiDAR, climate) were derived by the ‘cloudmetrics’ function in FUSION version 3.7. The LiDAR metrics, and its log-transformed metrics were input into stepwise regression model as independent predictors of AGB. Significant predictors were selected (F < 0.5 were entered and F > 1.0 were removed) into the regression model. Tree sets of regression models were generated and the allometric models tended to be linear and normal after logarithmic transformation (old ecology ref available if necessary). Logarithmic transformation increased accuary. Model predicted three parameters : (1) canopy cover by first returns, (2) 95th Height Percentile and (3) median of absolute deviation from mode (MADmode). Accuracy of predication increased with plot size.
+
+
+\newpage
 
 ## Common LiDAR point metrics
 
-LiDAR plot metrics derived from the point clouds can be grouped into four categories: 
+There is a wealth of LiDAR plot metrics derived from the point clouds and they can even be used do discriminate forest tree species (with and without leaves) (Shi et al., 2018). They are created using height profiles and point distancing (for detailed table with references see Dong et al., 2017) and can be grouped in four categories:
 
-1) descriptive
-2) height percentile (canopy height distributions within the plot) estimator for carbon and AGB (Lim & Treitz, 2004; Patenaude et al., 2004)
-3) intensity
-4) canopy cover. Height percentiles, which describe the canopy height distributions within the plot, were suggested to be an estimator of AGB and its carbon content31,32
 
+1) height  (canopy height distributions within the plot) estimator for carbon and AGB (Lim & Treitz, 2004; Patenaude et al., 2004)
+2) intensity (similar to the height metrics except that they are statistics of the intensity value rather than the height value of the point clouds, only finds application in high resolution LiDAR datasets)
+3) density (canopy return density)
+4) canopy volume (portray canopy morphology for canopy cover index or leaf area density)
+
+
+\
+Table. 1: Overview LiDAR derived metrics (taken from Wang et al., 2020)
+```{r, echo=FALSE}
+lidarmetrics <- read.csv(file="tables/lidarmetrics.csv",  
+                                   header = TRUE)
+knitr::kable(lidarmetrics)
+```
+
+## Upscaling LiDAR with Sentinel-2
+
+LiDAR upscaling by integrating field plots (point), UAV-LiDAR strip (line) data and Sentinel-2 imagery (polygon) based on a point-line-polygon framework for AGB estimation (Wang et al., 2020).
 
 
 

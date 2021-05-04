@@ -1,0 +1,14 @@
+﻿LiDAR,Variable,Formula/Definition
+Height,"HMax, HMean, HMedian",Maximum / Mean / Median heights
+,"HSD, HVAR","Standard deviation heights, variance of heights"
+,"HSKE, HKUR","Skewness of heights, Kurtosis of heights"
+,HCV,"Coefficient of variation of height, (Zstd / Zmean) × 100 %"
+,HIQ,"Interquartile distance of percentile height, H75th – H25th"
+,"H01, H05, H10, H20, H25, H30, H40, H50, H60, H70, H75, H80, H90, H95, H99",Height percentiles. Point clouds are sorted according to the elevation. HX is the Xth percentile of height. There are 15 height percentiles metrics from 1% to 99% height.
+Density,"D01, D02, D03, D04, D05...",Canopy return density. Point clouds are divided into slices with the same interval from low to high elevations. DX is the number of canopy return points in the Xth slice compared to the total points.
+Canopy volume,CC1.3,"Canopy cover above 1.3 m, n_veg1.3 / n_total"
+,CCmean,"Canopy cover above mean height, n_vegmean / n_total"
+,CRR,Canopy relief ratio (Hmean - Hmin) / (Hmax - Hmin)
+,CTHK,"Canopy thickness, H90th-H10th. (new in Wang et al. 2020)"
+,LADX,"Leaf area density. Point clouds are divided into slices with the same interval from low to high elevations. LADX is the valid leaf area density in the Xth slice (Kamoske et al., 2019)"
+,"a, b ","The scale parameter a (shape of vertical distribution) and shape parameter b (increase/decrease of distribution breadth) of the Weibull density distribution fitted to the foliage profile (Liu et al., 2018)"
