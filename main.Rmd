@@ -35,6 +35,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Compared to Landsat multispectral bands, the Sentinel-2 multispectral bands provide two red edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass (Tab. 1)
 
+
+SNAP is an open source common architecture for ESA Toolboxes ideal for the exploitation of Earth Observation data (https://step.esa.int/main/toolboxes/snap/). SNAP provides toolboxes to derive information (e.g. vegetation indices) from Sentinel data.
+
+
+
 \
 Table. 1: Overview Sentinel 2 bands (Arcgis.com)
 ```{r, echo=FALSE}
@@ -50,7 +55,7 @@ knitr::kable(sentinel2)
 Vegetation indices including near-infrared wavelength have weaker relationships with biomass than those including shortwave infrared wavelength, especially for forest sites with complex stand structures. The results of image transformations such as the first principal component from the PCA showed stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass (Lu et al., 2016)
 
 \
-Table. 2: Vegetation Indices derived from Sentinel 2 information (after Pandit et al., 2018 & Wang et al., 2020). *Subtraction of NIR reciprocal reflance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content (Gitelson et al., 2003).
+Table. 2: Vegetation Indices derived from Sentinel 2 information (after Pandit et al., 2018 & Wang et al., 2020). 
 
 
 ```{r, echo=FALSE}
@@ -58,6 +63,11 @@ vegindices <- read.csv(file="tables/vegindices.csv",
                                    header = TRUE)
 knitr::kable(vegindices)
 ```
+
+* *Subtraction of NIR reciprocal reflance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content (Gitelson et al., 2003). 
+** IRECI had highest correlation to biomass (r = 0.8) in Castillo et al., 2017 (Mangrove Forest Philippines) and further improved with added elevation
+
+
 
 
 __Papers:__
@@ -90,6 +100,9 @@ Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 20
 
 Fire on Madeira, Spain (Navarro et al., 2017). Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided. 
 
+Classification of burn severity for wildfire in Spain using Sentinel-2 (Fernandez-Manso et al., 2016) (with NBR). Superiority of red-edge spectral indices (particularly, Modified Simple Ratio Red-edge, Chlorophyll Index Red-edge, Normalized Difference Vegetation Index Red-edge) over conventional spectral indices. Fisher’s Least Significant Difference test confirmed that Sentinel-2A MSI red-edge spectral indices are adequate
+to discriminate four burn severity levels.
+
 ### Problems with Sentinel 2 Data
 
 General problem with spatial resolution (30 m). The round FIA plots overlap with multiple pixels and sometimes the forest edge. Relatively new, so does not have the high temporal value as landsat. Will probably fail to distinguish tree phenology (e.g. growth stages) and can reach a spectral saturation point if biomass is too high.
@@ -106,6 +119,12 @@ The Sen2Cor atmospheric correlation processor (version 2.5.5) was used to conduc
 
 Tested ability of Sentinel imagery (Sentinel-1 (SAR) + Sentinel-2) for the retrieval and predictive mapping of above-ground biomass of mangroves and their replacement land uses (Mangrove Forest, Philippines) Castillo et al., 2017). Developed biomass prediction models through the conventional linear regression and novel Machine Learning algorithms (SAR raw polarisation backscatter, multispectral bands, vegetation indices, canopy biophysical variables). Model based on biophysical variable Leaf Area Index (LAI) derived from Sentinel-2 was more accurate
 in predicting the overall above-ground biomass (RMSE 27.8–28.5 Mg ha-1). Among the Sentinel-2 multispectral bands, the red and red edge bands (bands 4, 5 and 7), combined with elevation data, were the best variable set combination for biomass prediction. The red edge-based Inverted RedEdge Chlorophyll Index had the highest prediction accuracy among the vegetation indices.
+
+The model was prepared using the entire dataset. The dataset was first subjected to linear regression. This process steps through the variables, removing the one with the smallest standardised coefficient until no improvement was observed in the estimate of the error (AIC), eliminating collinear variables. To assess the model performance, a leave-one-out approach with 90-fold cross-validation was performed to compute the prediction error (RMSE) and correlation coefficient/agreement (r) between the observed and predicted data. In the leave-one-out approach, each sample was excluded one by one while the model is trained with the remaining samples to predict the excluded sample.
+
+All modelling tasks were implemented using IBM SPSS Statistics version 23 (IBM, USA) and the Waikato Environment for Knowledge Analysis (WEKA, version 3.8.0, The University of Waikato, NZ). The WEKA software is a collection of machine learning algorithms (Hall et al., 2009).
+
+To assess if the correlation with biomass and prediction error from the linear models can still be improved, the set of predictors from the linear models with the highest r and lowest RMSE for each part was further subjected to 17 machine learning algorithms available in the WEKA machine learning software. The model/algorithm with highest r and lowest RMSE was selected for use in predictive mapping of biomass which was implemented in ArcGIS (version 10.3.1, ESRI, USA). Four biomass predictive maps were produced which were derived from Sentinel-1 SAR channels, Sentinel-2 bands, Sentinel-2 vegetation index, and Sentinel-2 vegetation biophysical variable Castillo et al., 2017).
 
 
 \newpage
