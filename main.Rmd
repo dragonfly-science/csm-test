@@ -50,7 +50,9 @@ knitr::kable(sentinel2)
 Vegetation indices including near-infrared wavelength have weaker relationships with biomass than those including shortwave infrared wavelength, especially for forest sites with complex stand structures. The results of image transformations such as the first principal component from the PCA showed stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass (Lu et al., 2016)
 
 \
-Table. 2: Vegetation Indices derived from Sentinel 2 information (after Pandit et al., 2018)
+Table. 2: Vegetation Indices derived from Sentinel 2 information (after Pandit et al., 2018 & Wang et al., 2020). *Subtraction of NIR reciprocal reflance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content (Gitelson et al., 2003).
+
+
 ```{r, echo=FALSE}
 vegindices <- read.csv(file="tables/vegindices.csv",  
                                    header = TRUE)
@@ -98,6 +100,13 @@ Bamboo forest in China: Seasonality, different growth phenomena in different yea
 ### Sentinel-2 cleaning
 
 The Sen2Cor atmospheric correlation processor (version 2.5.5) was used to conduct atmospheric correction. The Sen2Cor processor was developed for formatting and generating Sentinel-2 Level-2A products. The processor is freely available from the European Space Agency website (http://step.esa.int/main/third-party-plugins-2/sen2cor/). Resampled the Level-2A images to a 10 m spatial resolution utilizing the nearest neighbor algorithm, while Bands 1, 9, and 10 were discarded because they were dedicated for atmospheric correction and had coarse resolutions of 60 m. Afterwards, the images were co-registered to the LiDAR point clouds with an accuracy of less than 0.5 pixels. (Wang et al., 2020)
+
+
+### Sentinel-2 estimating AGB
+
+Tested ability of Sentinel imagery (Sentinel-1 (SAR) + Sentinel-2) for the retrieval and predictive mapping of above-ground biomass of mangroves and their replacement land uses (Mangrove Forest, Philippines) Castillo et al., 2017). Developed biomass prediction models through the conventional linear regression and novel Machine Learning algorithms (SAR raw polarisation backscatter, multispectral bands, vegetation indices, canopy biophysical variables). Model based on biophysical variable Leaf Area Index (LAI) derived from Sentinel-2 was more accurate
+in predicting the overall above-ground biomass (RMSE 27.8–28.5 Mg ha-1). Among the Sentinel-2 multispectral bands, the red and red edge bands (bands 4, 5 and 7), combined with elevation data, were the best variable set combination for biomass prediction. The red edge-based Inverted RedEdge Chlorophyll Index had the highest prediction accuracy among the vegetation indices.
+
 
 \newpage
 
@@ -173,7 +182,7 @@ Relevant plot metrics (LiDAR, climate) were derived by the ‘cloudmetrics’ fu
 
 ## Common LiDAR point metrics
 
-There is a wealth of LiDAR plot metrics derived from the point clouds and they can even be used do discriminate forest tree species (with and without leaves) (Shi et al., 2018). They are created using height profiles and point distancing (for detailed table with references see Dong et al., 2017) and can be grouped in four categories:
+There is a wealth of LiDAR plot metrics derived from the point clouds (Tab. X) and they can even be used do discriminate forest tree species (with and without leaves) (Shi et al., 2018). They are created using height profiles and point distancing (for detailed table with references see Dong et al., 2017) and can be grouped in four categories:
 
 
 1) height  (canopy height distributions within the plot) estimator for carbon and AGB (Lim & Treitz, 2004; Patenaude et al., 2004)
@@ -183,7 +192,7 @@ There is a wealth of LiDAR plot metrics derived from the point clouds and they c
 
 
 \
-Table. 1: Overview LiDAR derived metrics (taken from Wang et al., 2020)
+Table. X: Overview LiDAR derived metrics (taken from Wang et al., 2020)
 ```{r, echo=FALSE}
 lidarmetrics <- read.csv(file="tables/lidarmetrics.csv",  
                                    header = TRUE)

@@ -1,17 +1,32 @@
-Vegetation Indices,Equations,References
-NDVI,(NIR - R/NIR + R),(Tucker 1979)
+﻿Vegetation Indices,Equations,References
+NDVI,(NIR - Red/NIR + Red),(Tucker 1979)
 RGR (Red Green Ratio),Red665/Green560,(Sims \& Gamon 2002)
-EVI (Enhanced Vegetation Index),2.5*((NIR - R)/ (1 + NIR + 6R - 7.5 Blue)),(A. Huete et al. 2002)
-SR (Simple ratio),NIR/RED,(Jordan 1969)
-PSRI (Plant Senescence Reflectance Index)(665 - 560/740),(Hill 2013; Merzlyak et al. 1999)
+EVI (Enhanced Vegetation Index),2.5*((NIR - R)/ (NIR + 1 + 6 * Red + 7.5 * Blue)),(A. Huete et al. 2002)
+SR (Simple ratio),NIR/RED,"(Jordan 1969, Wicaksono et al. 2016)"
+PSRI (Plant Senescence Reflectance Index),(665 - 560/740),(Hill 2013; Merzlyak et al. 1999)
 NDII (Normalized Difference Infrared Index),(842 - 1610/842 + 1610),(Hardisky et al. 1983)
 RE NDVI, 842 - 740/842 + 740, (Chen et al. 2007)
-SAVI (Soil-Adjusted Vegetation Index),(NIR - R)/(NIR + R + L)*1.5,(Huete 1988)
+SAVI (Soil-Adjusted Vegetation Index),(NIR - R)/(NIR + Red + L)*1.5,(Huete 1988)
+DVI,NIR - RED,(Zhu et al. 2015)
+FDI,NIR - (Green + Red),(Kamal et al. 2015)
+TNDVI,sqrt[(NIR - Red)/(NIR + Red) + 0.5],(Castillo et al. 2017)
+Red edge based,,
+NDVI1,(NIR - RE1/NIR + RE1),(Kross et al. 2015)
+NDVI2,(NIR - RE2/NIR + RE2),(Gitelson \& Merzlyak 1994; Kross et al. 2015)
+NDVI3,(NIR - RE3/NIR + RE3), (Sharma et al. 2015)
+NDVI4,(NIR - RE4/NIR + RE4),(Kross et al. 2015)
+Clg-RE1*,RE1 / Green - 1,(Gitelson et al. 2003)
+Clg-RE2*,RE2 / Green - 1,(Gitelson et al.  2003)
+Clg-RE3*,RE3 / Green - 1,(Gitelson et al. 2003)
+IRECI,(RE3 - Red)/(Re1/RE2),(Castillo et al. 2017)
+MTCI,RE2 - RE1)/(RE1 - Red),(Dash \& Curran 2004)
+MCARI,[(RE1 - Red)-0.2×(RE1 - Green)]×(RE1/Red),(Daughtry et al. 2000)
+MSRren,[(RE4 / RE1) - 1] / sqrt[(RE4 / RE1) + 1],(Fernandez-Manso et al. 2016)
+PSSRa,RE3 / Red,"(Blackburn, 1998)"
+S2REP (Sentinel-2-red-edge position),[705 + 35*(0.5*(B7 + B4)/2) - B5)/(B6 - B5)], (Frampton et al. 2013)
 RECI (Inverted Red-Edge Chlorophyll Index),NIR - R/(RE1/RE2),(Frampton et al. 2013)
-Sentinel-2-red-edge position,[705 + 35*(0.5*(B7 + B4)/2) - B5)/(B6 - B5)], (Frampton et al. 2013)
-Red-edge-based NVDI's
-1,(NIR - RE1/NIR + RE1),(Kross et al. 2015)
-2,(NIR - RE2/NIR + RE2),(Gitelson \& Merzlyak 1994; Kross et al. 2015)
-3,(NIR - RE3/NIR + RE3), (Sharma et al. 2015)
-4,(NIR - RE4/NIR + RE4),(Kross et al. 2015)
-
+Shortwave infrared based,,
+MDI1,(NIR - SWIR1)/SWIR1,(Wang et al. 2018)
+MDI2,(NIR - SWIR2)/SWIR2,(Wang et al. 2018)
+MNDWI, (Green-SWIR1)/(Green + SWIR1),(Ji et al. 2009)
+,,
