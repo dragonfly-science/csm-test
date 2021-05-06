@@ -75,6 +75,10 @@ knitr::kable(vegindices)
 __Papers:__
 \
 Estimating ABG in sub-tropical Nepal using Sentinel 2 (Pandit et al., 2018). Field-based AGB as a dependent variable, as well as spectral band values and spectral-derived vegetation indices as independent variables in the Random Forest (Breiman, 2001). In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices from above (Tab. 2) as a typical output of a random forest to estimate AGB (R2 = 0.81 and RMSE = 25.57 t ha-1).
+\
+Estimating ABG in in tropical forest using Sentinel-1 (SAR) and vegetation indices from Sentinel-2 (Ghosh & Belera, 2018). Sentinel-1 data does not work as a good predictor variable for the study area, as C-band SAR backscatter saturates at a biomass density of 100 Mg/ha.  R package, CARET was used to implement RF regression to rank important predictor variables.
+Stochastic gradient boosting modelling (SGB, same R package) combines both regression tree and boosted algorithms
+to predict the response variable. SGB models were fitted, with varying values for the number of regression trees (50–5000), tree complexity of 1, 3 and 5. The value for learning rate was fixed at 0.01. Combination of satellite sensors shows the best result for S. robusta forest, with a coefficient of determination value of 0.71 and an RMSE value of 105.027 t/ha.
 
 
 \newpage
@@ -128,9 +132,6 @@ All modelling tasks were implemented using IBM SPSS Statistics version 23 (IBM, 
 
 To assess if the correlation with biomass and prediction error from the linear models can still be improved, the set of predictors from the linear models with the highest r and lowest RMSE for each part was further subjected to 17 machine learning algorithms available in the WEKA machine learning software. The model/algorithm with highest r and lowest RMSE was selected for use in predictive mapping of biomass which was implemented in ArcGIS (version 10.3.1, ESRI, USA). Four biomass predictive maps were produced which were derived from Sentinel-1 SAR channels, Sentinel-2 bands, Sentinel-2 vegetation index, and Sentinel-2 vegetation biophysical variable Castillo et al., 2017).
 
-
-
-### Sentinel 2 
 
 
 \newpage
@@ -408,6 +409,25 @@ forest carbon assessments.
 __Paper:__
 ICESat-2 for mapping forest biomass with deep learning (Narine et al., 2019). A first set of models were developed using vegetation indices
 calculated from single-date Landsat imagery, canopy cover, and land cover, and a second set of models were generated using metrics from one year of Landsat imagery with canopy cover and land cover maps. With the extended dataset containing metrics calculated from Landsat images acquired on different dates, substantial improvements in modelperformance for all data scenarios were noted. The R2 values increased to 0.64, 0.66, and 0.67. Comparisons with Random forest (RF) prediction models highlighted similar results, with the same R2 and root mean square error (RMSE) range (15–16 Mg/ha) for daytime and nighttime scenarios. ICESat-2 profiles, especially with the nighttime scenario (R2 = 0.66), highlight the potential for generating a wall-to-wall AGB product with ICESat-2 by adopting a synergistic approach with Landsat optical imagery, canopy cover, and land cover 
+
+
+### LISS-3 (ISRO)
+
+Satellites provide multispectral images at 24 m (LISS-3) and 56 m (AWiFs) meter resolution. IRS data products are free of charge to all data users including the general public, and scientific and commercial users. EarthExplorer and USGS Global Visualization Viewer (GloVis) can be used to search, preview, and download ISRO data. In EarthExplorer the IRS AWiFS and IRS LISS-3 datasets are located under the ISRO Resourcesat category.
+
+
+|Resourcesat Sensor Specifications|
+|----|----|----|
+|Sensor|	AWiFS|	LISS-3|
+|Number of Bands	|4|	4|
+|Spectral Band 2 (µ)|	0.52 – 0.59 (green)|	0.52 – 0.59 (green)|
+|Spectral Band 3 (µ)|	0.62 – 0.68 (red)	|0.62 – 0.68 (red)|
+|Spectral Band 4 (µ)|	0.77 – 0.86 (NIR)	|0.77 – 0.86 (NIR)|
+|Spectral Band 5 (µ)|	1.55 – 1.70 (SWIR)|	1.55 – 1.70 (SWIR)|
+|Resolution (m)	|56|	24|
+|Swath (km)|	740	|140|
+|Revisit Period (days)|	5	|24|
+
 
 ### Climate data
 
