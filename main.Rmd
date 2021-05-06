@@ -150,9 +150,9 @@ B) LiDAR and hyperspectral combination has lower accuracy than LiDAR alone in tr
 
 C) LiDAR and Synthetic Aperture Radar (SAR). Provide an overview table for all combinations and output accuracy (Fig. X, Kaasalainen et al., 2015). Upscaling refers to the extrapolation of LiDAR to areas where LiDAR is not available. Generally increases accuracy.
 
-![Normalised Burn Ratio](figures/lidarplussar.png)
+![Combination of LiDAR & SAR](figures/lidarplussar.png)
 \
-Fig: X: Overview of all combination of LiDAR and radar in research (Kaasalainen et al., 2015)
+Fig: X: Overview of combinations of LiDAR and radar in research (Kaasalainen et al., 2015)
 
 
 
@@ -222,7 +222,17 @@ knitr::kable(lidarmetrics)
 
 ## Upscaling LiDAR with Sentinel-2
 
-LiDAR upscaling by integrating field plots (point), UAV-LiDAR strip (line) data and Sentinel-2 imagery (polygon) based on a point-line-polygon framework for AGB estimation (Wang et al., 2020).
+LiDAR upscaling by integrating field plots (point), UAV-LiDAR strip (line) data and Sentinel-2 imagery (polygon) based on a point-line-polygon framework for AGB estimation in a mangrove forest (Wang et al., 2020). 
+
+Field plots were linked to UAV-LiDAR plots with a random forest model and then extrapolated to all UAV-LiDAR grid cells. UAV-LiDAR serves as a linear bridge between forest plots and sentinel data (polygon). For method comparison, a traditional model was also constructed using only field plots and Sentinel-2 imagery.  
+
+Since the validation plots were gradually added to the G∼S2 (without LiDAR) model, there were not enough observations to validate the model performance withan independent subset. Therefore, a 10-fold cross-validation method was employed and repeated 10 times as suggested by Ghosh and Behera (2018). The same 10-fold cross-validation process that was iterated 10-times was also applied to the G∼LiDAR∼S2 model to obtain cross-validation accuracy.
+
+A variable selection process was also conducted via the backwardfeature elimination method prior to thefinal estimation due to the largenumber of Sentinel-2 (32) and UAV-LiDAR variables (53) input. Asusual, a model constructed from a small number of variables is moreinterpretable, and eliminating irrelevant and highly correlated vari-ables may improve the predictive power (Gregorutti et al., 2017). Thebackward feature elimination approach is based on the random forestalgorithm and compares the cross-validated prediction results of modelsas a proportion of the predictors is eliminated. This method was im-plemented by the rfcv function in the randomForest package and re-plicated 100 times with 5-fold cross-validation to get the optimalvariables (Pham and Brabyn, 2017).
+
+AGB estimates was assessed using in-dependent validation samples by comparing the predicted to observed values using the coefficient of determination R2, root mean square error(RMSE) and RMSE expressed as a percentage of the observed mean(RMSE%) (Matasci et al., 2018;Pham and Brabyn, 2017)
+
+RF has been widely used inbiomass estimations (Ghosh and Behera, 2018;Huang et al., 2019;Matasci et al., 2018; Pham and Brabyn, 2017). 
 
 
 
