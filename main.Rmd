@@ -129,6 +129,10 @@ All modelling tasks were implemented using IBM SPSS Statistics version 23 (IBM, 
 To assess if the correlation with biomass and prediction error from the linear models can still be improved, the set of predictors from the linear models with the highest r and lowest RMSE for each part was further subjected to 17 machine learning algorithms available in the WEKA machine learning software. The model/algorithm with highest r and lowest RMSE was selected for use in predictive mapping of biomass which was implemented in ArcGIS (version 10.3.1, ESRI, USA). Four biomass predictive maps were produced which were derived from Sentinel-1 SAR channels, Sentinel-2 bands, Sentinel-2 vegetation index, and Sentinel-2 vegetation biophysical variable Castillo et al., 2017).
 
 
+
+### Sentinel 2 
+
+
 \newpage
 
 ## LiDAR
@@ -239,6 +243,22 @@ RF has been widely used in biomass estimations (Ghosh and Behera, 2018; Huang et
 GeoEye-1 image and lidar data were segmented using region growing approach to delineate individual tree crowns; and the segmented crowns (CPA) of tree were further used to establish a relationship with field measured carbon and total trees’ height (Wangda et al., 2019).
 
 __Upscaling of biomass and carbon estimates by tree-centric approaches are less accurate (Coomes et al. 2017), but studies on the upscaling carbon estimates by species stratification using VHR and lidar in smaller areas to a landscape level are limited (Latifi et al. 2015).__
+
+Field plots (DBH (> 10 cm), tree height, species and crown diameter), calculated biomass with mangrove-specific equation and converted to carbon stock using IPCC conversion factor. GeoEye-1 data to delineate trees and canopy height model to estimate individual height. eCognition for object based image analysis and resulting species separation with tree height. Training dataset comprising 70% of the identified trees on the image from the field work (296 trees) was used to train the sample tree species, while the remaining 30% was used for validating the classification result. 
+
+Regression analysis to model relationship between AGB (dependent variable, from allometric equation) and tree height and crown projection area (2 independent variables).
+
+Upscaling from reference carbon to RapidEye image
+Principal component analysis (PCA) was performed on the image, and the first principal component (PC1) and the individual raster values of RedEdge and near-infrared (NIR) bands were also used to investigate the relationship between reference carbon and the spectral reflectance of RapidEye image. Red and NIR bands were used because these bands are sensitive to chlorophyll content in the vegetation and vegetation is related to AGB.Since the dataset obtained was huge, a grid of 100 m × 100 m was created over the study area, and 10 grids were chosen randomly for further analysis. Data were partitioned into 70% and 30% as training and validation datasets. The aggregated carbon was used as a dependent variable and the derived vegetation indices, i.e. PC1, RedEdge band and the NIR band were used as single independent variables.
+
+
+
+
+
+
+
+
+
 
 
 ## Field data
