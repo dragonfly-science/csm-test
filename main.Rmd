@@ -226,7 +226,7 @@ LiDAR upscaling by integrating field plots (point), UAV-LiDAR strip (line) data 
 
 Field plots were linked to UAV-LiDAR plots with a random forest model and then extrapolated to all UAV-LiDAR grid cells. UAV-LiDAR serves as a linear bridge between forest plots and sentinel data (polygon). For method comparison, a traditional model was also constructed using only field plots and Sentinel-2 imagery.  
 
-Since the validation plots were gradually added to the G∼S2 (without LiDAR) model, there were not enough observations to validate the model performance withan independent subset. Therefore, a 10-fold cross-validation method was employed and repeated 10 times as suggested by Ghosh and Behera (2018). The same 10-fold cross-validation process that was iterated 10-times was also applied to the G∼LiDAR∼S2 model to obtain cross-validation accuracy.
+Since the validation plots were gradually added to the G-S2 (without LiDAR) model, there were not enough observations to validate the model performance with an independent subset. Therefore, a 10-fold cross-validation method was employed and repeated 10 times as suggested by Ghosh and Behera (2018). The same 10-fold cross-validation process that was iterated 10-times was also applied to the G-LiDAR-S2 model to obtain cross-validation accuracy.
 
 A variable selection process was also conducted via the backward feature elimination method prior to the final estimation due to the large number of Sentinel-2 (32) and UAV-LiDAR variables (53) input. As usual, a model constructed from a small number of variables is more interpretable, and eliminating irrelevant and highly correlated variables may improve the predictive power (Gregorutti et al., 2017). The backward feature elimination approach is based on the random forest algorithm and compares the cross-validated prediction results of model sas a proportion of the predictors is eliminated. This method was implemented by the rfcv function in the random Forest package and replicated 100 times with 5-fold cross-validation to get the optimal variables (Pham and Brabyn, 2018).
 
@@ -350,9 +350,17 @@ In summary, it is difficult to use radar data for distinguishing vegetation type
 
 ### NASA-GEDI LiDAR
 
-GEDI has the highest resolution and densest sampling of any LiDAR ever put in orbit (25 m to 1 km resolution)
+GEDI has the highest resolution and densest sampling of any LiDAR ever put in orbit (25 m to 1 km resolution). Been used in an upscaling study of forest biomass in China (Chen et al., 2021). However, satellite was launched in 2018 and only designed to operate for 2 years, will be wrapped up in 2021. 
 
 Website: https://gedi.umd.edu/
+
+### NOAA-AVHRR, MODIS, ASTER, Quickbird, IKONOS
+
+The use of coarse resolution satellite images such as NOAA-AVHRR, MODIS, etc. for biomass estimation is limited due to the occurrence of mixed pixels and inconsistent accuracy at regional or local scale (Wangda et al., 2019).
+
+The use of moderate resolution satellite images (e.g. Landsat, ASTER) for AGB estimation is also confronted with the problem of mixed pixels and data saturation in complex biophysical environments (Wangda et al., 2019).
+
+Quickbird and IKONOS have very righ resolution, but are frequently obstructed by cloud cover in tropics (Wangda et al., 2019), might be more viable in Calinfornia.
 
 
 ### RapidEye
@@ -424,6 +432,8 @@ Fernández-Manso, A., Fernández-Manso, O., & Quintano, C. (2016). SENTINEL-2A r
 Foody, G. M., Boyd, D. S., & Cutler, M. E. J. (2003). Predictive relations of tropical forest biomass from Landsat TM data and their transferability between regions. Remote Sensing of Environment, 85(4), 463–474. https://doi.org/10.1016/S0034-4257(03)00039-7
 
 Frampton, W. J., Dash, J., Watmough, G., & Milton, E. J. (2013). Evaluating the capabilities of Sentinel-2 for quantitative estimation of biophysical variables in vegetation. ISPRS Journal of Photogrammetry and Remote Sensing, 82, 83–92. https://doi.org/10.1016/j.isprsjprs.2013.04.007
+
+Ghosh, S. M., & Behera, M. D. (2018). Aboveground biomass estimation using multi-sensor data synergy and machine learning algorithms in a dense tropical forest. Applied Geography, 96, 29–40. https://doi.org/10.1016/j.apgeog.2018.05.011
 
 Gitelson, A., & Merzlyak, M. N. (1994). Spectral Reflectance Changes Associated with Autumn Senescence of Aesculus hippocastanum L. and Acer platanoides L. Leaves. Spectral Features and Relation to Chlorophyll Estimation. Journal of Plant Physiology, 143(3), 286–292. https://doi.org/10.1016/S0176-1617(11)81633-0
 
