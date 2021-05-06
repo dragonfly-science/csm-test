@@ -220,7 +220,7 @@ lidarmetrics <- read.csv(file="tables/lidarmetrics.csv",
 knitr::kable(lidarmetrics)
 ```
 
-## Upscaling LiDAR with Sentinel-2
+### Upscaling LiDAR with Sentinel-2
 
 LiDAR upscaling by integrating field plots (point), UAV-LiDAR strip (line) data and Sentinel-2 imagery (polygon) based on a point-line-polygon framework for AGB estimation in a mangrove forest (Wang et al., 2020). 
 
@@ -234,6 +234,11 @@ AGB estimates was assessed using in-dependent validation samples by comparing th
 
 RF has been widely used in biomass estimations (Ghosh and Behera, 2018; Huang et al., 2019; Matasci et al., 2018; Pham and Brabyn, 2017). 
 
+### Upscaling LiDAR with GeoEye-1
+
+GeoEye-1 image and lidar data were segmented using region growing approach to delineate individual tree crowns; and the segmented crowns (CPA) of tree were further used to establish a relationship with field measured carbon and total trees’ height (Wangda et al., 2019).
+
+__Upscaling of biomass and carbon estimates by tree-centric approaches are less accurate (Coomes et al. 2017), but studies on the upscaling carbon estimates by species stratification using VHR and lidar in smaller areas to a landscape level are limited (Latifi et al. 2015).__
 
 
 ## Field data
