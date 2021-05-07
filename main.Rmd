@@ -92,6 +92,9 @@ NBR = (NIR-SWIR)/(NIR+SWIR)
 \
 \
 
+For any burn related damage/regeneration calculations we can verify fire activity locations: https://firms.modaps.eosdis.nasa.gov/download/
+The data come from the Collection 6 Near Real Time (NRT), extracted from the standard MCD14ML fire product produced at the MODIS Fire Science Computing Facility (SCF)(Roteta et al., 2019).
+
 \
 ![Normalised Burn Ratio](figures/nbr.jpg)
 \
@@ -101,7 +104,7 @@ Fig: 1 Comparison of the spectral response of healthy vegetation and burned area
 
 __Papers:__
 
-Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the active fires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows. Available here: https://climate.esa.int/en/projects/fire/data/
+Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the active fires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows.  visually created using BAMS (Burned Area MappingSoftware) methodology (Bastarrika et al., 2014), which consists in a trained classification to detect burned areas between images from two dates. Available here: https://climate.esa.int/en/projects/fire/data/
 
 
 Fire on Madeira, Spain (Navarro et al., 2017). Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided. 
@@ -158,7 +161,16 @@ C) LiDAR and Synthetic Aperture Radar (SAR). Provide an overview table for all c
 ![Combination of LiDAR & SAR](figures/lidarplussar.png)
 \
 Fig: X: Overview of combinations of LiDAR and radar in research (Kaasalainen et al., 2015)
+\
+\
 
+D) LiDAR and Landsat
+
+Matasci et al. 2018 provide an overview of combination of LiDAR with spaceborne imagery (mainly MODIS & LandSat) (Fig. Z)
+
+![Combination of LiDAR & LandSAT](figures/lidarpluslandsat.png)
+\
+Fig: Z: Overview of combinations of LiDAR (air- or spaceborne), and optical imagery to map forest structural attributes (Matasci et al. 2018)
 
 
 ### LiDAR remove noise
@@ -243,7 +255,7 @@ RF has been widely used in biomass estimations (Ghosh and Behera, 2018; Huang et
 
 GeoEye-1 image and lidar data were segmented using region growing approach to delineate individual tree crowns; and the segmented crowns (CPA) of tree were further used to establish a relationship with field measured carbon and total trees’ height (Wangda et al., 2019).
 
-__Upscaling of biomass and carbon estimates by tree-centric approaches are less accurate (Coomes et al. 2017), but studies on the upscaling carbon estimates by species stratification using VHR and lidar in smaller areas to a landscape level are limited (Latifi et al. 2015).__
+Upscaling of biomass and carbon estimates by tree-centric approaches are less accurate (Coomes et al. 2017), but studies on the upscaling carbon estimates by species stratification using VHR and lidar in smaller areas to a landscape level are limited (Latifi et al. 2015).
 
 Field plots (DBH (> 10 cm), tree height, species and crown diameter), calculated biomass with mangrove-specific equation and converted to carbon stock using IPCC conversion factor. GeoEye-1 data to delineate trees and canopy height model to estimate individual height. eCognition for object based image analysis and resulting species separation with tree height. Training dataset comprising 70% of the identified trees on the image from the field work (296 trees) was used to train the sample tree species, while the remaining 30% was used for validating the classification result. 
 
@@ -547,6 +559,8 @@ Navarro, G., Caballero, I., Silva, G., Parra, P.-C., Vázquez, Á., & Caldeira, 
 Pandit, S., Tsuyuki, S., & Dube, T. (2018). Estimating Above-Ground Biomass in Sub-Tropical Buffer Zone Community Forests, Nepal, Using Sentinel 2 Data. Remote Sensing, 10(4), 601. https://doi.org/10.3390/rs10040601
 
 Patenaude, G., Hill, R. A., Milne, R., Gaveau, D. L. A., Briggs, B. B. J., & Dawson, T. P. (2004). Quantifying forest above ground carbon content using LiDAR remote sensing. Remote Sensing of Environment, 93(3), 368–380. https://doi.org/10.1016/j.rse.2004.07.016
+
+Pham, T. D., Yoshino, K., Le, N. N., & Bui, D. T. (2018). Estimating aboveground biomass of a mangrove plantation on the Northern coast of Vietnam using machine learning techniques with an integration of ALOS-2 PALSAR-2 and Sentinel-2A data. International Journal of Remote Sensing, 39(22), 7761–7788. https://doi.org/10.1080/01431161.2018.1471544
 
 Roteta, E., Bastarrika, A., Padilla, M., Storm, T., & Chuvieco, E. (2019). Development of a Sentinel-2 burned area algorithm: Generation of a small fire database for sub-Saharan Africa. Remote Sensing of Environment, 222, 1–17. https://doi.org/10.1016/j.rse.2018.12.011
 
