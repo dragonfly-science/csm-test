@@ -185,7 +185,12 @@ Improved progressive TIN densification filtering algorithm (IPTD) performs bette
 
 ![Improved progressive TIN densification](figures/iptd.png)
 \
-Fig: Y: Comparison of kappa values (total error, TE) for LiDAR filtering algorithms for 15 sites tested. Lowest value in bold (Zhao et al., 2016)   
+Fig: Y: Comparison of kappa values (total error, TE) for LiDAR filtering algorithms for 15 sites tested. Lowest value in bold (Zhao et al., 2016) 
+
+
+### Identifying individual trees vs canopy area approach
+
+Tree-centric approaches are not accurate enough yet in order to justify a much more hardware intensive calculation. Tree-centric modelling is appealing because it is based on summing the biomass of individual trees, but until algorithms can detect understory trees reliably and estimate biomass from crown dimensions precisely, areas-based modelling will remain the method of choice (Coomes et al., 2017).
 
 ### Canopy height estimates from LiDAR (methods)
 
@@ -296,7 +301,7 @@ Forest plots are triangle with 4 circular subplots (Fig. 2), just assume they ar
 Criteria to match LiDAR with FIA plots (Hudak et al., 2020):
 
 * fixed-area plots
-* georeferenced with a GNSS capable of differential correction 
+* geo-referenced with a GNSS capable of differential correction 
 * established within ±3 years of an overlapping LiDAR collection 
 * not disturbed in the time between field and LiDAR data collections
 
@@ -398,7 +403,7 @@ The use of coarse resolution satellite images such as NOAA-AVHRR, MODIS, etc. fo
 
 The use of moderate resolution satellite images (e.g. Landsat, ASTER) for AGB estimation is also confronted with the problem of mixed pixels and data saturation in complex biophysical environments (Wangda et al., 2019).
 
-Quickbird and IKONOS have very righ resolution, but are frequently obstructed by cloud cover in tropics (Wangda et al., 2019), might be more viable in Calinfornia.
+Quickbird and IKONOS have very high resolution, but are frequently obstructed by cloud cover in tropics (Wangda et al., 2019), might be more viable in California.
 
 
 ### RapidEye
