@@ -386,9 +386,11 @@ Combination of Landsat and land cover to estimate AGB in Uganda (Avitabile et al
 
 
 ### Synthetic aperture radar (SAR) 
+
+Taken from Lu et. al., 2016: \
 Most radar-based biomass estimation studies use L-band SAR data, especially the ALOS PALSAR L-band data (Mitchard et al. 2011; Carreiras et al. 2012; Rahman and Sumantyo 2013). The SAR C-band data have not been extensively used because of the C-band’s inability to capture forest biomass features (Le Toan et al. 1992; Lu 2006).
 
-In summary, it is difficult to use radar data for distinguishing vegetation types (Li et al. 2012b) because radar data reflect the roughness of land cover surfaces instead of the difference between the vegetation types, thus resulting in difficulty of biomass estimation. The speckle in radar data is another problem affecting its applications. Properly employing filtering methods to reduce noise and outliers in InSAR data is needed to improve the vegetation height estimation performance (Kellndorfer et al. 2004).
+In summary, it is difficult to use radar data for distinguishing vegetation types (Li et al. 2012) because radar data reflect the roughness of land cover surfaces instead of the difference between the vegetation types, thus resulting in difficulty of biomass estimation. The speckle in radar data is another problem affecting its applications. Properly employing filtering methods to reduce noise and outliers in InSAR data is needed to improve the vegetation height estimation performance (Kellndorfer et al. 2004).
 
 
 ### NASA-GEDI LiDAR
@@ -396,6 +398,22 @@ In summary, it is difficult to use radar data for distinguishing vegetation type
 GEDI has the highest resolution and densest sampling of any LiDAR ever put in orbit (25 m to 1 km resolution). Been used in an upscaling study of forest biomass in China (Chen et al., 2021). However, satellite was launched in 2018 and only designed to operate for 2 years, will be wrapped up in 2021. 
 
 Website: https://gedi.umd.edu/
+
+
+### Comparison of biomass estimates for 3 satellites (GEDI, ICESat-2 and NISAR) over Sonoma county in California
+
+GEDI and ICESat-2 were simulated from airborne lidar point clouds, while UAVSAR's L-band backscatter was used as a proxy for NISAR. To estimate biomass for the lidar missions we used GEDI's footprint-level biomass algorithms, and also adapted these for application to ICESat-2. For UAVSAR, we developed a locally trained biomass model, calibrated against the ALS reference map. Each mission simulation was evaluated in comparison to the local reference map at its native product resolution (25 m, 100 m transect, and 1 ha) yielding RMSEs of 57%, 75%,
+and 89% for GEDI, NISAR, and ICESat-2 respectively (Duncanson et al. 2020)
+
+We also test the application of GEDI's biomass modeling framework for estimation of biomass from ICESat-2, and find that ICESat-2 yields reasonable biomass estimates, particularly in relatively short, open canopies.
+
+ICESat-2 underestimates biomass on average, and this underestimation increases with canopy height, canopy cover, and to a small degree with slope. The comparison between simulated GEDI and ICESat-2 height metrics confirms that at least with respect to GEDI simulations, ICESat-2 underestimates height, and these underestimations are more pronounced in the higher height
+metrics. A comparison of ICESat-2 simulations from the higher signal photon return rate shows that the signal rate drives much of this error, so in areas where ICESat-2 has little atmospheric attenuation ICESat-2 will likely perform well for forest structure.
+
+As expected, the highest accuracies were from GEDI's power beam, while accuracies for ICESat-2
+depended heavily on the signal photon rate, and NISAR accuracies will depend on the availability of high-quality biomass training data, and be
+limited to lower biomass forests over relatively flat areas. Nonetheless, we find all three sets of mission simulations promising for biomass. (Duncanson et al. 2020)
+
 
 ### NOAA-AVHRR, MODIS, ASTER, Quickbird, IKONOS
 
@@ -412,21 +430,21 @@ ESA is offering access to the full RapidEye archive for scientific research and 
 
 ### ICESat-2
 
-Ice, Cloud and Land Evalutation Satellite, 91-day repeat
+Ice, Cloud and Land Evalutation Satellite, 91-day repeat, began its 3-year mission in September 2018
 \
-While ATLAS onboard ICESat-2 was primarily designed to determine changes in ice sheet elevation
-and mass, it will provide information about vegetation that may be used to estimate AGB. ATLAS
-is a photon counting system, operating in the visible wavelengths, at 532 nm [7]. It generates three
-pairs of tracks, with each pair approximately 3.3 km apart and each track within a pair separated
-by 90 m [11]. LiDAR footprints are produced every 70 cm in the along-track direction and measure
-approximately 14 m in diameter [14]. Given the unprecedented coverage and spatial detail from
-ICESat-2, translating ICESat-2 measurements to AGB estimates would allow for large-scale AGB and
-forest carbon assessments.
+While ATLAS onboard ICESat-2 was primarily designed to determine changes in ice sheet elevation and mass, it will provide information about vegetation that may be used to estimate AGB. ATLAS is a photon counting system, operating in the visible wavelengths, at 532 nm. It generates three pairs of tracks, with each pair approximately 3.3 km apart and each track within a pair separated by 90 m. LiDAR footprints are produced every 70 cm in the along-track direction and measure approximately 14 m in diameter. Given the unprecedented coverage and spatial detail from ICESat-2, translating ICESat-2 measurements to AGB estimates would allow for large-scale AGB and forest carbon assessments.
 
 __Paper:__
 ICESat-2 for mapping forest biomass with deep learning (Narine et al., 2019). A first set of models were developed using vegetation indices
 calculated from single-date Landsat imagery, canopy cover, and land cover, and a second set of models were generated using metrics from one year of Landsat imagery with canopy cover and land cover maps. With the extended dataset containing metrics calculated from Landsat images acquired on different dates, substantial improvements in modelperformance for all data scenarios were noted. The R2 values increased to 0.64, 0.66, and 0.67. Comparisons with Random forest (RF) prediction models highlighted similar results, with the same R2 and root mean square error (RMSE) range (15–16 Mg/ha) for daytime and nighttime scenarios. ICESat-2 profiles, especially with the nighttime scenario (R2 = 0.66), highlight the potential for generating a wall-to-wall AGB product with ICESat-2 by adopting a synergistic approach with Landsat optical imagery, canopy cover, and land cover 
+\
+ICESat-2 in combination with land cover data for mapping ABG in Texas (Fig. P, Narine et al., 2020). Extrapolation of ICESat-2-derived AGB estimates from segments along the ICESat-2 transect, to 30 m pixels across the study site was carried out with RF, using
+Landsat and NLCD products. Results are indicative of the utility of ICESat-2 data for characterizing AGB. As more ICESat-2 tracks become available and with the availability of corresponding reference data, an improved understanding of the data and their ability to characterize vegetation structure will be gleaned. Nonetheless, possibilities with the data, including synergistic use with freely available
+data from other space-based missions, including GEDI, are exciting. Future work will involve the application of the methodology for regional-scale mapping with corresponding uncertainty analyses and an investigation of deep-learning approaches with multi-source data.
 
+![ICESat](figures/icesat.png)
+\
+Figure P: Regression models for estimating AGB with ICESat-2 data from the strong beam and weak beam (Narine et al., 2020)
 
 ### LISS-3 (ISRO)
 
@@ -488,6 +506,8 @@ Dash, J., & Curran, P. J. (2004). The MERIS terrestrial chlorophyll index. Inter
 Daughtry, C. S. T., Walthall, C. L., Kim, M. S., de Colstoun, E. B., & McMurtrey, J. E. (2000). Estimating Corn Leaf Chlorophyll Concentration from Leaf and Canopy Reflectance. Remote Sensing of Environment, 74(2), 229–239. https://doi.org/10.1016/S0034-4257(00)00113-9
 
 Dong, W., Lan, J., Liang, S., Yao, W., & Zhan, Z. (2017). Selection of LiDAR geometric features with adaptive neighborhood size for urban land cover classification. International Journal of Applied Earth Observation and Geoinformation, 60, 99–110. https://doi.org/10.1016/j.jag.2017.04.003
+
+Duncanson, L., Neuenschwander, A., Hancock, S., Thomas, N., Fatoyinbo, T., Simard, M., Silva, C. A., Armston, J., Luthcke, S. B., Hofton, M., Kellner, J. R., & Dubayah, R. (2020). Biomass estimation from simulated GEDI, ICESat-2 and NISAR across environmental gradients in Sonoma County, California. Remote Sensing of Environment, 242, 111779. https://doi.org/10.1016/j.rse.2020.111779
 
 Feng, Y., Lu, D., Chen, Q., Keller, M., Moran, E., dos-Santos, M. N., Bolfe, E. L., & Batistella, M. (2017). Examining effective use of data sources and modeling algorithms for improving biomass estimation in a moist tropical forest of the Brazilian Amazon. International Journal of Digital Earth, 10(10), 996–1016. https://doi.org/10.1080/17538947.2017.1301581
 
@@ -562,6 +582,8 @@ Merzlyak, M. N., Gitelson, A. A., Chivkunova, O. B., & Rakitin, V. Y. (1999). No
 Mesinger, F., Dimego, G., Kalnay, E., Mitchell, K., Shafran, P., Ebisuzaki, W., Jović, D., Woollen, J., Rogers, E., Berbery, E., Ek, M., Fan, Y., Grumbine, R., Higgins, W., Li, H., Lin, Y., Manikin, G., Parrish, D., & Shi, W. (2006). North American Regional Reanalysis. BAMS, 3, 343–360. https://doi.org/10.1175/BAMS-87-3-343
 
 Narine, L. L., Popescu, S. C., & Malambo, L. (2019). Synergy of ICESat-2 and Landsat for Mapping Forest Aboveground Biomass with Deep Learning. Remote Sensing, 11(12), 1503. https://doi.org/10.3390/rs11121503
+
+Narine, L. L., Popescu, S. C., & Malambo, L. (2020). Using ICESat-2 to Estimate and Map Forest Aboveground Biomass: A First Example. Remote Sensing, 12(11), 1824. https://doi.org/10.3390/rs12111824
 
 Navarro, G., Caballero, I., Silva, G., Parra, P.-C., Vázquez, Á., & Caldeira, R. (2017). Evaluation of forest fire on Madeira Island using Sentinel-2A MSI imagery. International Journal of Applied Earth Observation and Geoinformation, 58, 97–106. https://doi.org/10.1016/j.jag.2017.02.003
 
