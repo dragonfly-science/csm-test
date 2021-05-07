@@ -260,7 +260,7 @@ RF has been widely used in biomass estimations (Ghosh and Behera, 2018; Huang et
 
 GeoEye-1 image and lidar data were segmented using region growing approach to delineate individual tree crowns; and the segmented crowns (CPA) of tree were further used to establish a relationship with field measured carbon and total trees’ height (Wangda et al., 2019).
 
-Upscaling of biomass and carbon estimates by tree-centric approaches are less accurate (Coomes et al. 2017), but studies on the upscaling carbon estimates by species stratification using VHR and lidar in smaller areas to a landscape level are limited (Latifi et al. 2015).
+Upscaling of biomass and carbon estimates by tree-centric approaches are less accurate (Coomes et al. 2017), but studies on the upscaling carbon estimates by species stratification using VHR and LiDAR in smaller areas to a landscape level are limited (Latifi et al. 2015).
 
 Field plots (DBH (> 10 cm), tree height, species and crown diameter), calculated biomass with mangrove-specific equation and converted to carbon stock using IPCC conversion factor. GeoEye-1 data to delineate trees and canopy height model to estimate individual height. eCognition for object based image analysis and resulting species separation with tree height. Training dataset comprising 70% of the identified trees on the image from the field work (296 trees) was used to train the sample tree species, while the remaining 30% was used for validating the classification result. 
 
@@ -481,6 +481,8 @@ Clark, D. B., & Kellner, J. R. (2012). Tropical forest biomass estimation and th
 
 Clark, M. L., Roberts, D. A., Ewel, J. J., & Clark, D. B. (2011). Estimation of tropical rain forest aboveground biomass with small-footprint LiDAR and hyperspectral sensors. Remote Sensing of Environment, 115(11), 2931–2942. https://doi.org/10.1016/j.rse.2010.08.029
 
+Coomes, D. A., Dalponte, M., Jucker, T., Asner, G. P., Banin, L. F., Burslem, D. F. R. P., Lewis, S. L., Nilus, R., Phillips, O. L., Phua, M.-H., & Qie, L. (2017). Area-based vs tree-centric approaches to mapping forest carbon in Southeast Asian forests from airborne laser scanning data. Remote Sensing of Environment, 194, 77–88. https://doi.org/10.1016/j.rse.2017.03.017
+
 Dash, J., & Curran, P. J. (2004). The MERIS terrestrial chlorophyll index. International Journal of Remote Sensing, 25(23), 5403–5413. https://doi.org/10.1080/0143116042000274015
 
 Daughtry, C. S. T., Walthall, C. L., Kim, M. S., de Colstoun, E. B., & McMurtrey, J. E. (2000). Estimating Corn Leaf Chlorophyll Concentration from Leaf and Canopy Reflectance. Remote Sensing of Environment, 74(2), 229–239. https://doi.org/10.1016/S0034-4257(00)00113-9
@@ -540,6 +542,8 @@ Köhl, M., Magnussen, S. S., & Marchetti, M. (2006). Sampling Methods, Remote Se
 Kolden, C. A., Lutz, J. A., Key, C. H., Kane, J. T., & van Wagtendonk, J. W. (2012). Mapped versus actual burned area within wildfire perimeters: Characterizing the unburned. Forest Ecology and Management, 286, 38–47. https://doi.org/10.1016/j.foreco.2012.08.020
 
 Kross, A., McNairn, H., Lapen, D., Sunohara, M., & Champagne, C. (2015). Assessment of RapidEye vegetation indices for estimation of leaf area index and biomass in corn and soybean crops. International Journal of Applied Earth Observation and Geoinformation, 34, 235–248. https://doi.org/10.1016/j.jag.2014.08.002
+
+Latifi, H., Fassnacht, F. E., Hartig, F., Berger, C., Hernández, J., Corvalán, P., & Koch, B. (2015). Stratified aboveground forest biomass estimation by remote sensing data. International Journal of Applied Earth Observation and Geoinformation, 38, 229–241. https://doi.org/10.1016/j.jag.2015.01.016
 
 Lehtonen, A., Mäkipää, R., Heikkinen, J., Sievänen, R., & Liski, J. (2004). Biomass expansion factors (BEFs) for Scots pine, Norway spruce and birch according to stand age for boreal forests. Forest Ecology and Management, 188(1), 211–224. https://doi.org/10.1016/j.foreco.2003.07.008
 
