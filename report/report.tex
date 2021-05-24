@@ -1,0 +1,35 @@
+\documentclass{dragonfly-report}
+
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{knitr}
+\usepackage{placeins}
+
+\title{Quality summary of Olsen P data}{Quality summary of Olsen P data}
+\subtitle{Prepared on behalf of the Fertiliser Association of New Zealand}
+\author{Fabian Döweler}
+
+\titleimage{soil.jpeg}
+
+\addbibresource{../bibliography/dragonfly.bib}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagestyle{plain}
+%\summary
+%\citeself
+
+\input{sweave/introduction}
+\input{sweave/methods}
+\input{sweave/results}
+\input{sweave/discussion}
+\input{acknowledgments}
+\printbibliography
+\clearpage
+\FloatBarrier
+%\appendices
+\input{sweave/appendix}
+\end{document}
