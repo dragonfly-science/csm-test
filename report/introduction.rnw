@@ -57,11 +57,15 @@ SNAP is an open source common architecture for ESA Toolboxes ideal for the explo
 %Table. 2: Vegetation Indices derived from Sentinel 2 information (after Pandit et al., 2018 & Wang et al., 2020).
 %
 %
-%```{r, echo=FALSE}
-%vegindices <- read.csv(file="tables/vegindices.csv",
-%                                   header = TRUE)
-%knitr::kable(vegindices)
-%```
+
+\begin{tiny}
+<<r, echo=FALSE>>=
+vegindices <- read.csv(file="../tables/vegindices.csv",
+                                   header = TRUE)
+knitr::kable(vegindices)
+@
+\end{tiny}
+
 %
 %1* Subtraction of NIR reciprocal reflance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content (Gitelson et al., 2003). \
 %2* IRECI had highest correlation to biomass (r = 0.8) in Castillo et al., 2017 (Mangrove Forest Philippines) and further improved with added elevation\
@@ -102,9 +106,9 @@ SNAP is an open source common architecture for ESA Toolboxes ideal for the explo
 %\
 %
 %__Papers:__
-%
-%Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the active fires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows.  visually created using BAMS (Burned Area MappingSoftware) methodology (Bastarrika et al., 2014), which consists in a trained classification to detect burned areas between images from two dates. Available here: https://climate.esa.int/en/projects/fire/data/
-%
+
+Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the active fires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows.  visually created using BAMS (Burned Area MappingSoftware) methodology \cite{roteta_development_2019}, which consists in a trained classification to detect burned areas between images from two dates.\footnote{Available here: \url{https://climate.esa.int/en/projects/fire/data/}}
+
 %
 %Fire on Madeira, Spain (Navarro et al., 2017). Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided.
 %
