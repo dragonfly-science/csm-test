@@ -17,6 +17,53 @@ Landsat and Sentinel-2 often fails to discriminate for vegetation phenology and 
 Forest classes are only available on request (ideally non-profit uni, time consuming process). Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list (Van Kane, April 29 meeting)
 
 
+\section{Summary}
+
+
+Sentinel-2 data
+    • Sentinel data offers complete coverage of the area with a 5 day revisit time
+    • Sentinel-2 derived vegetation indices can be used to to correlate with above-ground forest biomass (AGB, 10-20 m resolution)
+    • cloud obstructions, coverage since 2015-2016, 2017 datasets have been post-cleaned by ESA, from 2018 onwards clean uploads
+    • saturation effects for Sentinel-2 and Landsat imagery for forest areas with 150 t / ha
+
+LiDAR
+    • current LiDAR availability from the opentopo DB, patchwork from multiple years (starting from 2010)
+    • useful to derive vegetation metrics from point cloud (height, intensity, density, canopy volume)
+    • some datasets provide canopy height model (CHM), Scott has workflows available to generate, alternative derive own best protocol (Zhao et al., 2016)
+    • gold standard for AGB estimations, 
+    • for delineating individual trees CHM resolutions > 1 m are required (Van Kane, April meeting)
+
+
+
+Vegetation classification
+
+For the initial proof of concept we use a downscaled version of the extensive Classification and Assessment with Landsat of Visible Ecological Groupings database (CALVEG) which summarizes a total of 32 vegetation classes for the entire state. For now the FRID dataset will be used to discriminate forested areas and non-vegetated surfaces (urban, lakes). In a later stage of the model the CALVEG database will serve as another predictor. 
+
+    • currently using the fire return interval departure dataset (FRID) contains records for historic fires
+    • EVEG layer is a patchwork from 20+ years of vegetation mapping with careful literature research and field verification (CALVEG)
+
+
+
+\section{Method}
+
+The proof of concept contains 3 datasets (vegetation classification, canopy height model, sentinel-2 derived NDVI). 
+
+Our initial test region has been anchored North of Lake Tahoe where we accessed a Sentinel-2 imagery for the 9th of May 18:49 (UTC). Within this imagery we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93 pts/m2) accuracy from a publicly available source. (OpenTopography, 2014). The dataset provides pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM). In the future we will adopt Scott Conway”s workflows to achieve this from the LiDAR point cloud. Additionally we incorporated a rasterized version of the fire returnal interval departure (FRID 2019) dataset which contains 34 dominant vegetation classes from the CALVEG. All the datasets are projected into California Albers (EPSG:3310) and raster alignment is checked. We then calculate the normalised difference vegetation index (NVDI) from Sentinel-2 bands (NIR & Red, 10 m). The 1 m2 canopy height model is used to train the 10 m2 and using a linear correlation between the mean canopy height and the NDVI values calculated from the Sentinel-2 bands. The upscaling process predicts mean canopy height outside the area of LiDAR availability. 
+
+The detailed worfklow to extract, rasterize and align the datasets can be found in the repo (vp-csm/test-LakeTahoe).
+
+We agreed on a 10 m resolution upscaling since the majority of our datasets will be available in this resolution and only a few bands (e.g. Sentinel-2 red edge, shortwave infrared)
+
+The inital model uses a 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm accuracy from the Lake Tahoe National Forest. We downloaded the derived Canopy Height model derived from DSM and DTM. T
+
+https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032017.26910.2
+
+
+Our final model is expected to use 20+ vegetation indices derived from Sentinel-2 bands, LiDAR derived metrics, Landsat timeseries information 
+
+
+
+
 \section{Sentinel 2}
 
 
