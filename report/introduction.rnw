@@ -1,21 +1,12 @@
 \section{Introduction}
 
-\emph{Something about the background for the project, the approach taken to the work, and the purpose of this report.}
+The expansion of Vibrant Planet's platform for natural resource management requires high-quality data to guide forestry management in the state of California. Best practice decision making is currenlty limited to areas where LiDAR datasets are available. Within this model we provide a proof-of-concept how we aim extrapolate point cloud derived canopy height information to the extent of the whole state. The prototype ingests publicly-available data (Sentinel-2 spectral bands, vegetation classification layers) to provide an approximation of relevant information without the deployment of cost intensive LiDAR collection procedures. This documents gives an overview of the state of this project, a brief breakdown of the methodological framework for the prototype and a literature research - revealing the extent of research considered to be deployed. A detailed documentation for geospatial processes, machine learning concepts and data ingestions via AWS can be found on the linked repositories.
 
-Sentinel-2 derived vegetation indices can be used to to correlate with above-ground forest biomass (AGB)
-
-LiDAR requires higher resolution than size of the crown to identify individual trees, but is commonly used to estimate biomass in forests
-
-workflows to calculate biomass from FIA plots (Shana) are in practice \citep{hudak_carbon_2020}
-
-Landtrendr (Landsat, Google Earth) can be used to study forest regeneration patterns via normalised burn ratio (NBR) over large time intervals (30 years). Data can be used to estimate regeneration capability of forest entities
-
-Landsat and Sentinel-2 often fails to discriminate for vegetation phenology and does reach a saturation point in dense forest where it fails to estimate biomass (150+ t/ ha)
-
-Forest classes are only available on request (ideally non-profit uni, time consuming process). Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list (Van Kane, April 29 meeting)
-
+\newpage
 
 \section{Summary}
+
+This section provides a brief overview of the data sources considered and the state of agreed methodologies. The canopy height model (CHM) derived from raw LiDAR point clouds constitutes the 'heart' of the model and will be used to train satellite pixels (Sentinel-2) to upscale the information to a state-wide layer. While the initial proof-of-concept proposed within this document uses a CHM provided by the OpenTopography database, we already developed workflows to approximate this output and operate with known and scalable datasets which we intent to refine in alignment with Vibrant Planet's quality standards.  
 
 
 Sentinel-2 data
@@ -24,62 +15,34 @@ Sentinel data offers complete coverage of the area with a 5 day revisit time. Se
 
 LiDAR
 
-LiDAR measurements are the state of the art technology to calculate aboveground biomass based on tree height estimates in forest ecosystems. We receive all currently available LiDAR point clouds from the opentopography database\footnote{Available here: \url{https://portal.opentopography.org/datasets}}. The datasets date back to 2010 and come in varying degrees of resolution and have been sampled with different techniques. Current workflows at Vibrant Planet rely on vendor provided digital terrain models (DTM) and use the Fusion software to derive a digital surface model (DSM) and a resulting canopy height model (CHM) as the difference between both layers. Since vendor provided CHM are not universally available for all datasets and the workflows to derive these are unknown, we are currently working on our own process to generate a DTM and further, a CHM using pdal\footnote{pdal documentation: \url{https://pdal.io/}}. This process will enable us to work with the full point cloud database and guarantee replicability with future LiDAR datasets. To verify the accuracy of our CHM the output is compared against current 'best practice' approaches within Fusion (vendor provided DTM, software calculated CHM) and freely available CHM's on the opentopo database. Before deploying these steps the procedure will be signed of by Vibrant Planet. Generating CHM's with pdal will enable us to scale data processing more readily than relying on Windows based software (Fusion).  \
+LiDAR measurements are the state of the art technology to calculate above-ground biomass based on tree height estimates in forest ecosystems. We receive all currently available LiDAR point clouds from the opentopography database\footnote{Available here: \url{https://portal.opentopography.org/datasets}}. The datasets date back to 2010 and come in varying degrees of resolution and have been sampled with different techniques. Current workflows at Vibrant Planet rely on vendor provided digital terrain models (DTM) and use the Fusion software to derive a digital surface model (DSM) and a resulting canopy height model (CHM) as the difference between both layers. Since vendor provided CHM are not universally available for all datasets and the workflows to derive these are unknown, we are currently working on our own process to generate a DTM and further, a CHM using pdal\footnote{pdal documentation: \url{https://pdal.io/}}. This process will enable us to work with the full point cloud database and guarantee replicability with future LiDAR datasets. To verify the accuracy of our CHM the output is compared against current 'best practice' approaches within Fusion (vendor provided DTM, software calculated CHM) and freely available CHM's on the opentopo database. Before deploying these steps the procedure will be signed of by Vibrant Planet. Generating CHM's with pdal will enable us to scale data processing more readily than relying on Windows based software (Fusion).  \
 
 For now we will focus our approach we use an area-based rather than a tree-centric approach for CHM's which is the current standard due to LiDAR restriction to detect below canopy/merged trees \citep{coomes_area-based_2017}. Further, to be able to delineate individual trees CHM resolutions < 1m are required (Van Kane, April 29 meeting). One possibility to bridge the gap between area-based and tree-centric approaches could be the creation of tree approximate objects (TAO). These objects can be generated within Fusion using a watershed analysis and the area processor. We will work together with Colton to generate these outputs and test the viability of training satellite data with TAO information or ecological objects (Ecobject\footnote{EcObject documentation: \url{https://buttecounty.opennrm.org/assets/e106ca2a359a122e74e33ef183a0fb4a/application/pdf/EcObjectProductGuide_Final_V1.pdf}}).    \
 
-A major issue for the CHM's is the lack of FIA or LiDAR verification plots to ground-truth the output. It is unlikely that we will receive exact locations of the FIA plots for a non-university project and even then the process will take many months ((Van Kane, April 29 meeting). Shana provided us with a some LiDAR verification plots installed by the USFS, but they do not contain individually geo-referenced trees, accurate height measurements are very limited (5 out of 20 trees for an example plot). So a current workflow as discussed with Colton to identify dominant trees and verify them against our CHM output. In addition we currently generate CHM's near Scott's home to have an additional ground-truth workflow.  \
+Field data
+
+The field plots are required in order to indicate the accuracy of our predictions in areas outside of LiDAR avaiability and to verify the quality of the generated CHM. Plot locations reveal information about tree species, DBH, categorized size classes (e.g. 8 - 16 m) and traditionaly consist of 4 radial plots (FIA \& LiDAR plots). A known issue is the limited availability exact plot locations to ground-truth the output. It is unlikely that we will receive plot locations for a non-university project (Van Kane, April 29 meeting). Vibrant Planet provided us with LiDAR verification plots for the lake Tahoe area, but they do not contain individually geo-referenced trees and accurate height measurements are limited (e.g. 5 out of 20 trees for a sample plot). A current workflow as agreed with one of Cibrant Planet's forest ecologist to identify dominant trees and verify them against our CHM output or generate CHM's near Scott Conway's home to have an additional ground-truth reference. Alternatively we could artificially create gaps in in the LiDAR plots to verify our output against. \
 
 Vegetation classification
 
 For the initial proof of concept we use a downscaled version of the extensive 'Classification and Assessment with Landsat of Visible Ecological Groupings database' (CALVEG) which summarizes a total of 32 vegetation classes for the entire state. The layer is a patchwork from 20+ years of vegetation mapping with careful literature research and field verification with the aim to deliver repeated measurements in a 15 year timeframe. The 'fire return interval departure dataset' (FRID\footnote{Documentation here: \url{https://data.sacriver.org/assets/5ca70e8ae658de1d1e0331ff747c3f76/application/pdf/California_FRID_GIS_metadata_11-10-20117.pdf}}) groups CALVEG classification into subclasses and will be used to discriminate forested areas and non-vegetated surfaces (urban, lakes) in this proof of concept. In a later stage of the model the CALVEG database will serve as a more detailed predictor. We have already developed workflows to reproject, merge and rasterize the CALVEG datasets. We will retain the FRID dataset for future use, since it contains valuable information for historic fires in the area.   \
 
-Field data
-
-The field plots are required in order to indicate the accuracy of our predictions in areas outside of LiDAR avaiability and to verify the accuracy of CHM created. Field data include vegetation classification, DBH, coarse size classes (e.g. 8 - 16 m) and consist of 4 radial plots. The Forest Vegetation Simulator (FVS) offers tool to calculate aboveground biomass from the FIA datasets \citep{hudak_carbon_2020}. It is unclear if this is achievable with the LiDAR verification plots as well. problematic will be the training of Sentinel-2 and Landsat pixels with FIA plots since the circular layout does overlap with multiple pixels, plus the location of the three outside macroplots is not georeferenced. \
-
-At this stage it is unclear if we receive the exact plot locations within the framework of this project, alternatively we could artificially create gaps in in the LiDAR plots and verify our predictions. Apart from the verification of the CHM the field plot could also be a useful reference to indicate vegetation change within the CALVEG database.  \
-
-
-Landsat data (mainly thematic mapper (TM) 
-
-While the Landsat data comes at a coarser resolution than the Sentinel-2 imagery it offers a much higher temporal resolution reaching back to 1984. Landsat imagery became publicly available in 2008 and resulted in great interest by researchers. Pixel based image interpolations have been developed recently and are best pratice in generating annual a gap-free image tiles for the period of interest (e.g. growing season). We aim to replicate this procedure using the best available pixel approach (BAP, \cite{white_pixel-based_2014}) in combination with breakpoint detection procedure (Composite2Change, \cite{hermosilla_integrated_2015}) to fill gaps within the Landsat imagery. Normalised Burn Ratio (NBR, \cite{key_landscape_2005}) derived from shortwave infrared bands (SWIR) are currently serving as the best reference indices to assess forest disturbance \citep{kennedy_detecting_2010}. Based on the gap-free tiles we will be able to estimate forest recovery after logging and wildfire events using the normalised burn ratio (NBR, \cite{white_nationwide_2017}). The output will aid us in predicting biomass regeneration of burned areas (30 m). It will allow us to label forest types (from CALVEG) with their expected timespan to return to a pre-fire state. This will be an important indicator to estimate the severity of the fire damage and aid us in estimating aboveground biomass where post-fire LiDAR information is unavailable. 
-
-
 Upscaling
 
-Train LiDAR datasets with field plot information and consecutively train Sentinel-2 pixel with LiDAR information. (point-line-polygon approach, \cite{wang_estimating_2020-1}. Machine learning to select vegetation indices, LiDAR metrics, vegetation classification, forest regeneration and timeseries derived info for post-disturbance data. Random forest has been widely used in biomass estimations \citep{ghosh_aboveground_2018,matasci_large-area_2018, pham_monitoring_2017, huang_integration_2019} but we will explore other options to rank prediction power of selected parameters.
+The upscaling process to translate locally available canopy height information to a state-wide layer involves the training of individual Sentinel-2 pixels. The protoype attached to this report incorporates a linear regression machine learning process to demonstrate the feasibility of this approach with no refined expectations towards it's accuracy. In the future the machine learning algorithm will be trained with a vast range of vegetation indices, LiDAR metrics and vegetation layers. While a random forest has been widely used in this context to approximate above-ground biomass estimations \citep{ghosh_aboveground_2018,matasci_large-area_2018, pham_monitoring_2017, huang_integration_2019} we will explore more sophisticated options to optimize this process.
 
 
-
-Things to consider:
-
-- To avoid noise effect at forest boundaries only samples 45 m within forest polygons (within calveg polygons) are considered \citep{wulder_satellite-based_2020}
-- Evaluate the potential of Landsat to study fire history (FRID dataset potential alternative ?)
-- adding climate data to improve forest regeneration prediction by calculate carbon assimilation rate and transpiration (2 m air temperature, dew point, downward solar radiation, precipitation, soil temperature) (Hurtt et al., 2019).
-- EcObject layers as additional CHM information being fed into object
-
-
+\newpage
 
 \section{Method}
 
 The proof of concept contains 3 datasets (vegetation classification, canopy height model, sentinel-2 derived NDVI). 
 
-Our initial test region has been anchored North of Lake Tahoe where we accessed a Sentinel-2 imagery for the 9th of May 18:49 (UTC). Within this imagery we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93 pts/m2) accuracy from a publicly available source. (OpenTopography, 2014). The dataset provides pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM). In the future we will adopt Scott Conway”s workflows to achieve this from the LiDAR point cloud. Additionally we incorporated a rasterized version of the fire returnal interval departure (FRID 2019) dataset which contains 34 dominant vegetation classes from the CALVEG. All the datasets are projected into California Albers (EPSG:3310) and raster alignment is checked. We then calculate the normalised difference vegetation index (NVDI) from Sentinel-2 bands (NIR \& Red, 10 m). The 1 m2 canopy height model is used to train the 10 m2 and using a linear correlation between the mean canopy height and the NDVI values calculated from the Sentinel-2 bands. The upscaling process predicts mean canopy height outside the area of LiDAR availability. 
+Our initial test region has been anchored North of Lake Tahoe where we accessed a Sentinel-2 imagery for the 9th of May 18:49 (UTC). Within this imagery we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93 pts/m2) accuracy from a publicly available source (OpenTopography, 2014). The dataset provides pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM). In the future we will best practice workflows to achieve this from the raw LiDAR point clouds. Additionally we incorporated a rasterized version of the fire returnal interval departure (FRID 2019) dataset which contains 34 dominant vegetation classes from the CALVEG. All the datasets are projected into California Albers (EPSG:3310) and raster alignment is verified. We then calculate the normalised difference vegetation index (NVDI) from Sentinel-2 bands (NIR \& Red, 10 m). The 1 m resolution canopy height model is used to train the 10x10 m Sentinel-2 pixels using a linear correlation between the mean canopy height and the NDVI values calculated from the spectral bands. The upscaling process predicts mean canopy height for areas where traditional LiDAR is unavailable. \
 
-The detailed worfklow to extract, rasterize and align the datasets can be found in the repo (vp-csm/test-LakeTahoe).
+A detailed documentation for the geospatial processing deployed for our test region can be found on the Github repository\footnote{GitHub repository: \url{https://github.com/Vibrant-Planet/vp-csm}}. Currently GDAL\footnote{GDAL documentation: \url{https://gdal.org/}} is used as the primary source of geospatial processing and all relevant geospatial tools created to convert, reproject and align the datasets are reported. While this initial proof-of-concept is not considered to meet the required level of accuracy, it is designed to demonstrate the overall feasibility of the data collation, exercising all required pathways from data acquisition to output generation.
 
-We agreed on a 10 m resolution upscaling since the majority of our datasets will be available in this resolution and only a few bands (e.g. Sentinel-2 red edge, shortwave infrared) come at a coarser resoltion.
-
-The inital model uses a 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm accuracy from the Lake Tahoe National Forest\footnote{Available here: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032017.26910.2}}. We downloaded the derived Canopy Height model derived from DSM and DTM. In the future we will derive our own CHM's based on a best available pratice approach and the performance to upscale the processing of the LiDAR point clouds. 
-
-
-
-
-Our final model is expected to use 20+ vegetation indices derived from Sentinel-2 bands, LiDAR derived metrics, Landsat timeseries information 
-
-
-
+\newpage
 
 \section{Sentinel 2}
 
@@ -97,7 +60,7 @@ Our final model is expected to use 20+ vegetation indices derived from Sentinel-
 
 
 \begin{table}[bp]
-  \caption{Overview Sentinel 2 bands (Arcgis.com)}
+  \caption{Overview Sentinel 2 bands} 
   \label{tab:sentinel-2-bands}
   \begin{tabular}{lrll}
 Band & Description & Wavelength (um) & Resolution (m)
@@ -119,6 +82,8 @@ Band & Description & Wavelength (um) & Resolution (m)
   \end{tabular}
 \end{table}
 
+Table availability in header as footnote\footnote{Available here: \url{https://www.arcgis.com/home/item.html?id=fd61b9e0c69c4e14bebd50a9a968348c}} \
+
 
 Compared to Landsat multispectral bands, the Sentinel-2 multispectral bands provide two red edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass \autoref{tab:sentinel-2-bands}
 
@@ -130,7 +95,7 @@ SNAP is an open source common architecture for ESA Toolboxes ideal for the explo
 
 Vegetation indices including near-infrared wavelength have weaker relationships with biomass than those including shortwave infrared wavelength, especially for forest sites with complex stand structures. The results of image transformations such as the first principal component from the PCA showed stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass \citep{lu_survey_2016}. \
 
-Table. 2: Vegetation Indices derived from Sentinel 2 information \citep{pandit_estimating_2018, wang_estimating_2020-1}. \
+Table. 2: Vegetation Indices derived from Sentinel 2 information (adapted from \cite{pandit_estimating_2018, wang_estimating_2020-1}). \
 
 \begin{tiny}
 <<r, echo=FALSE>>=
@@ -140,6 +105,8 @@ knitr::kable(vegindices)
 @
 \end{tiny}
 
+
+References to include from the table: \citep{tucker_red_1979,sims_relationships_2002, huete_overview_2002, jordan_derivation_1969, wicaksono_mangrove_2016, huete_soil-adjusted_1988, zhu_exploring_2017, kamal_object-based_2015, castillo_estimation_2017, hill_vegetation_2013, merzlyak_non-destructive_1999, kross_assessment_2015, gitelson_spectral_1994, sharma_active-optical_2015, gitelson_relationships_2003, dash_meris_2004, daughtry_estimating_2000, fernandez-manso_sentinel-2a_2016, blackburn_spectral_1998, frampton_evaluating_2013, hardisky_influence_1983, ji_analysis_2009}
 
 1* Subtraction of NIR reciprocal reflance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content \citep{gitelson_relationships_2003} \
 
@@ -211,7 +178,7 @@ LiDAR data is the new standard when it comes to estimating AGB. Common procedure
 
 Recent paper with Jonathan and Van Kane: \
 
-Used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground biomass using Random Forests (RF) for a regional and landscape approach. Field plots (mostly FIA) with self calculated AGB as a response variable to predict AGB from LiDAR derived canopy height and density information (R2 = 0.8, RMSE = 115 Mg ha-1, Bias = 2 Mg ha-1). A stratified random sample of AGB pixels from landscape-level AGB maps then served as training data for predicting AGB regionally from Landsat image time series variables processed through LandTrendr. Climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha-1, Bias = 9 Mg ha-1), including higher AGB values (>400 Mg ha-1) where spectral predictors alone saturate \citep{hudak_carbon_2020}. \
+Used a Carbon Monitoring System (CMS) to produce annual estimates of above-ground biomass using Random Forests (RF) for a regional and landscape approach. Field plots (mostly FIA) with self calculated AGB as a response variable to predict AGB from LiDAR derived canopy height and density information (R2 = 0.8, RMSE = 115 Mg ha-1, Bias = 2 Mg ha-1). A stratified random sample of AGB pixels from landscape-level AGB maps then served as training data for predicting AGB regionally from Landsat image time series variables processed through LandTrendr. Climate metrics calculated from downscaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R2 = 0.8, RMSE = 152 Mg ha-1, Bias = 9 Mg ha-1), including higher AGB values (>400 Mg ha-1) where spectral predictors alone saturate \citep{hudak_carbon_2020}. \
 
 Combination of LiDAR and other remotely sensed information for biomass estimation \
 
@@ -383,7 +350,7 @@ AGB (kg/ha) = volume (m3 / ha) * VEF * WD * BEF + e
 \label {eq:agb}
 \end{equation}
 
-Calculate AGB from field plots using equations from Fire and Fuels Extension (FFE) of the Forest Vegetation Simulator (FVS)\footnote{FVS documentation: \url{https://www.fs.fed.us/fmsc/ftp/fvs/docs/gtr/EssentialFVS.pdf}}. These equations are based on a series of regional volume and biomass equations. The aboveground portion of the live and standing dead trees were summed to a single, plot-level AGB value; the belowground portion of the trees and non-tree species were excluded from the AGB estimates. These plot-level AGB estimates were the response variable for a landscape model \citep{hudak_carbon_2020}.
+Calculate AGB from field plots using equations from Fire and Fuels Extension (FFE) of the Forest Vegetation Simulator (FVS)\footnote{FVS documentation: \url{https://www.fs.fed.us/fmsc/ftp/fvs/docs/gtr/EssentialFVS.pdf}}. These equations are based on a series of regional volume and biomass equations. The above-ground portion of the live and standing dead trees were summed to a single, plot-level AGB value; the belowground portion of the trees and non-tree species were excluded from the AGB estimates. These plot-level AGB estimates were the response variable for a landscape model \citep{hudak_carbon_2020}.
 
 Problems with field data \
 
@@ -417,6 +384,10 @@ Idea: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list \
 \newpage
 
 \section{Landsat}
+
+Landsat data (mainly thematic mapper (TM) 
+
+The deployment of Landsat imagery to refine the machine learning process has been discussed, but any form of implementation still requires testing. While the Landsat data comes at a coarser resolution than the Sentinel-2 imagery it offers a much higher temporal resolution reaching back to 1984. Landsat imagery became publicly available in 2008 and resulted in great interest by researchers. Pixel based image interpolations have been developed recently and are best pratice in generating annual a gap-free image tiles for the period of interest (e.g. growing season). We aim to replicate this procedure using the best available pixel approach (BAP, \cite{white_pixel-based_2014}) in combination with breakpoint detection procedure (Composite2Change, \cite{hermosilla_integrated_2015}) to fill gaps within the Landsat imagery. Normalised Burn Ratio (NBR, \cite{key_landscape_2005}) derived from shortwave infrared bands (SWIR) are currently serving as the best reference indices to assess forest disturbance \citep{kennedy_detecting_2010}. Based on the gap-free tiles we will be able to estimate forest recovery after logging and wildfire events using the normalised burn ratio (NBR, \cite{white_nationwide_2017}). The output will aid us in predicting biomass regeneration of burned areas (30 m). Further, it will allow us to label forest types (from CALVEG) with their expected timespan to return to a pre-fire state. This will be an important indicator to estimate the severity of the fire damage and aid us in estimating above-ground biomass where post-fire LiDAR information is unavailable. 
 
 Available Landsat Data: \
 

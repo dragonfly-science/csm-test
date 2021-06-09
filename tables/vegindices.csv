@@ -4,7 +4,7 @@ RGR (Red Green Ratio),Red / Green,(Sims \& Gamon 2002)
 EVI (Enhanced Vegetation Index),2.5*((NIR - Red)/ (NIR + 1 + 6 * Red + 7.5 * Blue)),(A. Huete et al. 2002)
 SR (Simple ratio),NIR/RED,"(Jordan 1969, Wicaksono et al. 2016)"
 SAVI (Soil-Adjusted Vegetation Index),(NIR - Red)/(NIR + Red + L)* (1 + L),(Huete 1988)
-DVI,NIR - Red,(Zhu et al. 2015)
+DVI,NIR - Red,(Zhu et al. 2017)
 FDI (Forest Discrimination Index),NIR - (Green + Red),(Kamal et al. 2015)
 TNDVI (Transformed Normal Difference vegetation index),sqrt[(NIR - Red)/(NIR + Red) + 0.5],(Castillo et al. 2017)
 Red edge based,,
