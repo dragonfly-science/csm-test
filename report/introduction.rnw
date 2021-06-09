@@ -368,7 +368,7 @@ The National Land Cover Database (NLCD) is updated every five years and stands a
 
 CALVEG \
 
-Vegetation mapping has been completed for all of the National Forest lands of Pacific Southwest Region. Updates and map improvements are scheduled as part of the Monitoring program (aim is to update layers in 15 year intervals). Through cooperative mapping projects, all ownerships within North Interior, Northern Sierras, North Coast and Montane, & South Coast and Montane CALVEG Zones have been completed. Classification processes include detailed field studies and literature reviews\footnote{CALVEG documentation: \url{https://www.fs.fed.us/emc/rig/documents/protocols/vegClassMapInv/EVTG_v2-0_June2015.pdf}}. A map status of the CALVEG Ecological zones has been provided by the USFS (\autoref{fig>calveg}). The dataset can be downloaded as polygon shapefiles for the different zones. \
+Vegetation mapping has been completed for all of the National Forest lands of Pacific Southwest Region. Updates and map improvements are scheduled as part of the Monitoring program (aim is to update layers in 15 year intervals). Through cooperative mapping projects, all ownerships within North Interior, Northern Sierras, North Coast and Montane, \& South Coast and Montane CALVEG Zones have been completed. Classification processes include detailed field studies and literature reviews\footnote{CALVEG documentation: \url{https://www.fs.fed.us/emc/rig/documents/protocols/vegClassMapInv/EVTG_v2-0_June2015.pdf}}. A map status of the CALVEG Ecological zones has been provided by the USFS (\autoref{fig>calveg}). The dataset can be downloaded as polygon shapefiles for the different zones. \
 
 
 \begin{figure}[bp]
@@ -552,7 +552,7 @@ ICESat-2 in combination with land cover data for mapping AGB in Texas (\autoref{
 
 \subsection{LISS-3 (ISRO)}
 
-Satellites provide multispectral images at 24 m (LISS-3) and 56 m (AWiFs) meter resolution (\autoref{tab:resourcesat}). IRS data products are free of charge to all data users including the general public, scientific and commercial users\footnote{USGS EROS Archive: \url{https://www.usgs.gov/centers/eros/science/usgs-eros-archive-isro-resourcesat-1-and-resourcesat-2-awifs?qt-science_center_objects=0#qt-science_center_objects}}. EarthExplorer and USGS Global Visualization Viewer (GloVis) can be used to search, preview, and download ISRO data. In EarthExplorer the IRS AWiFS and IRS LISS-3 datasets are located under the ISRO Resourcesat category. \
+Satellites provide multispectral images at 24 m (LISS-3) and 56 m (AWiFs) meter resolution (\autoref{tab:resourcesat}). IRS data products are free of charge to all data users including the general public, scientific and commercial users\footnote{USGS EROS Archive: \url{https://www.usgs.gov/centers/eros/science/usgs-eros-archive-products-overview}}. EarthExplorer and USGS Global Visualization Viewer (GloVis) can be used to search, preview, and download ISRO data. In EarthExplorer the IRS AWiFS and IRS LISS-3 datasets are located under the ISRO Resourcesat category. \
 
 \begin{table}[bp]
   \caption{Resourcesat Sensor Specifications}
