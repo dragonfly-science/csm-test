@@ -72,7 +72,7 @@ The detailed worfklow to extract, rasterize and align the datasets can be found 
 
 We agreed on a 10 m resolution upscaling since the majority of our datasets will be available in this resolution and only a few bands (e.g. Sentinel-2 red edge, shortwave infrared) come at a coarser resoltion.
 
-The inital model uses a 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm accuracy from the Lake Tahoe National Forest\footnote{Available here: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032017.26910.2}. We downloaded the derived Canopy Height model derived from DSM and DTM. In the future we will derive our own CHM's based on a best available pratice approach and the performance to upscale the processing of the LiDAR point clouds. 
+The inital model uses a 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm accuracy from the Lake Tahoe National Forest\footnote{Available here: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032017.26910.2}}. We downloaded the derived Canopy Height model derived from DSM and DTM. In the future we will derive our own CHM's based on a best available pratice approach and the performance to upscale the processing of the LiDAR point clouds. 
 
 
 
