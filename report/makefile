@@ -5,7 +5,8 @@ KNIT_COMMAND = library(knitr);opts_chunk\$$set(warning=F, message = FALSE,echo=F
 all: report.pdf
 
 report.pdf: report.tex \
-		build/introduction.tex
+		build/introduction.tex \
+		build/methods.tex
 	xelatex $<; biber $(basename $<); xelatex $<; xelatex $<;
 
 
