@@ -1,4 +1,31 @@
 \section{Methods}
 
-Section about PDAL
+GDAL Usage \
 
+The Geospatial Data Abstraction Library or GDAL, is an open source library specifically developed for working with raster and vector geospatial data. For raster processing, GDAL libraries are implemented in the backend across the majority of geospatial software tools used today including ArcGIS, FME, and QGIS. The power in GDAL is its command line capability for geospatial data processing. GDAL is is relatively easy to script/scale, is well doucmented, and works with virtually all major geospatial data types. \
+
+For the purposes of our project, we are levergaing GDAL for all our important raster processing tasks including: \
+
+\begin{enumerate}
+    \item Reprojections (gdalwarp)
+    \item Resampling (gdal\_translate\/gdalwarp)
+    \item Masking (gdal\_translate\/gdalwarp)
+    \item Data type conversions (gdal\_translate)
+    \item Metadata queries (gdalinfo)
+    \item Raster calculations (gdal\_calc.py)
+\end{enumerate}
+
+Additionally, we are implementing GDAL's capabilities to create: \
+
+\begin{enumerate}
+    \item Hillshade
+    \item Slope
+    \item Aspect
+    \item Roughness
+\end{enumerate}
+
+Section about PostGIS/PostgreSQL \
+
+Section about PDAL \
+
+CHM Calculation \
