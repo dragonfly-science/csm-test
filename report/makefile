@@ -1,15 +1,15 @@
 IMAGE := dragonflyscience/dragonverse-18.04:2020-06-08
 
 KNIT_COMMAND = library(knitr);opts_chunk\$$set(warning=F, message = FALSE,echo=F,results='asis',error=FALSE,fig.lp='fig:',fig.path='images/');
+KNITR := $(addprefix build/, $(addsuffix .tex, $(basename $(notdir $(shell find . -name '*.rnw')))))
+
+fast: report.tex $(KNITR)
+	xelatex $<;
 
 all: report.pdf
 
-report.pdf: report.tex \
-		build/introduction.tex \
-		build/methods.tex
+report.pdf: report.tex $(KNITR)
 	xelatex $<; biber $(basename $<); xelatex $<; xelatex $<;
-
-
 
 
 build/%.tex: %.rnw
