@@ -1,19 +1,27 @@
 \section{Methods}
 
-GDAL Usage \
+\subsection{Data inputs}
 
-The Geospatial Data Abstraction Library or GDAL, is an open source library specifically developed for working with raster and vector geospatial data. For raster processing, GDAL libraries are implemented in the backend across the majority of geospatial software tools used today including ArcGIS, FME, and QGIS. The power in GDAL is its command line capability for geospatial data processing. GDAL is is relatively easy to script/scale, is well doucmented, and works with virtually all major geospatial data types. \
+The proof of concept contains 3 datasets (vegetation classification, canopy height model, sentinel-2 derived NDVI).
 
-For the purposes of our project, we are levergaing GDAL for all our important raster processing tasks including: \
+Our initial test region has been anchored North of Lake Tahoe where we accessed a Sentinel-2 imagery for the 9th of May 18:49 (UTC). Within this imagery we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93 pts/m2) accuracy from a publicly available source (OpenTopography, 2014). The dataset provides pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM). In the future we will best practice workflows to achieve this from the raw LiDAR point clouds. Additionally we incorporated a rasterized version of the fire returnal interval departure (FRID 2019) dataset which contains 34 dominant vegetation classes from the CALVEG. All the datasets are projected into California Albers (EPSG:3310) and raster alignment is verified. We then calculate the normalised difference vegetation index (NVDI) from Sentinel-2 bands (NIR \& Red, 10 m). The 1 m resolution canopy height model is used to train the 10x10 m Sentinel-2 pixels using a linear correlation between the mean canopy height and the NDVI values calculated from the spectral bands. The upscaling process predicts mean canopy height for areas where traditional LiDAR is unavailable.
 
-\begin{enumerate}
-    \item Reprojections (gdalwarp)
-    \item Resampling (gdal\_translate\/gdalwarp)
-    \item Masking (gdal\_translate\/gdalwarp)
-    \item Data type conversions (gdal\_translate)
-    \item Metadata queries (gdalinfo)
-    \item Raster calculations (gdal\_calc.py)
-\end{enumerate}
+A detailed documentation for the geospatial processing deployed for our test region can be found on the Github repository\footnote{GitHub repository: \url{https://github.com/Vibrant-Planet/vp-csm}}. Currently GDAL\footnote{GDAL documentation: \url{https://gdal.org/}} is used as the primary source of geospatial processing and all relevant geospatial tools created to convert, reproject and align the datasets are reported. While this initial proof-of-concept is not considered to meet the required level of accuracy, it is designed to demonstrate the overall feasibility of the data collation, exercising all required pathways from data acquisition to output generation.
+
+
+\subsection{GDAL Usage}
+
+The Geospatial Data Abstraction Library or GDAL, is an open source library specifically developed for working with raster and vector geospatial data. For raster processing, GDAL libraries are implemented in the backend across the majority of geospatial software tools used today including ArcGIS, FME, and QGIS. The power in GDAL is its command line capability for geospatial data processing. GDAL is is relatively easy to script/scale, is well doucmented, and works with virtually all major geospatial data types.
+
+For the purposes of our project, we are levergaing GDAL for all our important raster processing tasks including:
+\begin{itemize}
+    \item Reprojections (\texttt{gdalwarp})
+    \item Resampling (\texttt{gdal\_translate/gdalwarp})
+    \item Masking (\texttt{gdal\_translate/gdalwarp})
+    \item Data type conversions (\texttt{gdal\_translate})
+    \item Metadata queries (\texttt{gdalinfo})
+    \item Raster calculations (\texttt{gdal\_calc.py})
+\end{itemize}
 
 Additionally, we are implementing GDAL's capabilities to create: \
 
@@ -29,3 +37,4 @@ Section about PostGIS/PostgreSQL \
 Section about PDAL \
 
 CHM Calculation \
+
