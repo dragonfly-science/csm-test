@@ -1,7 +1,3 @@
-The expansion of Vibrant Planet's platform for natural resource management requires high-quality data to guide forestry management in the state of California. Best practice decision making is currenlty limited to areas where LiDAR datasets are available. Within this model we provide a proof-of-concept how we aim extrapolate point cloud derived canopy height information to the extent of the whole state. The prototype ingests publicly-available data (Sentinel-2 spectral bands, vegetation classification layers) to provide an approximation of relevant information without the deployment of cost intensive LiDAR collection procedures. This documents gives an overview of the state of this project, a brief breakdown of the methodological framework for the prototype and a literature research - revealing the extent of research considered to be deployed. A detailed documentation for geospatial processes, machine learning concepts and data ingestions via AWS can be found on the linked repositories.
-
-\newpage
-
 \section{Introduction}
 
 
