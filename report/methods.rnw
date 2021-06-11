@@ -46,17 +46,24 @@ PDAL 2.3.0
 
 PDAL is an open library written in C++ for managing and processing point cloud data. This tool is similar to LASTools in the Windows envrionment and offers similar capabilities. The advantages for us in using PDAL for this project are many. One, PDAL is an easily scripted tool allowing for scaling. At its core, PDAL utilizes JSON configurations called pipelines and allows us to string multiple processes into single documents. This method for developing individual complex pipelines for point clouds gives us the control needed to run these processes across myriad cores.  Two, PDAL is developed to handle varied point cloud data types outside of the traditional ASPRS LAS. This may be important as we begin to generate surfaces from varied sources. Three, being an open library, we can if needed build additional capabilities in to the tool. One example being, adding additonal libraries for reading LAS and LAZ formats.
 
-In our project, we are implementing PDAL for point cloud filtering plus, generation of Digital Terrain Models (DTM) and Digital Surface Models
+In our project, we are implementing PDAL for point cloud filtering plus, generation of Digital Terrain Models (DTM) and Digital Surface Models (DSM). In a basic PDAL process we will:
+\begin{enumerate}
+    \item Refine point clouds into ground and non-ground points
+    \item Generate Digital Terrain Model (DTM) interpolation from ground points
+    \item Generate Digital Surface Model (DSM) interpolation from highest points
+\end{enumerate}
+
+Results from the generation of the DTM and DSM are then used to calculate the Canopy Height Model (CHM).
+
+PDAL is not developed specifically for the generation of surface grids (rasters); however, does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Noteably, the IDW method does not interpolate over large areas where data is not present. Specifically, in our surface generations, this results in regions of 'nodata' where there are insufficiant ground points for interpolation.  
+
 
 \subsection{Canopy Height Model (CHM) Calculation}
 
 Calculation of the CHM is an important aspect of our project and requires a multistep process. 
-\begin{enumerate}
-    \item Refine point clouds into ground and non-ground points
-    \item Generate Digital Terrain Model (DTM) from ground points
-    \item Generate Digital Surface Model (DSM) from highest points
+\begin{itemize}
     \item Calculate CHM by: \texttt{DSM - DTM}
-\end{enumerate}
+\end{itemize}
 
 \subsection{Testing CHM Generation Methods}
 
