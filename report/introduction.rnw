@@ -1,7 +1,9 @@
 \section{Introduction}
 
+This section provides an overview of the data sources considered and associated methods from the remote sensing and forestry research community.
+The canopy height model (CHM) derived from raw LiDAR point clouds constitutes the 'heart' of the model and will be used to train a machine learning model that can upscale satellite pixels (Sentinel-2) information to a state-wide layer.
 
-This section provides a brief overview of the data sources considered and the state of agreed methodologies. The canopy height model (CHM) derived from raw LiDAR point clouds constitutes the 'heart' of the model and will be used to train satellite pixels (Sentinel-2) to upscale the information to a state-wide layer. While the initial proof-of-concept proposed within this document uses a CHM provided by the OpenTopography database, we already developed workflows to approximate this output and operate with known and scalable datasets which we intent to refine in alignment with Vibrant Planet's quality standards.
+While the initial proof-of-concept proposed within this document uses a CHM provided by the OpenTopography database, we already developed workflows to approximate this output and operate with known and scalable datasets which we intend to refine in alignment with Vibrant Planet's quality standards.
 
 
 Sentinel-2 data
