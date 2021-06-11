@@ -96,8 +96,8 @@ The basic set up for comparison is as follows:
 \begin{enumerate}
     \item Generate DSM/DTM/CHM using PDAL from USGS 3DEP
     \item Generate DSM/DTM/CHM using FUSION according to Vibrant Plant method from USGS 3DEP
-    \item Compare values of PDAL CHM outputs to FUSION CHM outputs
-    \item Compare values of PDAL CHM outputs to OpenTopography CHM outputs
+    \item Compare pixel values of PDAL CHM outputs to FUSION CHM outputs
+    \item Compare pixel values of PDAL CHM outputs to OpenTopography CHM outputs
 \end{enumerate}
 
 Our goal is simply to compare pixel to pixel values, noting the difference between those values, determining if those values fall into a comfortable rangle of difference. It is important to note that no CHM model is perfect and no output can definitively claim to be a perfect model.
@@ -106,7 +106,7 @@ Our goal is simply to compare pixel to pixel values, noting the difference betwe
 
 As noted previously, we are confident with our first generations of a CHM.  Through our testing, we are able to attain similar results to CHM's produced by OpenTopography and Vibrant Planet. We are aware; however, these results can be improved. We plan to continue to explore better methods of interpolation via SAGA and GRASS GIS. We are also likely to explore LAS to surface generation using GRASS GIS.
 
-\subsection{Sentinel Handling}
+\subsection{Sentinel 2 Handling}
 
 Handling and manipulation of Sentinel 2 data is performed using GDAL. Raw Sentinel data comes to us in JP2 format and is projected in its corresponding UTM zone. Our first operations are to being all the Sentinel into a singlular projection, California Albers (EPSG:3310). For the purposes of geopatial oeprations, we also convert images into GeoTiff format. If needed, Sentiel images are resampled into 10m resolution. Our resampling method is to use gdal\_tranlate and to split the pixel, e.g a 20m resolution pixel is split into four new pixels to achieve 10m resolution. 
 
