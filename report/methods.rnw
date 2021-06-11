@@ -62,11 +62,7 @@ We shoud also note, that the solution to 'nodata' regions in the surface generat
 
 \subsection{Canopy Height Model (CHM) Calculation}
 
-<<<<<<< HEAD
 Calculation of the CHM is an important aspect of our project, but a rather easy process. 
-=======
-Calculation of the CHM is an important aspect of our project and requires a multistep process.
->>>>>>> bc73cc2b9910ba811caa55a31e08aec0e6000f61
 \begin{itemize}
     \item Calculate CHM by: \texttt{DSM - DTM}
 \end{itemize}
@@ -104,9 +100,9 @@ Our goal is simply to compare pixel to pixel values, noting the difference betwe
 
 \subsection{Additional Refinement for CHM Generation Methods}
 
-As noted previously, we are confident wth our first generations of a CHM.  Through our testing, we are able to attain similar results to CHM's produced by OpenTopography and Vibrant Planet. We are aware; however, these results can be improved. We plan to continue to explore better methods of interpolation via SAGA and GRASS GIS. We are also likely to explore LAS to surface generation using GRASS GIS.
+As noted previously, we are confident with our first generations of a CHM.  Through our testing, we are able to attain similar results to CHM's produced by OpenTopography and Vibrant Planet. We are aware; however, these results can be improved. We plan to continue to explore better methods of interpolation via SAGA and GRASS GIS. We are also likely to explore LAS to surface generation using GRASS GIS.
 
 \subsection{Sentinel Handling}
 
-\subsection{Alignments}
+Handling and manipulation of Sentinel 2 data is performed using GDAL. Raw Sentinel data comes to us in JP2 format and is projected in its corresponding UTM zone. Our first operations are to being all the Sentinel into a singlular projection, California Albers (EPSG:3310). For the purposes of geopatial oeprations, we also convert images into GeoTiff format. If needed, Sentiel images are resampled into 10m resolution. Our resampling method is to use gdal\_tranlate and to split the pixel, e.g a 20m resolution pixel is split into four new pixels to achieve 10m resolution. 
 
