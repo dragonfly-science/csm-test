@@ -39,11 +39,13 @@ PostgreSQL > V13.3
 
 PostGIS > V2.4
 
-PostgreSQL used to manage vector data as tables. PostGIS is an extention for PostgreSQL providing capabilites to manage these tables as geospatial layers. Vector data is uploaded to PostgreSQL using ogr2ogr. This method allows us to directly load FDGB file types to our database without the need to covert to shapefile first.  In our project, vector data requires cleaning and the correction of invalid geometries. PostGIS is an excellent tool for this. This step is necessary for upstream processes like rasterization.  Once clean, we export the tables to a single merged shapefile, again using ogr2ogr.
+PostgreSQL used to manage vector data as tables. PostGIS is an extention for PostgreSQL providing capabilites to manage these tables as geospatial layers. Vector data is uploaded to PostgreSQL using ogr2ogr. This method allows us to directly load FDGB file types to our database without the need to covert to shapefile first. Conversion to shapefile truncates the coloumn names; therefore, this is very useful tool helping keep our data intact. Utilizing ogr2ogr as our upload also allows us to force all geometires to multiploygon, further cleaning and generalizing the data.
+
+Both the Calveg and FRID require cleaning and correction of invalid geometries. These are large complex data sets containing millions of verticies and complex geometries. PostGIS is an excellent tool for handling these types of large operations. Cleaning is a necessary step for upstream processes like rasterization, but also necessary to work with the data properly.  Once clean, we export the tables using ogr2ogr. Using this command as an export provides us the opportunity to build a single unified shapefile.  Working with a single shapefile, although large, permits easy clips of the data using a bounding box. In the future, it is more likley we will skip the export back to shapefile and query regions directly from the PostgreSQL table instead, levergaing the speed and power of properly indexed data.  For now, our process is tested and functioning. 
 
 \subsection{Vector Rasterization}
 
-Rasterization of vectors is necessary for our machine learning models. If we are doing pixel to pixel comparisons, the vector data must be in the same format.  Rather than rasterizing the entire vector data set, we clip the data in the shapefile as needed and perfrom the rasterization on the fly.  At the time of the conversion we pass the necessary extents and resolution for the output. We've found this method to be quick since the read and storage of vector data is more efficient. 
+Rasterization of vectors is necessary for our machine learning models. If we are doing pixel to pixel comparisons, the vector data must be in the same format.  Rather than rasterizing the entire vector data set, we clip the data in the shapefile as needed and perfrom the rasterization on the fly.  At the time of the conversion to raster we pass the necessary extents and resolution for the output. We've found this method to be quick since the read and storage of vector data is more efficient. 
 
 \subsection{Point Cloud Data Abstraction Library (PDAL) Usage}
 
@@ -60,7 +62,7 @@ In our project, we are implementing PDAL for point cloud filtering plus, generat
 
 Results from the generation of the DTM and DSM are then used to calculate the Canopy Height Model (CHM).
 
-PDAL is not developed specifically for the generation of surface grids (rasters); however, does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Noteably, the IDW method does not interpolate over large areas where data is not present. Specifically, in our surface generations, this results in regions of 'nodata' where there are insufficiant ground points for interpolation.  This is a known outcome and currently addressed by increasing the window size for the IDW to search for neighboring points.  Currently, we are confident in this solution for addressing 'nodata' regions of the surface model; however, we are continuing to research other solutions.
+PDAL is not developed specifically for the generation of surface grids (rasters); however, it does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Noteably, the IDW method does not interpolate over large areas where data is not present. Specifically, in our surface generations, this results in regions of 'nodata' where there are insufficiant ground points for interpolation.  This is a known outcome and currently addressed by increasing the window size for the IDW to search for neighboring points.  Currently, we are confident in this solution for addressing 'nodata' regions of the surface model; however, we are continuing to research other solutions.
 
 We shoud also note, that the solution to 'nodata' regions in the surface generation can be solved through the creation of Triangulated Irregular Network (TIN) models. TIN models are not an interpolation, but rather a surface generated by connecting points via a triangulated network. Generating TIN models is an excellent method for surface creation of sparsely populated datasets. We have not ruled out the usage of these models; however, due to the point density for our test regions being high, we landed on IDW as our preferred method for the intial surface generation.
 
@@ -75,7 +77,7 @@ We are using \texttt{gdal\_calc.py} for this operation. Gdal{\_}calc.py is a com
 
 \subsection{Testing CHM Generation Methods}
 
-Since we are generating surfaces from raw LAS/LAZ point clouds, we needed a method to compare our outputs to existing models.  
+It is important to note that no CHM model is perfect and no output can definitively claim to be a perfect model. Since we are generating surfaces from raw LAS/LAZ point clouds, we needed a method to compare our outputs to existing models.  
 
 For our experimentation, we collected a set of data to compare our outputs to:
 \begin{itemize}
@@ -100,7 +102,7 @@ The basic set up for comparison is as follows:
     \item Compare pixel values of PDAL CHM outputs to OpenTopography CHM outputs
 \end{enumerate}
 
-Our goal is simply to compare pixel to pixel values, noting the difference between those values, determining if those values fall into a comfortable rangle of difference. It is important to note that no CHM model is perfect and no output can definitively claim to be a perfect model.
+Our goal is simply to compare pixel to pixel values, noting the difference between those values, determining if those values fall into a comfortable range of difference. Output models are first compared visually to see if we are moving the right direction with our processes.  We check for visual simlarities between the datasets, e.g. basic tree shapes, structures, and objects align.  Next, we move to individual pixel comparisons by hand checking low and high points for randomely sected areas.  Finally, we move to raster calculations differencing the entire datasets looking for mean difference in height and checking the standard deviations. 
 
 \subsection{Additional Refinement for CHM Generation Methods}
 
