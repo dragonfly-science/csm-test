@@ -13,7 +13,7 @@ A detailed documentation for the geospatial processing deployed for our test reg
 
 The Geospatial Data Abstraction Library or GDAL, is an open source library specifically developed for working with raster and vector geospatial data. For raster processing, GDAL libraries are implemented in the backend across the majority of geospatial software tools used today including ArcGIS, FME, and QGIS. The power in GDAL is its command line capability for geospatial data processing. GDAL is is relatively easy to script/scale, is well doucmented, and works with virtually all major geospatial data types.
 
-For the purposes of our project, we are levergaing GDAL for all our important raster processing tasks including:
+For the purposes of our project, we are levergaing GDAL 3.2.2 for all our important raster processing:
 \begin{itemize}
     \item Reprojections (\texttt{gdalwarp})
     \item Resampling (\texttt{gdal\_translate/gdalwarp})
@@ -21,20 +21,40 @@ For the purposes of our project, we are levergaing GDAL for all our important ra
     \item Data type conversions (\texttt{gdal\_translate})
     \item Metadata queries (\texttt{gdalinfo})
     \item Raster calculations (\texttt{gdal\_calc.py})
+    \item Rasterization (\texttt{gdal\_rasterize})
 \end{itemize}
 
-Additionally, we are implementing GDAL's capabilities to create: \
-
-\begin{enumerate}
+Additionally, we are implementing GDAL's capabilities to create:
+\begin{itemize}
     \item Hillshade
     \item Slope
     \item Aspect
     \item Roughness
+\end{itemize}
+
+\subsection{PostGIS/PostgreSQL Usage}
+
+PostgreSQL V13.3
+
+PostGIS > 2.4
+
+\subsection{PDAL Usage}
+
+PDAL 2.3.0
+
+\subsection{Canopy Height Model (CHM) Calculation}
+
+Calculation of the CHM is an important aspect of our project and requires a multistep process. 
+\begin{enumerate}
+    \item Refine point clouds to ground and non-ground points
+    \item Generate Digital Terrain Model (DTM) from ground points
+    \item Generate Digital Surface Model (DSM) from highest points
+    \item Calculate CHM by: \texttt{DSM - DTM}
 \end{enumerate}
 
-Section about PostGIS/PostgreSQL \
+\subsection{Testing CHM Generation Methods}
 
-Section about PDAL \
 
-CHM Calculation \
+
+\subsection{Sentinel Handling}
 
