@@ -1,3 +1,4 @@
+\newpage
 \section{Introduction}
 
 This section provides an overview of the data sources considered and associated methods from the remote sensing and forestry research community.

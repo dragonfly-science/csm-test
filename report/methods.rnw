@@ -1,3 +1,4 @@
+\newpage
 \section{Methods}
 
 \subsection{Data inputs}
@@ -46,7 +47,7 @@ PDAL 2.3.0
 
 \subsection{Canopy Height Model (CHM) Calculation}
 
-Calculation of the CHM is an important aspect of our project and requires a multistep process. 
+Calculation of the CHM is an important aspect of our project and requires a multistep process.
 \begin{enumerate}
     \item Refine point clouds into ground and non-ground points
     \item Generate Digital Terrain Model (DTM) from ground points
