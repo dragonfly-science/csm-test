@@ -102,7 +102,9 @@ The basic set up for comparison is as follows:
     \item Compare pixel values of PDAL CHM outputs to OpenTopography CHM outputs
 \end{enumerate}
 
-Our goal is simply to compare pixel to pixel values, noting the difference between those values, determining if those values fall into a comfortable range of difference. Output models are first compared visually to see if we are moving the right direction with our processes.  We check for visual simlarities between the datasets, e.g. basic tree shapes, structures, and objects align.  Next, we move to individual pixel comparisons by hand checking low and high points for randomely sected areas.  Finally, we move to raster calculations differencing the entire datasets looking for mean difference in height and checking the standard deviations. 
+Our goal is simply to compare pixel to pixel values, noting the difference between those values, determining if those values fall into a comfortable range of differences. Output models are first compared visually to see if we are moving the right direction with our processes.  We check for visual simlarities between the datasets, e.g. basic tree shapes, structures, and objects align.  Next, we move to individual pixel comparisons by hand checking low and high points for randomely selected areas.  Finally, we move to raster calculations differencing the entire datasets looking for mean difference in height and checking the standard deviations. 
+
+We've tested more densly forrested regions, suburban regions with tree cover, and more urban regions.  
 
 \subsection{Additional Refinement for CHM Generation Methods}
 
@@ -111,4 +113,8 @@ As noted previously, we are confident with our first generations of a CHM.  Thro
 \subsection{Sentinel 2 Handling}
 
 Handling and manipulation of Sentinel 2 data is performed using GDAL. Raw Sentinel data comes to us in JP2 format and is projected in its corresponding UTM zone. Our first operations are to being all the Sentinel into a singlular projection, California Albers (EPSG:3310). For the purposes of geopatial oeprations, we also convert images into GeoTiff format. If needed, Sentiel images are resampled into 10m resolution. Our resampling method is to use gdal\_tranlate and to split the pixel, e.g a 20m resolution pixel is split into four new pixels to achieve 10m resolution. 
+
+\subsection{Pixel Alignment}
+
+In order to have clean pixel sampling, we need to ensure all our data aligns to be the best of our abilities.  This is ensured through several processes. First, projection. All data for our project is ensure to be in the same projectio wih the smae origin. Second, resolution. Each data set is always forced into a 10m resolution when GDAl commands allow.  Third, extents.  extents are always captured the the beginning of a process and reapplied to the outputs. Forth, scripting.  Scripting allows us to build repeatable processes capturing all the perameters needed along the way.  
 
