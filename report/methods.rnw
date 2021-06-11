@@ -35,11 +35,15 @@ Additionally, we are implementing GDAL's capabilities to create:
 
 \subsection{PostGIS/PostgreSQL Usage}
 
-PostgreSQL used to manage vector data as tables. PostGIS is an extention for PostgreSQL providing capabilites to manage these tables as geospatial layers.
-
 PostgreSQL > V13.3
 
 PostGIS > V2.4
+
+PostgreSQL used to manage vector data as tables. PostGIS is an extention for PostgreSQL providing capabilites to manage these tables as geospatial layers. Vector data is uploaded to PostgreSQL using ogr2ogr. This method allows us to directly load FDGB file types to our database without the need to covert to shapefile first.  In our project, vector data requires cleaning and the correction of invalid geometries. PostGIS is an excellent tool for this. This step is necessary for upstream processes like rasterization.  Once clean, we export the tables to a single merged shapefile, again using ogr2ogr.
+
+\subsection{Vector Rasterization}
+
+Rasterization of vectors is necessary for our machine learning models. If we are doing pixel to pixel comparisons, the vector data must be in the same format.  Rather than rasterizing the entire vector data set, we clip the data in the shapefile as needed and perfrom the rasterization on the fly.  At the time of the conversion we pass the necessary extents and resolution for the output. We've found this method to be quick since the read and storage of vector data is more efficient. 
 
 \subsection{Point Cloud Data Abstraction Library (PDAL) Usage}
 
