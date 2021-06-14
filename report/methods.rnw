@@ -84,22 +84,22 @@ To demonstrate our confidence in our CHM model the prototype development is prec
 
 In the accuracy assessment we will use the OpenTopography provided model (1) as a reference against the Fusion (2) and PDAL (3) generated outputs. While the OpenTopography workflows to achieve these layers are not documented, the products have been tested in regions with distinctive ridgelines and steep (e.g. grand canyon\footnote{Opentopography CHM: \url{https://opentopography.org/news/opentopography-releases-canopy-height-model-tool}}) . We provided Vibrant Planet with the DTM and point cloud from Opentopography to calculate a CHM within Fusion. For the third CHM model we used the raw point cloud to generate our own CHM model using PDAL and GDAL pipelines: 
 
-\begin{numerise}
+\begin{enumerate}
 	\item CHM provided by Opentopography using their own DTM and DSM (all 1 m2)
 	\item CHM generated in Fusion using a DTM provided by Opentopography
 	\item CHM generated with PDAL and GDAL using the raw point cloud
-\end{numerise}
+\end{enumerate}
 
 CHM (2), Fusion workflow:
 
 The Fusion workflow to create a CHM uses the DTM provided by Opentopography and has been produced by Vibrant Planet using the following steps:
 
-\begin{numerise}
+\begin{enumerate}
 	\item Conversion of *.tif file into *.asc using ArcGIS
 	\item Conversion of *.asc into *.dtm to ingest into Fusion using unbuilt ‘ASCII2DTM’ function 
 	\item Producing a CHM using the converted DTM and raw point cloud information
 	\item  Conversion of the CHM from *.dtm to *.tif using Fusion ‘DTM2TIF’ function
-\end{numerise}
+\end{enumerate}
 
 The resulting CHM (2) will be used in the consecutive accuracy assessment to compare it against the Opentopography generated CHM (1). 
 
