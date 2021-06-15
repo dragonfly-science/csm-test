@@ -3,7 +3,7 @@
 
 The combined Lemon Canyon blend (\autoref{fig:lemonCanyon-blend}) shows that the DSM is working great!
 
-\begin{figure}
+\begin{figure}[bp]
 
   \includegraphics[width=0.9\textwidth]{s3/dataVis/images/lemonCanyon/sentinel_10m_DSMDragonfly_blend.jpeg}
   \caption{Something about the DSM Dragonfly blend}
