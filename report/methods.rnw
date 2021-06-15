@@ -4,7 +4,7 @@
 
 The method section describes the selected Geospatial Tools and documents the workflows to develop the accuracy assessment (Lemon Canyon) and upscaling-prototype of our test region (Lake Tahoe basin). Currently GDAL\footnote{GDAL documentation: \url{https://gdal.org/}} is used as the primary source of geospatial processing and all relevant geospatial tools created to convert, reproject and align the datasets are reported below. A detailed documentation for the geospatial processing deployed for our test region can be found on the Github repository\footnote{GitHub repository: \url{https://github.com/Vibrant-Planet/vp-csm}}. While this initial proof-of-concept is not considered to meet the required level of accuracy, it is designed to demonstrate the overall feasibility of the data collation, exercising all required pathways from data acquisition to output generation.
 
-\section Geospatial Tools
+\subsection{Geospatial Tools}
 
 \subsection{Geospatial Data Abstraction Library (GDAL) Usage}
 
@@ -142,6 +142,4 @@ for results/discussion:
 As noted previously, we are confident with our first generations of a CHM.  Through our testing, we are able to attain similar results to CHM's produced by OpenTopography and Vibrant Planet. We are aware; however, these results can be improved. We plan to continue to explore better methods of interpolation via SAGA and GRASS GIS. We are also likely to explore LAS to surface generation using GRASS GIS.
 
 Generating TIN models is an excellent method for surface creation of sparsely populated datasets. We have not ruled out the usage of these models; however, due to the point density for our test regions being high, we landed on IDW as our preferred method for the intial surface generation.
-
-
 
