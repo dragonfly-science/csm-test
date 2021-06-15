@@ -20,7 +20,7 @@ build/%.tex: %.rnw
 
 syncs3:
 	mkdir -p s3/
-	s3cmd sync s3://vibrant-planet/ s3/
+	aws s3 sync s3://vibrant-planet/ s3/
 
 .PHONY: clean
 clean:
