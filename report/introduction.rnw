@@ -77,7 +77,7 @@ SNAP is an open source common architecture for ESA Toolboxes ideal for the explo
 
 
 \newpage
-\subsubsection{Vegetation Indices} \
+\subsubsection{Vegetation Indices}
 
 Vegetation indices including near-infrared wavelength have weaker relationships with biomass than those including shortwave infrared wavelength, especially for forest sites with complex stand structures. The results of image transformations such as the first principal component from the PCA showed stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass \citep{lu_survey_2016}. \
 
