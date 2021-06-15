@@ -5,7 +5,12 @@ The combined Lemon Canyon blend (\autoref{fig:lemonCanyon-blend}) shows that the
 
 \begin{figure}[bp]
 
-  \includegraphics[width=0.9\textwidth]{s3/images/lemonCanyon/lemonCanyon.googleEarth.DSM.fly.jpeg}
+  % This one doesn't work
+  %\includegraphics[width=0.9\textwidth]{s3/images/lemonCanyon/lemonCanyon.googleEarth.DSM.fly.jpeg}
+  % This one doesn't work
+  %\includegraphics[width=0.9\textwidth]{s3/images/lemonCanyon/lemonCanyon.DTM.fly.jpeg}
+  % This one does work !
+  \includegraphics[width=0.9\textwidth]{s3/dataVis/images/lemonCanyon/DSM_dragonfly.jpeg}
   \caption{Something about the DSM Dragonfly blend}
   \label{fig:lemonCanyon-blend}
 \end{figure}
