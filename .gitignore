@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 report/build
+s3.conf
+report/s3

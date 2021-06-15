@@ -1,4 +1,4 @@
-IMAGE := dragonflyscience/dragonverse-18.04:2020-06-08
+IMAGE := dragonflyscience/dragonverse-18.04:2020-08-12
 
 KNIT_COMMAND = library(knitr);opts_chunk\$$set(warning=F, message = FALSE,echo=F,results='asis',error=FALSE,fig.lp='fig:',fig.path='images/');
 KNITR := $(addprefix build/, $(addsuffix .tex, $(basename $(notdir $(shell find . -name '*.rnw')))))
@@ -16,6 +16,11 @@ report.pdf: report.tex $(KNITR) $(TEX)
 build/%.tex: %.rnw
 	mkdir -p build/images
 	Rscript --vanilla -e "$(KNIT_COMMAND) knit('$(<F)',output='build/$(@F)')"
+
+
+syncs3:
+	mkdir -p s3/
+	s3cmd sync s3://vibrant-planet/ s3/
 
 .PHONY: clean
 clean:
