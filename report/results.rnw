@@ -3,16 +3,15 @@
 
 The combined Lemon Canyon blend shows that the DSM is working great!
 
-\begin{figure}[bp]
-  \includegraphics[width=0.36\textwidth,natwidth=210,natheight=210]{s3/images/lemonCanyon/lemonCanyon.googleEarth.DSM.fly.jpeg}
-  \caption{Something about the DSM Dragonfly blend}
-  \label{fig:lemonCanyon-blend}
-\end{figure}
 
-The Lemon Canyon CHM!
+\begin{table}[htbp]
+  \begin{center}
+    \begin{tabular}{cc}
+      \includegraphics[scale=0.5]{s3/images/lemonCanyon/googleEarth.png} & 
+      \includegraphics[scale=0.5]{s3/images/lemonCanyon/CHMfly.png} \\
+      \includegraphics[scale=0.5]{s3/images/lemonCanyon/CHMtopo.png} & 
+      \includegraphics[scale=0.5]{s3/images/lemonCanyon/CHMvp.png} \\
+    \end{tabular}
+  \end{center}
+\end{table}
 
-\begin{figure}[bp]
-  \includegraphics[width=0.36\textwidth,natwidth=210,natheight=210]{s3/images/lemonCanyon/lemonCanyon.CHM.fly.jpeg}
-  \caption{Something about the CHM Dragonfly}
-  \label{fig:lemonCanyon-chm}
-\end{figure}
