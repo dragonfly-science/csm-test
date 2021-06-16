@@ -8,3 +8,11 @@ The combined Lemon Canyon blend shows that the DSM is working great!
   \caption{Something about the DSM Dragonfly blend}
   \label{fig:lemonCanyon-blend}
 \end{figure}
+
+The Lemon Canyon CHM!
+
+\begin{figure}[bp]
+  \includegraphics[width=0.36\textwidth,natwidth=210,natheight=210]{s3/images/lemonCanyon/lemonCanyon.CHM.fly.jpeg}
+  \caption{Something about the CHM Dragonfly}
+  \label{fig:lemonCanyon-chm}
+\end{figure}
