@@ -1,14 +1,10 @@
 \newpage
 \section{Results}
 
-The combined Lemon Canyon blend (\autoref{fig:lemonCanyon-blend}) shows that the DSM is working great!
+The combined Lemon Canyon blend shows that the DSM is working great!
 
 \begin{figure}[bp]
-
-  % This one doesn't work
-  %\includegraphics[width=0.9\textwidth]{s3/images/lemonCanyon/lemonCanyon.googleEarth.DSM.fly.jpeg}
-  % This one doesn't work
-  %\includegraphics[width=0.9\textwidth]{s3/images/lemonCanyon/lemonCanyon.DTM.fly.jpeg}
+  \includegraphics[width=0.36\textwidth,natwidth=210,natheight=210]{s3/images/lemonCanyon/lemonCanyon.googleEarth.DSM.fly.jpeg}
   \caption{Something about the DSM Dragonfly blend}
   \label{fig:lemonCanyon-blend}
 \end{figure}
