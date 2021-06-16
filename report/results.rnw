@@ -1,17 +1,45 @@
 \newpage
 \section{Results}
 
-The combined Lemon Canyon blend shows that the DSM is working great!
+The following are outputs from...
 
 
 \begin{table}[htbp]
-  \begin{center}
-    \begin{tabular}{cc}
-      \includegraphics[scale=0.5]{s3/images/lemonCanyon/googleEarth.png} & 
-      \includegraphics[scale=0.5]{s3/images/lemonCanyon/CHMfly.png} \\
-      \includegraphics[scale=0.5]{s3/images/lemonCanyon/CHMtopo.png} & 
-      \includegraphics[scale=0.5]{s3/images/lemonCanyon/CHMvp.png} \\
-    \end{tabular}
-  \end{center}
+\caption {CHM Output Results} \label{tab:title} 
+  \centering
+    \begin{tabularx}{\textwidth}{XX}
+      \includegraphics[scale=0.57]{s3/images/lemonCanyon/googleEarth.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{Google Earth}\label{fig:taba} & 
+      \includegraphics[scale=0.57]{s3/images/lemonCanyon/CHMfly.png} 
+      \captionsetup{justification=centering}     
+      \captionof{figure}{CHM Dragonfly}\label{fig:tabb}  \\
+      \includegraphics[scale=0.57]{s3/images/lemonCanyon/CHMtopo.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{CHM OpenTopography}\label{fig:tabc}  & 
+      \includegraphics[scale=0.57]{s3/images/lemonCanyon/CHMvp.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{CHM Vibrant Planet}\label{fig:tabd}  \\
+    \end{tabularx}
 \end{table}
 
+The following are surface outputs from...
+
+\begin{table}[htbp]
+\caption {Surface Output Visualisations} \label{tab:title} 
+  \centering
+    \begin{tabularx}{\textwidth}{XX}
+      \includegraphics[scale=0.57]{s3/images/lemonCanyon/googleEarthDSMflyBlend.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{Google Earth Blended with DF DSM}\label{fig:taba} & 
+      \includegraphics[scale=0.57]{s3/images/lemonCanyon/DSMfly.png} 
+      \captionsetup{justification=centering}     
+      \captionof{figure}{DSM Dragonfly}\label{fig:tabb}  \\
+      \includegraphics[scale=0.57]{s3/images/lemonCanyon/DTMfly.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{DTM Dragonfly}\label{fig:tabc}  & 
+      \includegraphics[scale=0.57]{s3/images/lemonCanyon/DTMtopo.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{DTM OpenTopography}\label{fig:tabd}  \\
+    \end{tabularx}
+\end{table}
