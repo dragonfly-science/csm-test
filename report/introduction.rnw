@@ -529,16 +529,16 @@ ICESat-2 for mapping forest biomass with deep learning \citep{narine_synergy_201
 ICESat-2 in combination with land cover data for mapping AGB in Texas (\autoref{fig:icesat}, \cite{narine_using_2020}). Extrapolation of ICESat-2-derived AGB estimates from segments along the ICESat-2 transect, to 30 m pixels across the study site was carried out with RF, using Landsat and NLCD products. Results are indicative of the utility of ICESat-2 data for characterizing AGB. As more ICESat-2 tracks become available and with the availability of corresponding reference data, an improved understanding of the data and their ability to characterize vegetation structure will be gleaned. Nonetheless, possibilities with the data, including synergistic use with freely available data from other space-based missions, including GEDI, are exciting. Future work will involve the application of the methodology for regional-scale mapping with corresponding uncertainty analyses and an investigation of deep-learning approaches with multi-source data \citep{narine_using_2020}.
 
 
-\begin{figure}[ht]
-  \includegraphics[scale=0.5]{../figures/icesat.png}
-  \caption{Regression models for estimating AGB with ICESat-2 data from the strong beam and weak beam (Narine et al., 2020)}
-  \label{fig:icesat}
-\end{figure}
+%\begin{figure}[ht]
+%  \includegraphics[scale=0.5]{../figures/icesat.png}
+%  \caption{Regression models for estimating AGB with ICESat-2 data from the strong beam and weak beam (Narine et al., 2020)}
+%  \label{fig:icesat}
+%\end{figure}
 
 
 \subsubsection{LISS-3 (ISRO)}
 
-Satellites provide multispectral images at 24 m (LISS-3) and 56 m (AWiFs) meter resolution (\autoref{tab:resourcesat}). IRS data products are free of charge to all data users including the general public, scientific and commercial users\footnote{USGS EROS Archive: \url{https://www.usgs.gov/centers/eros/science/usgs-eros-archive-products-overview}}. EarthExplorer and USGS Global Visualization Viewer (GloVis) can be used to search, preview, and download ISRO data. In EarthExplorer the IRS AWiFS and IRS LISS-3 datasets are located under the ISRO Resourcesat category. \
+Satellites provide multispectral images at 24 m (LISS-3) and 56 m (AWiFs) meter resolution (\autoref{tab:resourcesat}). IRS data products are free of charge to all data users including the general public, scientific and commercial users\footnote{USGS EROS Archive: \url{https://www.usgs.gov/centers/eros/science/usgs-eros-archive-products-overview}}. EarthExplorer and USGS Global Visualization Viewer (GloVis) can be used to search, preview, and download ISRO data. In EarthExplorer the IRS AWiFS and IRS LISS-3 datasets are located under the ISRO Resourcesat category.
 
 \begin{table}[bp]
   \caption{Resourcesat Sensor Specifications}
