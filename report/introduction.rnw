@@ -358,7 +358,7 @@ Vegetation mapping has been completed for all of the National Forest lands of Pa
 
 
 \begin{figure}[ht]
-  \includegraphics[scale=0.5]{../figures/calveg.jpg}
+  \includegraphics[scale=0.5]{../figures/calveg.png}
   \caption{Current status of the CALVEG vegetation classification program for California (USFS)}
   \label{fig:calveg}
 \end{figure}
