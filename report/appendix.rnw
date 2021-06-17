@@ -4,3 +4,47 @@
 \section{Appendix}
 
 As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results.  
+
+Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
+
+\begin{table}[H]
+\caption {CHM Output Results} \label{tab:title} 
+  \centering
+    \begin{tabularx}{\textwidth}{XX}
+      \includegraphics[scale=0.57]{s3/images/lakeTahoe/googleEarth.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{Google Earth}\label{fig:taba} & 
+      \includegraphics[scale=0.57]{s3/images/lakeTahoe/CHMfly.png} 
+      \captionsetup{justification=centering}     
+      \captionof{figure}{CHM Dragonfly}\label{fig:tabb}  \\
+      \includegraphics[scale=0.57]{s3/images/lakeTahoe/CHMtopo.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{CHM OpenTopography}\label{fig:tabc} \\
+    \end{tabularx}
+
+    \caption{Heights for Canopy Height Model (CHM): heights shown in meters}
+    \begin{tabularx}{0.9\textwidth}{XXXXX}
+      \cellcolor{black}\textcolor{White}0 & \cellcolor{darkPurple}\textcolor{White}{10} & \cellcolor{Purple}\textcolor{White}{20} & \cellcolor{Pink}\textcolor{White}{30} & \cellcolor{Yellow}\textcolor{lightGray}{40+}
+    \end{tabularx}
+\end{table} 
+
+Results for surface generation in Lake Tahoe Test Region
+
+\begin{table}[H]
+\caption {Surface Output Visualisations for Lake Tahoe Region} \label{tab:title} 
+  \centering
+    \begin{tabularx}{\textwidth}{XX}
+      \includegraphics[scale=0.57]{s3/images/lakeTahoe/googleEarth.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{Google Earth Satellite}\label{fig:taba} & 
+      \includegraphics[scale=0.57]{s3/images/lakeTahoe/DSMfly.png} 
+      \captionsetup{justification=centering}     
+      \captionof{figure}{DSM Dragonfly}\label{fig:tabb}  \\
+      \includegraphics[scale=0.57]{s3/images/lakeTahoe/DTMfly.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{DTM Dragonfly}\label{fig:tabc}  & 
+      \includegraphics[scale=0.57]{s3/images/lakeTahoe/DTMtopo.png}
+      \captionsetup{justification=centering}
+      \captionof{figure}{DTM OpenTopography}\label{fig:tabd}  \\
+    \end{tabularx}
+\end{table}
