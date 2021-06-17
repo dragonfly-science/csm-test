@@ -357,11 +357,11 @@ CALVEG \
 Vegetation mapping has been completed for all of the National Forest lands of Pacific Southwest Region. Updates and map improvements are scheduled as part of the Monitoring program (aim is to update layers in 15 year intervals). Through cooperative mapping projects, all ownerships within North Interior, Northern Sierras, North Coast and Montane, \& South Coast and Montane CALVEG Zones have been completed. Classification processes include detailed field studies and literature reviews\footnote{CALVEG documentation: \url{https://www.fs.fed.us/emc/rig/documents/protocols/vegClassMapInv/EVTG_v2-0_June2015.pdf}}. A map status of the CALVEG Ecological zones has been provided by the USFS (\autoref{fig>calveg}). The dataset can be downloaded as polygon shapefiles for the different zones. \
 
 
-\begin{figure}[ht]
-  \includegraphics[scale=0.5]{../figures/calveg.png}
-  \caption{Current status of the CALVEG vegetation classification program for California (USFS)}
-  \label{fig:calveg}
-\end{figure}
+%\begin{figure}[ht]
+%  \includegraphics[scale=0.5]{../figures/calveg.png}
+%  \caption{Current status of the CALVEG vegetation classification program for California (USFS)}
+%  \label{fig:calveg}
+%\end{figure}
 
 FRID \
 
