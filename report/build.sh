@@ -2,6 +2,8 @@
 
 set ex
 
+export RUN=
+
 make syncs3
 
 make report.pdf
