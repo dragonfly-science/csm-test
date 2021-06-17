@@ -463,11 +463,11 @@ Nationwide forest regeneration study after logging and wildfire (Canada; \cite{w
 Identified national trends in forest disturbance and recovery by disturbance type (1985–2010). 57.5 Mha of Canada's forests were disturbed by wildfire (71%) and harvest (29%). First national spatially-explicit map of harvesting in Canada at a 30 m resolution. Greater variability in annual area disturbed by wildfire compared to harvest. Spectral recovery metrics indicate that vegetation returns following disturbance via an NBR based approach \autoref{fig:nbrtimeseries}. \
 
 
-\begin{figure}[ht]
-  \includegraphics[scale=0.7]{../figures/nbrtimeseries.png}
-  \caption{Schematic of nbr recovery metrics: deltaNBR-regrowth, Recovery Indicator (RI), and year of recovery (Y2R) (taken from White et al., 2017)}
-  \label{fig:nbrtimeseries}
-\end{figure}
+%\begin{figure}[ht]
+%  \includegraphics[scale=0.7]{../figures/nbrtimeseries.png}
+%  \caption{Schematic of nbr recovery metrics: deltaNBR-regrowth, Recovery Indicator (RI), and year of recovery (Y2R) (taken from White et al., 2017)}
+%  \label{fig:nbrtimeseries}
+%\end{figure}
 
 Papers: \
 
