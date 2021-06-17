@@ -116,7 +116,7 @@ Estimating AGB in in tropical forest using Sentinel-1 (SAR) and vegetation indic
 
 \subsubsection{Normalised Burn Ratio}
 
-The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones and can be derived from landsat or sentinel imagery. The formula is similar to NDVI \autoref{eq:nbr}, except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths \autoref{fig:nbr-overview}. It can also be used to monitor forest disturbanches such as logging activities \citep{shimizu_using_2016}.The formula is similar to NDVI, NBR uses the ratio between NIR and SWIR bands. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero. \
+The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones and can be derived from landsat or sentinel imagery. The formula is similar to NDVI (\autoref{eq:nbr}), except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths \autoref{fig:nbr-overview}. It can also be used to monitor forest disturbanches such as logging activities \citep{shimizu_using_2016}.The formula is similar to NDVI, NBR uses the ratio between NIR and SWIR bands. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero. \
 
 \begin{equation}
 NBR = (NIR-SWIR)/(NIR+SWIR)
@@ -125,10 +125,10 @@ NBR = (NIR-SWIR)/(NIR+SWIR)
 
 For any burn related damage/regeneration calculations we can verify fire activity locations via the Fire Information for Resource Management System (FIRMS\footnote{Available here: \url{https://firms.modaps.eosdis.nasa.gov/download/}}). The data come from the Collection 6 Near Real Time (NRT), extracted from the standard MCD14ML fire product produced at the MODIS Fire Science Computing Facility \citep{roteta_development_2019}. \
 
-\begin{figure}[bp]
-  \caption{Comparison of the spectral response of healthy vegetation and burned areas (USFS)}
+\begin{figure}[ht]
   \label{fig:nbr-overview}
-% figures/nbr.jpg
+  \includegraphics[scale=1.0]{../figures/nbr.jpg}
+  \caption{Comparison of the spectral response of healthy vegetation and burned areas (USFS)}
 
 \end{figure}
 
@@ -173,10 +173,10 @@ B) LiDAR and hyperspectral combination has lower accuracy than LiDAR alone in tr
 C) LiDAR and Synthetic Aperture Radar (SAR). The paper provides an overview table for all combinations and their output accuracies (\autoref{fig:lidar-sar-overview}, \cite{kaasalainen_combining_2015}). Upscaling refers to the extrapolation of LiDAR to areas where LiDAR is not available. Generally increases accuracy. \
 
 
-\begin{figure}[bp]
+\begin{figure}[ht]
+  \includegraphics[scale=0.3]{../figures/lidarplussar.png}
   \caption{Overview of combinations of LiDAR and radar in research (Kaasalainen et al., 2015)}
   \label{fig:lidar-sar-overview}
-% figures/lidarplussar.png
 \end{figure}
 
 
@@ -186,9 +186,9 @@ D) LiDAR and Landsat
 
 
 \begin{figure}[bp]
+  \includegraphics[scale=0.3]{../figures/lidarpluslandsat.png}
   \caption{Overview of combinations of LiDAR (air- or spaceborne), and optical imagery to map forest structural attributes (Matasci et al. 2018)}
   \label{fig:lidar-landsat-overview}
-% figures/lidarpluslandsat.png
 \end{figure}
 
 
@@ -200,10 +200,10 @@ B) LiDAR360 3.1 software (GreenValley, Being, China) to remove the noise points 
 
 C) Triangulated irregular network (TIN) densification as a filtering algorithm to deal with complex forest landscapes \citep{zhao_improved_2016}. Improved progressive TIN densification filtering algorithm (IPTD) performs better than other general filtering algorithms (\autoref{fig:iptd}). The strength of 537 the IPTD lies in its ability to retain hilltops and handle break lines and steep slopes. Four parameters are used in the IPTD, i.e., k (neighboring number), r (threshold), 0 (iterative angle), and s (iterative distance). Densifies ground points and accounts for ground surface structure with (upward/downward densification) \citep{zhao_improved_2016}. \
 
-\begin{figure}[bp]
+\begin{figure}[ht]
+  \includegraphics[scale=0.35]{../figures/iptd.png}
   \caption{Comparison of kappa values (total error, TE) for LiDAR filtering algorithms for 15 sites tested. Lowest value in bold (Zhao et al., 2016)}
   \label{fig:iptd}
-% figures/iptd.png
 \end{figure}
 
 C) The Fusion\footnote{Available here: \url{http://forsys.cfr.washington.edu/fusion/fusionlatest.html}} software (Windows) used by the USFS introduces filters and smoothing algorithms to create digital surface model. The workflow necessary to create a clean digital terrain model still have to be assessed. While an outlier filter could be used to remove below-ground points the scalability of the approach over larger areas and difficicult topography is questionable. A common procedure is to rely on vendor provided DTM's and create a DSM and a CHM in Fusion. \
@@ -303,10 +303,10 @@ Criteria to match LiDAR with FIA plots \citep{hudak_carbon_2020}: \
 - not disturbed in the time between field and LiDAR data collections \
 
 
-\begin{figure}[bp]
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{../figures/fiaplot.png}
   \caption{FIA sampling plot layout. a) generated canopy height model from LiDAR and b) landsat 30m imagery overlay (taken from Hudak et al., 2020)}
   \label{fig:fiaplot}
-% figures/fiaplot.png
 \end{figure}
 
 
@@ -357,15 +357,15 @@ CALVEG \
 Vegetation mapping has been completed for all of the National Forest lands of Pacific Southwest Region. Updates and map improvements are scheduled as part of the Monitoring program (aim is to update layers in 15 year intervals). Through cooperative mapping projects, all ownerships within North Interior, Northern Sierras, North Coast and Montane, \& South Coast and Montane CALVEG Zones have been completed. Classification processes include detailed field studies and literature reviews\footnote{CALVEG documentation: \url{https://www.fs.fed.us/emc/rig/documents/protocols/vegClassMapInv/EVTG_v2-0_June2015.pdf}}. A map status of the CALVEG Ecological zones has been provided by the USFS (\autoref{fig>calveg}). The dataset can be downloaded as polygon shapefiles for the different zones. \
 
 
-\begin{figure}[bp]
-  \caption{Current status of the CALVEG vegetation classification program for California (USFS)}
-  \label{fig:calveg}
-% figures/calveg.jpg
-\end{figure}
+%\begin{figure}[ht]
+%  \includegraphics[scale=0.5]{../figures/calveg.png}
+%  \caption{Current status of the CALVEG vegetation classification program for California (USFS)}
+%  \label{fig:calveg}
+%\end{figure}
 
 FRID \
 
-The fire return interval departure (FRID) analysis quantifies the difference between current and presettlement fire frequencies and downscales the CALVEG classification into 32 dominant vegetation groups. It receives an annual update (just released the 2020 version two weeks ago). This polygon layer consists of information compiled about fire return intervals for major vegetation types on the 18 National Forests in California and adjacent land jurisdictions. Comparisons are made between pre-Euroamerican settlement and contemporary fire return intervals (FRI). Current departures from the pre-Euroamerican settlement FRIs are calculated based on mean, median, minimum, and maximum FRI values{FRID documentation: \url{https://www.fs.fed.us/r5/rsl/projects/gis/data/FRID/FRID_Metadata.html}}. \
+The fire return interval departure (FRID) analysis quantifies the difference between current and presettlement fire frequencies and downscales the CALVEG classification into 32 dominant vegetation groups. It receives an annual update (just released the 2020 version two weeks ago). This polygon layer consists of information compiled about fire return intervals for major vegetation types on the 18 National Forests in California and adjacent land jurisdictions. Comparisons are made between pre-Euroamerican settlement and contemporary fire return intervals (FRI). Current departures from the pre-Euroamerican settlement FRIs are calculated based on mean, median, minimum, and maximum FRI values{FRID documentation: \url{https://www.fs.fed.us/r5/rsl/projects/gis/data/FRID/FRID_Metadata.html}}.
 
 
 
@@ -412,9 +412,9 @@ eDART, an Ecosystem Disturbance and Recovery Tracker system for monitoring lands
 LandTrendr is set of spectral-temporal segmentation algorithms that are useful for change detection in a time series of moderate resolution satellite imagery (primarily Landsat) and for generating trajectory-based spectral time series data largely absent of inter-annual signal noise. Can be used to assess forest regeneration over larger timescales (Fig. 3). They provide a github repository evaluating how to extract the data from e.g. Google Earth(FVS)\footnote{Access here: \url{https://emapr.github.io/LT-GEE/landtrendr.html}}.
 
 \begin{figure}[bp]
+  \includegraphics[scale=0.5]{../figures/landtrendr.png}
   \caption{Pixel change over updated intervals for the Normalised Burn Ratio (NBR)}
   \label{fig:landtrendr}
-% figures/landtrendr.png
 \end{figure}
 
 
@@ -463,11 +463,11 @@ Nationwide forest regeneration study after logging and wildfire (Canada; \cite{w
 Identified national trends in forest disturbance and recovery by disturbance type (1985–2010). 57.5 Mha of Canada's forests were disturbed by wildfire (71%) and harvest (29%). First national spatially-explicit map of harvesting in Canada at a 30 m resolution. Greater variability in annual area disturbed by wildfire compared to harvest. Spectral recovery metrics indicate that vegetation returns following disturbance via an NBR based approach \autoref{fig:nbrtimeseries}. \
 
 
-\begin{figure}[bp]
-  \caption{Schematic of nbr recovery metrics: deltaNBR-regrowth, Recovery Indicator (RI), and year of recovery (Y2R) (taken from White et al., 2017)}
-  \label{fig:nbrtimeseries}
-% figures/nbrtimeseries.png
-\end{figure}
+%\begin{figure}[ht]
+%  \includegraphics[scale=0.7]{../figures/nbrtimeseries.png}
+%  \caption{Schematic of nbr recovery metrics: deltaNBR-regrowth, Recovery Indicator (RI), and year of recovery (Y2R) (taken from White et al., 2017)}
+%  \label{fig:nbrtimeseries}
+%\end{figure}
 
 Papers: \
 
@@ -529,16 +529,16 @@ ICESat-2 for mapping forest biomass with deep learning \citep{narine_synergy_201
 ICESat-2 in combination with land cover data for mapping AGB in Texas (\autoref{fig:icesat}, \cite{narine_using_2020}). Extrapolation of ICESat-2-derived AGB estimates from segments along the ICESat-2 transect, to 30 m pixels across the study site was carried out with RF, using Landsat and NLCD products. Results are indicative of the utility of ICESat-2 data for characterizing AGB. As more ICESat-2 tracks become available and with the availability of corresponding reference data, an improved understanding of the data and their ability to characterize vegetation structure will be gleaned. Nonetheless, possibilities with the data, including synergistic use with freely available data from other space-based missions, including GEDI, are exciting. Future work will involve the application of the methodology for regional-scale mapping with corresponding uncertainty analyses and an investigation of deep-learning approaches with multi-source data \citep{narine_using_2020}.
 
 
-\begin{figure}[bp]
-  \caption{Regression models for estimating AGB with ICESat-2 data from the strong beam and weak beam (Narine et al., 2020)}
-  \label{fig:icesat}
-% figures/icesat.png
-\end{figure}
+%\begin{figure}[ht]
+%  \includegraphics[scale=0.5]{../figures/icesat.png}
+%  \caption{Regression models for estimating AGB with ICESat-2 data from the strong beam and weak beam (Narine et al., 2020)}
+%  \label{fig:icesat}
+%\end{figure}
 
 
 \subsubsection{LISS-3 (ISRO)}
 
-Satellites provide multispectral images at 24 m (LISS-3) and 56 m (AWiFs) meter resolution (\autoref{tab:resourcesat}). IRS data products are free of charge to all data users including the general public, scientific and commercial users\footnote{USGS EROS Archive: \url{https://www.usgs.gov/centers/eros/science/usgs-eros-archive-products-overview}}. EarthExplorer and USGS Global Visualization Viewer (GloVis) can be used to search, preview, and download ISRO data. In EarthExplorer the IRS AWiFS and IRS LISS-3 datasets are located under the ISRO Resourcesat category. \
+Satellites provide multispectral images at 24 m (LISS-3) and 56 m (AWiFs) meter resolution (\autoref{tab:resourcesat}). IRS data products are free of charge to all data users including the general public, scientific and commercial users\footnote{USGS EROS Archive: \url{https://www.usgs.gov/centers/eros/science/usgs-eros-archive-products-overview}}. EarthExplorer and USGS Global Visualization Viewer (GloVis) can be used to search, preview, and download ISRO data. In EarthExplorer the IRS AWiFS and IRS LISS-3 datasets are located under the ISRO Resourcesat category.
 
 \begin{table}[bp]
   \caption{Resourcesat Sensor Specifications}

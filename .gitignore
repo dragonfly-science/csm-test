@@ -5,3 +5,9 @@
 report/build
 s3.conf
 report/s3
+**.toc
+**.out
+**.bcf
+**.log
+**.aux
+**.pdf
