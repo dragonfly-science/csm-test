@@ -78,7 +78,13 @@ We are using \texttt{gdal\_calc.py} for this operation. Gdal{\_}calc.py is a com
 
 \section{Accuracy Assessment Canopy Height Models} 
 
-To demonstrate our confidence in our CHM model the prototype development is preceded by an accuracy assessment for the generation of CHM’s from different sources. Our test region is located in the Lemon Canyon (Californa) approximately 50 km North from Lake Tahoe. We chose this area since one of the LiDAR verification plots falls within the test boundaries and the area
+To demonstrate our confidence in our CHM model the prototype development is preceded by an accuracy assessment for the generation of CHM’s from different sources. Our test region is located in the Lemon Canyon (Californa) approximately 50 km North from Lake Tahoe. We chose this area since one of the LiDAR verification plots falls within the test boundaries and the area.
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.75]{s3/images/referenceMap_lemonCanyon.png}
+    \captionof{figure}{Lemon Canyon Test Region}
+\end{figure}
 
 To demonstrate our confidence in our CHM model the prototype development is preceded by an accuracy assessment for the generation of CHM’s from different sources. Our test region is located in the Lemon Canyon (Californa) approximately 50 km North from the Lake Tahoe test region. We selected this area due to it’s proximity to our prototype, valley structure with a range of distinct topographic features (e.g. slopes, aspects) and one of the available LiDAR verification plots located within the test boundaries (~ 1.6 km2). For this plot we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93 pts/m2) accuracy from a publicly available source (OpenTopography, 2014). The dataset provides pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM). 
 
