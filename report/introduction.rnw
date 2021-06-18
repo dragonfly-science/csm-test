@@ -357,11 +357,11 @@ CALVEG \
 Vegetation mapping has been completed for all of the National Forest lands of Pacific Southwest Region. Updates and map improvements are scheduled as part of the Monitoring program (aim is to update layers in 15 year intervals). Through cooperative mapping projects, all ownerships within North Interior, Northern Sierras, North Coast and Montane, \& South Coast and Montane CALVEG Zones have been completed. Classification processes include detailed field studies and literature reviews\footnote{CALVEG documentation: \url{https://www.fs.fed.us/emc/rig/documents/protocols/vegClassMapInv/EVTG_v2-0_June2015.pdf}}. A map status of the CALVEG Ecological zones has been provided by the USFS (\autoref{fig>calveg}). The dataset can be downloaded as polygon shapefiles for the different zones. \
 
 
-%\begin{figure}[ht]
-%  \includegraphics[scale=0.5]{../figures/calveg.png}
-%  \caption{Current status of the CALVEG vegetation classification program for California (USFS)}
-%  \label{fig:calveg}
-%\end{figure}
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{../figures/calveg.png}
+  \caption{Current status of the CALVEG vegetation classification program for California (USFS)}
+  \label{fig:calveg}
+\end{figure}
 
 FRID \
 
@@ -463,11 +463,11 @@ Nationwide forest regeneration study after logging and wildfire (Canada; \cite{w
 Identified national trends in forest disturbance and recovery by disturbance type (1985–2010). 57.5 Mha of Canada's forests were disturbed by wildfire (71%) and harvest (29%). First national spatially-explicit map of harvesting in Canada at a 30 m resolution. Greater variability in annual area disturbed by wildfire compared to harvest. Spectral recovery metrics indicate that vegetation returns following disturbance via an NBR based approach \autoref{fig:nbrtimeseries}. \
 
 
-%\begin{figure}[ht]
-%  \includegraphics[scale=0.7]{../figures/nbrtimeseries.png}
-%  \caption{Schematic of nbr recovery metrics: deltaNBR-regrowth, Recovery Indicator (RI), and year of recovery (Y2R) (taken from White et al., 2017)}
-%  \label{fig:nbrtimeseries}
-%\end{figure}
+\begin{figure}[ht]
+  \includegraphics[scale=0.7]{../figures/nbrtimeseries.png}
+  \caption{Schematic of nbr recovery metrics: deltaNBR-regrowth, Recovery Indicator (RI), and year of recovery (Y2R) (taken from White et al., 2017)}
+  \label{fig:nbrtimeseries}
+\end{figure}
 
 Papers: \
 
@@ -529,11 +529,11 @@ ICESat-2 for mapping forest biomass with deep learning \citep{narine_synergy_201
 ICESat-2 in combination with land cover data for mapping AGB in Texas (\autoref{fig:icesat}, \cite{narine_using_2020}). Extrapolation of ICESat-2-derived AGB estimates from segments along the ICESat-2 transect, to 30 m pixels across the study site was carried out with RF, using Landsat and NLCD products. Results are indicative of the utility of ICESat-2 data for characterizing AGB. As more ICESat-2 tracks become available and with the availability of corresponding reference data, an improved understanding of the data and their ability to characterize vegetation structure will be gleaned. Nonetheless, possibilities with the data, including synergistic use with freely available data from other space-based missions, including GEDI, are exciting. Future work will involve the application of the methodology for regional-scale mapping with corresponding uncertainty analyses and an investigation of deep-learning approaches with multi-source data \citep{narine_using_2020}.
 
 
-%\begin{figure}[ht]
-%  \includegraphics[scale=0.5]{../figures/icesat.png}
-%  \caption{Regression models for estimating AGB with ICESat-2 data from the strong beam and weak beam (Narine et al., 2020)}
-%  \label{fig:icesat}
-%\end{figure}
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{../figures/icesat.png}
+  \caption{Regression models for estimating AGB with ICESat-2 data from the strong beam and weak beam (Narine et al., 2020)}
+  \label{fig:icesat}
+\end{figure}
 
 
 \subsubsection{LISS-3 (ISRO)}
