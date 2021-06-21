@@ -1,20 +1,28 @@
 \newpage
+
 \section{Discussion}
 
 
-Accuracy Assessment: 
+\subsection{CHM Accuracy Assessment}
 
-Our canopy height model generated from the raw point clouds using pdal pipelines to filter and generate DTM and DSM compare very favourably against the other CHM's analysed for the Lemon Canyon test region. The canopy heights calculated fall within the expected height of Pinus jeffreyi (< 40 m) and create a virtually identical DSM to the vendor provided version. In fact, we provide evidence that our CHM accounts for higher amount of detail within the ground layer resulting in a more accurate depiction of canopy height in areas with heterogenous topography. While we have high confidence in our CHM based and the LiDAR point cloud the output ultimately requires timely ground-truthing to give a definitive statement about it's accuracy. It is important to note that a point cloud with 8.93 pts / m2 as used for the Lemon Canyon has no implications to accurately depict individual trees or canopy height. However, we are confident that our model provides the best approach within our assessment framework. Further, our pdal pipelines can be implemented readily in our AWS communication and assures scalability while simultaneously removing the lack of vendor provided DTM or pre-classified point clouds as a limitation for available LiDAR data in California.  
+Our canopy height model generated from the raw point clouds using pdal pipelines to filter and generate DTM and DSM compare very favorably against the other CHM's analysed for the Lemon Canyon test region. The canopy heights calculated fall within the expected height of Pinus jeffreyi (< 40 m) and create a virtually identical DSM to the vendor provided version. In fact, we provide evidence that our CHM accounts for higher amount of detail within the ground layer resulting in a more accurate depiction of canopy height in areas with heterogenous topography. While we have high confidence in our CHM based and the LiDAR point cloud the output ultimately requires timely ground-truthing to give a definitive statement about it's accuracy. It is important to note that a point cloud with 8.93 pts / m2 as used for the Lemon Canyon has no implications to accurately depict individual trees or canopy height. However, we are confident that our model provides the best approach within our assessment framework. Further, our pdal pipelines can be implemented readily in our AWS communication and assures scalability while simultaneously removing the lack of vendor provided DTM or pre-classified point clouds as a limitation for available LiDAR data in California.  
 
-Prototype:
-
-
+\subsection{Prototype Development}
 
 
-Outlook:
+
+
+\subsection{Outlook}
  
-While our model only incorporates two vegetation indice derived from 10 - 20 m resolution and raw band information from Sentinel-2, vegetation classification (CALVEG) and topography (aspect, slope) we will continue to expand our label library for the final model by introducing a vast range of other labels such as additional vegetation indices derived from three Sentinel-2 red-edge bands (20 m) which hold important ecological information. 
+While our model only incorporates two vegetation indices derived from 10 - 20 m resolution and raw band information from Sentinel-2, vegetation classification (CALVEG) and topography (aspect, slope) we will continue to expand our label library for the final model by introducing a vast range of other labels such as additional vegetation indices derived from three Sentinel-2 red-edge bands (20 m) which hold important ecological information. 
 
-Further, together with experts at VP we will explore methods to derive tree approximate objects (e.g. watershed analysis) to aid the ground-truthing process and delineate higher level of details in forest entities. It is important to note, that a higher resolution for TAO's will require incorporating higher resolution datasets apart from the Sentinel-2 data (10 - 20 m) and will be associated with a careful implementation process (data ingestion, alginment) and additional expenditures. 
+Further, together with experts at VP we will explore methods to derive tree approximate objects (e.g. watershed analysis) to aid the ground-truthing process and delineate higher level of details in forest entities. It is important to note, that a higher resolution for TAO's will require incorporating higher resolution datasets apart from the Sentinel-2 data (10 - 20 m) and will be associated with a careful implementation process (data ingestion, alignment) and additional expenditures. 
 
-A major challenge for streamlining the datasets (LiDAR, field data, vegetation classification) is the signficant temporal gap between the accquisition of these layers. While the cadence for Sentinel-2 data is 5 days the other data layers  are a spatial patchwork dating 11 (LiDAR) and 20 years (CALVEG) back in time and have been assessed during a time period where it was either of ecological interest or convenient to access (e.g. distance to roads, growing season). We expect temporal analysis on Sentinel-2 imagery to help us bridge the gap between temporal heterogenous information and aim to further supplement our data with climate information (e.g. rainfall, temperature) to get a more comprehensive historical framework of the status of California's forest ecosystem.  
+A major challenge for streamlining the datasets (LiDAR, field data, vegetation classification) is the significant temporal gap between the acquisition of these layers. While the cadence for Sentinel-2 data is 5 days the other data layers  are a spatial patchwork dating 11 (LiDAR) and 20 years (CALVEG) back in time and have been assessed during a time period where it was either of ecological interest or convenient to access (e.g. distance to roads, growing season). We expect temporal analysis on Sentinel-2 imagery to help us bridge the gap between temporal heterogenous information and aim to further supplement our data with climate information (e.g. rainfall, temperature) to get a more comprehensive historical framework of the status of California's forest ecosystem.  
+
+
+Things to add from Ian:
+
+As noted previously, we are confident with our first generations of a CHM.  Through our testing, we are able to attain similar results to CHM's produced by OpenTopography and Vibrant Planet. We are aware; however, these results can be improved. We plan to continue to explore better methods of interpolation via SAGA and GRASS GIS. We are also likely to explore LAS to surface generation using GRASS GIS.
+
+Generating TIN models is an excellent method for surface creation of sparsely populated datasets. We have not ruled out the usage of these models; however, due to the point density for our test regions being high, we landed on IDW as our preferred method for the initial surface generation.
