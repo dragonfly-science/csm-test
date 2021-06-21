@@ -16,15 +16,15 @@ LiDAR measurements are the state of the art technology to calculate aboveground 
 
 We will focus our approach on area-based rather than a tree-centric approach for CHM's which is the current standard due to LiDAR restriction to detect below canopy/merged trees \citep{coomes_area-based_2017}. Further, available LiDAR-datasets require a higher resolution to be able to delineate individual trees CHM resolutions < 1 m are required (Van Kane, April 29 meeting). One possibility to bridge the gap between area-based and tree-centric approaches could be the creation of tree approximate objects (TAO). These objects can be generated within Fusion using a watershed analysis and the area processor. We will work together with Vibrant Planet to generate these outputs and test the viability of training satellite data with TAO information or ecological objects (Ecobject\footnote{EcObject documentation: \url{https://buttecounty.opennrm.org/assets/e106ca2a359a122e74e33ef183a0fb4a/application/pdf/EcObjectProductGuide_Final_V1.pdf}}). However, due to the 10 m resolution of the majority of our labels limitations for this procedure will be discussed within this document.
 
-Field data
+\paragraph{Field data}
 
 The field plots are required to verify the accuracy of our predictions in areas outside of LiDAR availability and to estimate the quality of the generated CHM. For the scope of this project we have been provided with LiDAR verification plots for the Lake Tahoe region. These plots contain information about tree species, DBH, height and traditionally consist of 4 radial plots (FIA \& LiDAR plots). A known issue is the limited availability of FIA plot locations to ground-truth the output and it is unlikely that we will receive exact FIA locations for a non-university project (Van Kane, April 29 meeting). Further, the LiDAR verification plots do not contain individually geo-referenced trees and accurate height measurements are limited (e.g. 5 out of 20 trees for a sample plot). A current workflow as agreed with one of Vibrant Planet's forest ecologist is to identify dominant trees and verify them against our CHM output. Within this document we will also provide CHM generated for the Incline Village which can be used readily by VP to ground-truth the output layers. Another options would be to artificially create gaps in in the LiDAR plots to verify our CHM against.
 
-Vegetation classification
+\paragraph{Vegetation classification}
 
 For the initial proof of concept we used the extensive 'Classification and Assessment with Landsat of Visible Ecological Groupings database' (CALVEG) which summarizes over 100 vegetation classes for the entire state. The layer is a patchwork from 20+ years of vegetation mapping conducted with careful literature research and ground-truthing. The 'fire return interval departure dataset' (FRID\footnote{Documentation here: \url{https://data.sacriver.org/assets/5ca70e8ae658de1d1e0331ff747c3f76/application/pdf/California_FRID_GIS_metadata_11-10-20117.pdf}}) groups CALVEG classification into subclasses and will be used as another training dataset and to mask and non-vegetated surfaces (urban, lakes) in this proof of concept. Once we begin to produce state-wide layers the CALVEG database is expected to become a more powerful predictor accounting for higher amount of detail. However, We will retain the FRID dataset for future use, since it contains valuable information for historic fires in the area.. We have already developed workflows to reproject, merge and rasterize the CALVEG datasets and provide an overview of these workflows.
 
-Upscaling
+\paragraph{Upscaling}
 
 The upscaling process to translate locally available canopy height information to a state-wide layer involves the training of individual Sentinel-2 pixels. The protoype attached to this report incorporates a linear regression machine learning process to demonstrate the feasibility of this approach with no refined expectations towards it's accuracy. In the future the machine learning algorithm will be trained with a vast range of vegetation indices, LiDAR metrics, topographic, climatic and vegetation layers. While a random forest has been widely used in ecology to approximate aboveground biomass estimations \citep{ghosh_aboveground_2018,matasci_large-area_2018, pham_monitoring_2017, huang_integration_2019} we will explore more sophisticated options to optimize this process.
 
@@ -198,7 +198,7 @@ D) LiDAR and Landsat
 
 
 
-\textbf{LiDAR remove noise}
+\paragraph{LiDAR remove noise}
 
 A) Lastool in QGIS (LASnoise)
 
@@ -236,7 +236,7 @@ Relevant plot metrics (LiDAR, climate) were derived by the ‘cloudmetrics’ fu
 
 \newpage
 
-\textbf{Common LiDAR point metrics}
+\paragraph{Common LiDAR point metrics}
 
 There is a wealth of LiDAR plot metrics derived from the point clouds \autoref{fig:lidarmetrics} and they can even be used do discriminate forest tree species (with and without leaves; \cite{shi_important_2018}). They are created using height profiles and point distancing (for detailed table with references see \cite{dong_selection_2017}) and can be grouped in four categories:
 
@@ -264,7 +264,7 @@ There is a wealth of LiDAR plot metrics derived from the point clouds \autoref{f
 
 
 
-\textbf{Upscaling LiDAR with Sentinel-2}
+\paragraph{Upscaling LiDAR with Sentinel-2}
 
 LiDAR upscaling by integrating field plots (point), UAV-LiDAR strip (line) data and Sentinel-2 imagery (polygon) based on a point-line-polygon framework for AGB estimation in a mangrove forest \citep{wang_estimating_2020}. Field plots were linked to UAV-LiDAR plots with a random forest model and then extrapolated to all UAV-LiDAR grid cells. UAV-LiDAR serves as a linear bridge between forest plots and sentinel data (polygon). For method comparison, a traditional model was also constructed using only field plots and Sentinel-2 imagery. Since the validation plots were gradually added to the G-S2 (without LiDAR) model, there were not enough observations to validate the model performance with an independent subset. Therefore, a 10-fold cross-validation method was employed and repeated 10 times as suggested by Ghosh and Behera (2018). The same 10-fold cross-validation process that was iterated 10-times was also applied to the G-LiDAR-S2 model to obtain cross-validation accuracy. A variable selection process was also conducted via the backward feature elimination method prior to the final estimation due to the large number of Sentinel-2 (32) and UAV-LiDAR variables (53) input. As usual, a model constructed from a small number of variables is more interpretable, and eliminating irrelevant and highly correlated variables may improve the predictive power \citep{gregorutti_correlation_2017}. The backward feature elimination approach is based on the random forest algorithm and compares the cross-validated prediction results of model as a proportion of the predictors is eliminated. This method was implemented by the rfcv function in the random Forest package and replicated 100 times with 5-fold cross-validation to get the optimal variables \citep{pham_monitoring_2017}. \
 
@@ -272,7 +272,7 @@ AGB estimates were assessed using in-dependent validation samples by comparing t
 
 RF has been widely used in biomass upscaling approaches \citep{matasci_large-area_2018,pham_monitoring_2017, huang_integration_2019, ghosh_aboveground_2018}. \
 
-\textbf{Upscaling LiDAR with GeoEye-1}
+\paragraph{Upscaling LiDAR with GeoEye-1}
 
 GeoEye-1 image and LiDAR data were segmented using region growing approach to delineate individual tree crowns; and the segmented crowns of tree were further used to establish a relationship with field measured carbon and total tree height \citep{wangda_species_2019} \
 
@@ -335,7 +335,7 @@ AGB (kg/ha) = volume (m3 / ha) * VEF * WD * BEF + e
 
 AGB can be calculated from field plots using equations from Fire and Fuels Extension (FFE) of the Forest Vegetation Simulator (FVS)\footnote{FVS documentation: \url{https://www.fs.fed.us/fmsc/ftp/fvs/docs/gtr/EssentialFVS.pdf}}. These equations are based on a series of regional volume and biomass equations. The aboveground portion of the live and standing dead trees were summed to a single, plot-level AGB value; the belowground portion of the trees and non-tree species were excluded from the AGB estimates. These plot-level AGB estimates were used as the response variable for a landscape model \citep{hudak_carbon_2020}.
 
-\textbf{Problems with field data}
+\paragraph{Problems with field data}
 
 Taken from \cite{lu_survey_2016}:
 
@@ -358,13 +358,13 @@ Depending on the protocol and the quality of the Global Navigation Satellite Sys
 Van Kane (meeting Apr 29):
 Forest service cannot reveal plot locations, only if project output is open access (ideally uni projects). Suggestion: Use Gradient nearest neighbours (GNN) so nearest plot imputes tree list \
 
-\textbf{NLCDB}
+\paragraph{NLCDB}
 
 The National Land Cover Database (NLCD) is updated every five years and stands as the definitive land cover database for the United States\footnote{NLCDB legend: \url{https://www.mrlc.gov/data/legends/national-land-cover-database-2016-nlcd2016-legend}}.. The latest iteration is NCLD 2016. It contains 28 different land cover products characterizing land cover and land cover change across 7 epochs from 2001-2016, urban imperviousness and urban imperviousness change across 4 epochs from 2001-2016, tree canopy and tree canopy change across 2 epochs from 2011-2016 and western U.S. shrub and grassland areas for 2016. NLCD 2019 is scheduled to be released in mid-2021.
 
 \newpage
 
-\textbf{CALVEG}
+\paragraph{CALVEG}
 
 Vegetation mapping has been completed for all of the National Forest lands of Pacific Southwest Region. Updates and map improvements are scheduled as part of the Monitoring program (aim is to update layers in 15 year intervals). Through cooperative mapping projects, all ownerships within North Interior, Northern Sierras, North Coast and Montane, \& South Coast and Montane CALVEG Zones have been completed. Classification processes include detailed field studies and literature reviews\footnote{CALVEG documentation: \url{https://www.fs.fed.us/emc/rig/documents/protocols/vegClassMapInv/EVTG_v2-0_June2015.pdf}}. A map status of the CALVEG Ecological zones has been provided by the USFS (\autoref{fig:calveg}). The dataset can be downloaded as polygon shapefiles for the different zones.
 
@@ -375,7 +375,7 @@ Vegetation mapping has been completed for all of the National Forest lands of Pa
   \label{fig:calveg}
 \end{figure}
 
-\textbf{FRID}
+\paragraph{FRID}
 
 The fire return interval departure (FRID) analysis quantifies the difference between current and presettlement fire frequencies and downscales the CALVEG classification into 32 dominant vegetation groups. It receives an annual update (just released the 2020 version two weeks ago). This polygon layer consists of information compiled about fire return intervals for major vegetation types on the 18 National Forests in California and adjacent land jurisdictions. Comparisons are made between pre-Euroamerican settlement and contemporary fire return intervals (FRI). Current departures from the pre-Euroamerican settlement FRIs are calculated based on mean, median, minimum, and maximum FRI values{FRID documentation: \url{https://www.fs.fed.us/r5/rsl/projects/gis/data/FRID/FRID_Metadata.html}}.
 
@@ -423,7 +423,7 @@ LandTrendr is set of spectral-temporal segmentation algorithms that are useful f
 \end{figure}
 
 
-\textbf{Normalized Burn Ratio (NBR) for LandSat timeseries analysis}
+\paragraph{Normalized Burn Ratio (NBR) for LandSat timeseries analysis}
 
 NBR is the recommended spectral index to perform land cover change analysis \citep{key_landscape_2005}. NBR2 is an alternative to highlight water sensitivity in vegetation and may be useful in post-fire recovery studies. NBR2 is calculated as a ratio between the SWIR values, substituting the SWIR1 band for the NIR band used in NBR \autoref{eq:nbr2}. Rasters with calculated NBR2 (LC8NBR2, LE7NBR2, LT5NBR2, or LT4NBR2) may be readily available, but otherwise the procedure can be done starting from Sentinel 4-5 data (1984).
 
@@ -433,7 +433,7 @@ NBR2 = (SWIR1 – SWIR2) / (SWIR1 + SWIR2)
 \end{equation}
 
 
-\textbf{Pre-processing of Landsat data}
+\paragraph{Pre-processing of Landsat data}
 
 A ) Cloud \& Shadow:
 
@@ -443,7 +443,7 @@ B) Surface reflectance correction:
 
 The Landsat Ecosystem Disturbance Adaptive System (LEDAPS) is used to generate surface reflectance values. LEDAPS produces top-of-atmosphere (TOA) reflectance from Landsat TM and ETM+ digital numbers (DN) and applies atmospheric corrections to generate a surface reflectance product. LEDAPS applies the dark dense vegetation method of Kaufman et al. (1997) to estimate aerosol optical thickness (AOT) directly from the imagery and the AOT is one of the inputs used in the 6S radiative transfer model. The LEDAPS surface reflectance output includes an AOT map derived from the Landsat TM or ETM+ blue band commonly referred to as opacity. New standard LaSCR instead of LEDAPS? LaSRC is based on the 6S radiative transfer model and a heritage from the MODIS MCD09 products as well as the earlier LEDAPS algorithm implemented for Landsat-5 and Landsat-7.
 
-\textbf{Timeseries analysis for Landsat imagery}
+\paragraph{Timeseries analysis for Landsat imagery}
 
 The process is a multi-method approach, introducing recent developments (pixel based compositing) to achieve the most up to date analysis of landsat information mainly developed around a team of Canada based scientists (Hermosilla, White, Wulder).
 
@@ -491,11 +491,11 @@ Combination of Landsat and land cover to estimate AGB in Uganda \citep{avitabile
 \subsubsection{Other relevant datasets}
 
 
-\textbf{Synthetic aperture radar (SAR)}
+\paragraph{Synthetic aperture radar (SAR)}
 
 Most radar-based biomass estimation studies use L-band SAR data, especially the ALOS PALSAR L-band data. The SAR C-band data have not been extensively used because of the C-band’s inability to capture forest biomass features. In summary, it is difficult to use radar data for distinguishing vegetation types \citep{lu_aboveground_2012} because radar data reflect the roughness of land cover surfaces instead of the difference between the vegetation types, thus resulting in difficulty of biomass estimation. The speckle in radar data is another problem affecting its applications. Properly employing filtering methods to reduce noise and outliers in InSAR data is needed to improve the vegetation height estimation performance \citep{lu_survey_2016}.
 
-\textbf{NASA-GEDI LiDAR}
+\paragraph{NASA-GEDI LiDAR}
 
 GEDI has the highest resolution and densest sampling of any LiDAR ever put in orbit (25 m to 1 km resolution). It has been used in an upscaling study of forest biomass in China \citep{chen_improved_2021}. However, satellite was launched in 2018 and only designed to operate for 2 years, will be wrapped up in 2021\footnote{Project website: \url{https://gedi.umd.edu/}}.
 
@@ -509,7 +509,7 @@ ICESat-2 underestimates biomass on average, and this underestimation increases w
 
 As expected, the highest accuracies were from GEDI's power beam, while accuracies for ICESat-2 depended heavily on the signal photon rate, and NISAR accuracies will depend on the availability of high-quality biomass training data, and be limited to lower biomass forests over relatively flat areas. Nonetheless, we find all three sets of mission simulations promising for biomass \citep{duncanson_biomass_2020}.
 
-\textbf{NOAA-AVHRR, MODIS, ASTER, Quickbird, IKONOS}
+\paragraph{NOAA-AVHRR, MODIS, ASTER, Quickbird, IKONOS}
 
 The use of coarse resolution satellite images such as NOAA-AVHRR, MODIS, etc. for biomass estimation is limited due to the occurrence of mixed pixels and inconsistent accuracy at regional or local scale \citep{wangda_species_2019}.
 
@@ -518,11 +518,11 @@ The use of moderate resolution satellite images (e.g. Landsat, ASTER) for AGB es
 Quickbird and IKONOS have very high resolution, but are frequently obstructed by cloud cover in tropics \citep{wangda_species_2019}, might be more viable in California.
 
 
-\textbf{RapidEye}
+\paragraph{RapidEye}
 
 ESA is offering access to the full RapidEye archive for scientific research and application development. Access is only available to submitted proposals that are accepted. 5 m pixel size (RGB, RE and NIR). Overall, RapidEye data are not suitable for AGB estimation, but when AGB falls within 50–150 Mg/ha, support vector regression based on stratification of vegetation types provided good results. Problem for biomass estimates can be fixed incorporating tree height if LiDAR data or stereo image is available (Brasilian Rainforest, \cite{feng_examining_2017}.
 
-\textbf{ICESat-2}
+\paragraph{ICESat-2}
 
 Ice, Cloud and Land Evalutation Satellite, 91-day repeat, began its 3-year mission in September 2018. While ATLAS onboard ICESat-2 was primarily designed to determine changes in ice sheet elevation and mass, it will provide information about vegetation that may be used to estimate AGB. ATLAS is a photon counting system, operating in the visible wavelengths, at 532 nm. It generates three pairs of tracks, with each pair approximately 3.3 km apart and each track within a pair separated by 90 m. LiDAR footprints are produced every 70 cm in the along-track direction and measure approximately 14 m in diameter. Given the unprecedented coverage and spatial detail from ICESat-2, translating ICESat-2 measurements to AGB estimates would allow for large-scale AGB and forest carbon assessments.
 
@@ -540,7 +540,7 @@ ICESat-2 in combination with land cover data for mapping AGB in Texas (\autoref{
 \end{figure}
 
 
-\textbf{LISS-3 (ISRO)}
+\paragraph{LISS-3 (ISRO)}
 
 Satellites provide multispectral images at 24 m (LISS-3) and 56 m (AWiFs) meter resolution (\autoref{tab:resourcesat}). IRS data products are free of charge to all data users including the general public, scientific and commercial users\footnote{USGS EROS Archive: \url{https://www.usgs.gov/centers/eros/science/usgs-eros-archive-products-overview}}. EarthExplorer and USGS Global Visualization Viewer (GloVis) can be used to search, preview, and download ISRO data. In EarthExplorer the IRS AWiFS and IRS LISS-3 datasets are located under the ISRO Resourcesat category.
 
@@ -563,7 +563,7 @@ Revisit Period (days) &	5	& 24 \tabularnewline
 \end{table}
 
 
-\textbf{Climate data}
+\paragraph{Climate data}
 
 Paper:
 
