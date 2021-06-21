@@ -89,6 +89,11 @@ The results suggest that CHM.fly calculates higher trees than CHM.topo. This is 
       \captionsetup{justification=centering}
       \caption{DTM OpenTopography}\label{fig:CHMvp}
     \end{subfigure}
+
+    \vspace{0.5cm}
+    \begin{tabularx}{0.9\textwidth}{XXXXX}
+      \cellcolor{black}\textcolor{White}0 & \cellcolor{darkPurple}\textcolor{White}{10} & \cellcolor{Purple}\textcolor{White}{20} & \cellcolor{Pink}\textcolor{White}{30} & \cellcolor{Yellow}\textcolor{lightGray}{40+ meters}
+    \end{tabularx}
   \caption {CHM Output Results} \label{tab:title} 
 \end{figure}
 
