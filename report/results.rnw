@@ -30,24 +30,31 @@ In the following layer comparison we refer to Vibrant Planet products as *.vp, O
 
 The raw point cloud collected by the USFS for the Tahoe National Forest in 2014 has an average point density of 8.93 pts / m2\footnote{Tahoe National Forest point cloud: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032017.26910.2}}. The point cloud filtering and labelling processes for the DTM generation from Opentopography and Dragonfly revealed that our PDAL classification pipeline classified 25.1 \% more ground points than the vendor model, raising the resolution from 3.70 pts/ m2 to 4.63 pts / m2. When comparing the DTM outputs directly against each other (~ 2.6 million pixels) we identified that DTM.fly is on average  0.41 +- 0.21 m lower than DTM.topo. A visual inspection of a hillshade render (terrain shading method) of the DTM.topo (\autoref{fig:DTMtopo}) and DTM.fly (\autoref{fig:DTMfly}) confirmed that no aboveground vegetation points have been included in the DTM, which would otherwise reveal 'bumps' in the surface where the center of a tree is located. This suggests that DTM.fly has not elevated the surface by misclassifying aboveground vegetation as ground, but rather identifies a higher level of detail within ground features and incorporates them into DTM.fly. For the DSM comparison we identified that on average there is a 0.02 +- 1.46 m difference between DSM.fly (\autoref{fig:DSMfly}) and DSM.topo which incorporate all available points in the surface generation process. 
 
-\begin{table}[H]
-\caption {Surface Output Visualisations} \label{tab:title} 
+\begin{figure}[H]
   \centering
-    \begin{tabularx}{\textwidth}{XX}
-      \includegraphics[scale=0.57]{s3/images/lemonCanyon/googleEarthDSMflyBlend.png}
+    \begin{subfigure}{.45\linewidth}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/googleEarthDSMflyBlend.png}
       \captionsetup{justification=centering}
-      \captionof{figure}{Google Earth blended with DSM.fly}\label{fig:DSMflyBlend} & 
-      \includegraphics[scale=0.57]{s3/images/lemonCanyon/DSMfly.png} 
-      \captionsetup{justification=centering}     
-      \captionof{figure}{DSM Dragonfly}\label{fig:DSMfly}  \\
-      \includegraphics[scale=0.57]{s3/images/lemonCanyon/DTMfly.png}
+      \caption{Google Earth blend with DSM.fly}\label{fig:DSMflyBlend}
+    \end{subfigure}
+    \begin{subfigure}{.45\linewidth}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/DSMfly.png}
+      \captionsetup{justification=centering}    
+      \caption{DSM Dragonfly}\label{fig:DSMfly}
+    \end{subfigure}
+
+    \begin{subfigure}{.45\linewidth}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/DTMfly.png}
       \captionsetup{justification=centering}
-      \captionof{figure}{DTM Dragonfly}\label{fig:DTMfly}  & 
-      \includegraphics[scale=0.57]{s3/images/lemonCanyon/DTMtopo.png}
+      \caption{DTM Dragonfly}\label{fig:DTMfly}
+    \end{subfigure}
+    \begin{subfigure}{.45\linewidth}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/DTMtopo.png}
       \captionsetup{justification=centering}
-      \captionof{figure}{DTM OpenTopography}\label{fig:DTMtopo}  \\
-    \end{tabularx}
-\end{table}
+      \caption{DTM OpenTopography}\label{fig:DTMtopo}
+    \end{subfigure}
+  \caption {Surface Output Visualisations} \label{tab:title} 
+\end{figure}
 
 
 \newpage
@@ -59,29 +66,30 @@ CHM.fly is 0.36 +- 2.17 m taller than CHM.topo with a maximum canopy height of 3
 
 The results suggest that CHM.fly calculates higher trees than CHM.topo. This is likely due to the enhanced resolution in the DTM.fly which is lowering the overall elevation surface by 0.41 m and this effect is being incorporated into the CHM.fly which is 0.36 m higher than CHM.topo. While CHM.topo and CHM.fly label trees in the Lemon Canyon with a maximum height of 36.39 m and 36.56 m respectively and fall within the maximum range identified for Pinus jeffreyi, CHM.vp identifies trees more than double in height (78 m). While the LiDAR verification plot located within the test region gives only accurate tree height measurements for 14 trees, we can only use dominant trees (4) with a height between 12 to 13 m and aim to identify them within the radius of the field plot (method has been used previously by VP). In CHM.fly which has been generated from 2014 data we can identify within a 50 m radius of the plot (established in 2015) several height labels above 11 - 12 m but not exceeding 13 m suggesting that our model accurately reflects field measurements. Overall the results confirm that CHM.fly is in line with vendor provided CHM.topo and field data can be approximated to our output, suggesting that we can use this model to continue to train our prototype. 
 
-\begin{table}[H]
-\caption {CHM Output Results} \label{tab:title} 
+\begin{figure}[H]
   \centering
-    \begin{tabularx}{\textwidth}{XX}
-      \includegraphics[scale=0.57]{s3/images/lemonCanyon/googleEarth.png}
+    \begin{subfigure}{.45\linewidth}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/googleEarth.png}
       \captionsetup{justification=centering}
-      \captionof{figure}{Google Earth}\label{fig:GElc} & 
-      \includegraphics[scale=0.57]{s3/images/lemonCanyon/CHMfly.png} 
-      \captionsetup{justification=centering}     
-      \captionof{figure}{CHM Dragonfly}\label{fig:CHMfly}  \\
-      \includegraphics[scale=0.57]{s3/images/lemonCanyon/CHMtopo.png}
-      \captionsetup{justification=centering}
-      \captionof{figure}{CHM OpenTopography}\label{fig:CHMtopo}  & 
-      \includegraphics[scale=0.57]{s3/images/lemonCanyon/CHMvp.png}
-      \captionsetup{justification=centering}
-      \captionof{figure}{CHM Vibrant Planet}\label{fig:CHMvp}  \\
-    \end{tabularx}
+      \caption{Google Earth blend with DSM.fly}\label{fig:GElc}
+    \end{subfigure}
+    \begin{subfigure}{.45\linewidth}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMfly.png} 
+      \captionsetup{justification=centering}    
+      \caption{DSM Dragonfly}\label{fig:CHMfly}
+    \end{subfigure}
 
-    \caption{Heights for Canopy Height Model (CHM): heights shown in meters}
-    \begin{tabularx}{0.9\textwidth}{XXXXX}
-      \cellcolor{black}\textcolor{White}0 & \cellcolor{darkPurple}\textcolor{White}{10} & \cellcolor{Purple}\textcolor{White}{20} & \cellcolor{Pink}\textcolor{White}{30} & \cellcolor{Yellow}\textcolor{lightGray}{40+}
-    \end{tabularx}
-\end{table} 
-
+    \begin{subfigure}{.45\linewidth}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMtopo.png}
+      \captionsetup{justification=centering}
+      \caption{DTM Dragonfly}\label{fig:CHMtopo}
+    \end{subfigure}
+    \begin{subfigure}{.45\linewidth}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMvp.png}
+      \captionsetup{justification=centering}
+      \caption{DTM OpenTopography}\label{fig:CHMvp}
+    \end{subfigure}
+  \caption {CHM Output Results} \label{tab:title} 
+\end{figure}
 
 \subsection{Prototype Development}
