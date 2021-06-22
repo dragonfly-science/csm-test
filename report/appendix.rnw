@@ -20,6 +20,7 @@ Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
       \caption{CHM Dragonfly}\label{fig:tabb}
     \end{subfigure}
 
+    \vspace{0.25cm}
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lakeTahoe/CHMtopo.png}
       \captionsetup{justification=centering}
@@ -27,7 +28,7 @@ Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
     \end{subfigure}
    
     \vspace{0.5cm}
-    \begin{tabularx}{0.9\textwidth}{XXXXX}
+    \begin{tabularx}{\textwidth}{XXXXX}
       \cellcolor{black}\textcolor{White}0 & \cellcolor{darkPurple}\textcolor{White}{10} & \cellcolor{Purple}\textcolor{White}{20} & \cellcolor{Pink}\textcolor{White}{30} & \cellcolor{Yellow}\textcolor{lightGray}{40+ meters}
     \end{tabularx}
     \caption {CHM Output Results} \label{tab:title}

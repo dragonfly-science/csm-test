@@ -5,7 +5,7 @@
 \definecolor{Pink}{RGB}{235,115,103}
 \definecolor{Yellow}{RGB}{252,253,191}
 \definecolor{White}{RGB}{255,255,255}
-\definecolor{lightGray}{RGB}{180,180,180}
+\definecolor{lightGray}{RGB}{150,150,150}
 
 
 \section{Results}
