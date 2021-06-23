@@ -42,6 +42,7 @@ The raw point cloud collected by the USFS for the Tahoe National Forest in 2014\
       \caption{DSM Dragonfly}\label{fig:DSMfly}
     \end{subfigure}
 
+    \vspace{0.25cm}
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/DTMfly.png}
       \captionsetup{justification=centering}
@@ -75,18 +76,19 @@ The results suggest that CHM.fly calculates higher tree estimates than CHM.topo.
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMfly.png} 
       \captionsetup{justification=centering}    
-      \caption{DSM Dragonfly}\label{fig:CHMfly}
+      \caption{CHM Dragonfly}\label{fig:CHMfly}
     \end{subfigure}
 
+    \vspace{0.25cm}
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMtopo.png}
       \captionsetup{justification=centering}
-      \caption{DTM Dragonfly}\label{fig:CHMtopo}
+      \caption{CHM OpenTopography}\label{fig:CHMtopo}
     \end{subfigure}
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMvp.png}
       \captionsetup{justification=centering}
-      \caption{DTM OpenTopography}\label{fig:CHMvp}
+      \caption{CHM Vibrant Planet}\label{fig:CHMvp}
     \end{subfigure}
 
     \vspace{0.5cm}

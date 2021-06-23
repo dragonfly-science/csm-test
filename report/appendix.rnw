@@ -52,6 +52,7 @@ Results for surface generation in Lake Tahoe Test Region
       \caption{DSM Dragonfly}\label{fig:tabb}
     \end{subfigure}
 
+    \vspace{0.25cm}
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lakeTahoe/DTMfly.png}
       \captionsetup{justification=centering}

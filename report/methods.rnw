@@ -62,7 +62,7 @@ Handling and manipulation of Sentinel 2 data is performed using GDAL. Raw Sentin
 
 \subsubsection{Pixel Alignment}
 
-In order to have clean pixel sampling, we need to ensure all our data aligns to be the best of our abilities.  This is ensured through several processes. First, projection. All data for our project is ensure to be in the same projection wih the same origin. Second, resolution. Each data set is always forced into a 10m resolution when GDAl commands allow.  Third, extents.  extents are always captured the the beginning of a process and reapplied to the outputs. Forth, scripting. Scripting allows us to build repeatable processes capturing all the parameters needed along the way.
+In order to have clean pixel sampling, we need to ensure all our data aligns to be the best of our abilities.  This is ensured through several processes. First, projection. All data for our project is developed to be in the same projection wih the same origin. Second, resolution. Each data set is always forced into a 10m resolution when GDAL commands allow.  Third, extents.  Extents are always captured the the beginning of a process and reapplied to the outputs. Forth, scripting. Scripting allows us to build repeatable processes capturing all the parameters needed along the way.
 
 \subsubsection{Production Data Infrastructure}
 
@@ -94,7 +94,9 @@ The data processing consisted of the following concrete steps:
 The pre-processing results in a composite image for each band and for each year. This image, an example of which is shown below, represents one layer of features for the Machine Learning model (\autoref{fig:sent2db}).
 
 \begin{figure}[H]
+\centering
 \includegraphics[scale=0.50]{images/band.png}
+    \captionsetup{justification=centering}
     \captionof{figure}{Sentinel-2 composite}
     \label{fig:sent2db}
 \end{figure}
