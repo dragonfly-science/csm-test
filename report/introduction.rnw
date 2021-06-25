@@ -8,6 +8,10 @@ prototype platform for the data-informed planning of forestry interventions is d
 launched in the second quarter of 2021. This prototype is currently based on a
 fine-scale land-cover model capable of detecting ``tree-approximate objects.''
 
+% The platform has the potential to be applied to  the entirety of the State of California, United States
+%
+%
+%
 %The potential of expanding this platform to the entirety of the State of
 %California, United States has prompted in expanding the scope of Vibrant Planet's prototype has been
 %prompted by the groundbreaking nature of the data-informed decision support
