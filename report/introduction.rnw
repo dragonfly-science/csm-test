@@ -1,6 +1,27 @@
 \newpage
 \section{Introduction}
 
+%the introduction needs introductory text
+Vibrant Planet has developed a data platform for natural resource management, with
+a focus on forestry management. Its
+prototype platform for the data-informed planning of forestry interventions is due to be 
+launched in the second quarter of 2021. This prototype is currently based on a
+fine-scale land-cover model capable of detecting ``tree-approximate objects.''
+
+%The potential of expanding this platform to the entirety of the State of
+%California, United States has prompted in expanding the scope of Vibrant Planet's prototype has been
+%prompted by the groundbreaking nature of the data-informed decision support
+%the platform can potentially provide to decision makers.
+%
+%Vibrant Planet has received interest from decision makers and funders about the
+%potential of the platform to cover the entirety of the State of
+%California in United States. Interest in expanding the scope of Vibrant Planet's prototype has been
+%prompted by the groundbreaking nature of the data-informed decision support
+%the platform can potentially provide to decision makers.
+%
+
+
+
 \subsection{Summary}
 
 The following is a brief summary of the methods and data utilized for the Vibrant Planet Canopy Height Model proof-of-concept. This introduction summary is followed by a detailed overview of the data sources and associated methods from the remote sensing and forestry research community. Herein, we introduce the usage and methods for:
