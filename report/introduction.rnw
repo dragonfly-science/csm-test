@@ -26,7 +26,10 @@ expanding its scope to the entirety of the State of California.
 This expansion requires high-quality LiDAR data over the state's spatial extent; however,
 a uniform LiDAR dataset does not currently exist for the entirety of the state. At the same time, data from other sources may available to generate a land-cover dataset for expanding the Canopy Height Model.
 
-The current project was focused on generating a land-cover dataset, using publicly-available data. The overall aim was to provide the closest approximation of relevant information that would generally be obtained by the collection of LiDAR data.  This report provides an overview of this exploration and proof-of-concept.
+The current project was focused on generating a land-cover dataset, using publicly-available data. The overall aim was to provide the closest approximation of relevant information that would generally be obtained by the collection of LiDAR data.  
+
+This report provides an overview of this exploration and proof-of-concept project.  Detailed documentation for geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) are available on the linked repositories.
+
  
  
 
