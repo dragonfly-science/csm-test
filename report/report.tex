@@ -32,10 +32,17 @@
 \input{build/results}
 \input{build/discussion}
 \input{build/appendix}
-%\input{acknowledgments}
+\input{acknowledgments}
+
 \printbibliography
 \clearpage
-\FloatBarrier
+
+%\FloatBarrier
+%\newpage
 %\appendices
-% \input{build/appendix}
+%\titleformat{\section}{\normalfont\bfseries\sffamily}{APPENDIX \thesection:}{1em}{}
+%\renewcommand{\theequation}{\thesection-\arabic{equation}}
+%\renewcommand{\thetable}{\thesection-\arabic{table}}
+%\renewcommand{\thefigure}{\thesection-\arabic{figure}}
+\input{appendix}
 \end{document}
