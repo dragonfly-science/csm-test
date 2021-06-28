@@ -162,8 +162,79 @@ The proof of concept demonstrates the capability of our model to upscale canopy 
 
 The test region used in the final proof-of-concept is located within the city of Incline Village (California) located at the Northern tip of the Lake Tahoe. We selected the area due to Vibrant Planet’s high confidence in the quality of the LiDAR data collection and the proximity of one of VP’s members home. This process provides us with an additional ground-truth component in our CHM due to the limited availability of field plots.We also incorporated a rasterized version of the fire returnal interval departure (FRID 2019) dataset which contains 34 dominant vegetation classes from the CALVEG. All the datasets are projected into California Albers (EPSG:3310) and raster alignment is verified. We then calculate the normalised difference vegetation index (NVDI) from Sentinel-2 bands (NIR \& Red, 10 m). The 1 m resolution canopy height model and the FRID layer are used to train the 10x10 m Sentinel-2 pixels using a linear correlation between the mean canopy height and the NDVI values calculated from the spectral bands. The upscaling process predicts mean canopy height for areas where traditional LiDAR is unavailable.
 
+The methods highlighted in this section do not aim to solve the prediction of CHM values but instead lay down the groundwork needed to move towards deep learning solutions that make use of all our multi-modal satellite data, whilst doing away with handcrafted features such as NDVI and NBR. They therefore serve as an overview of the engineering process, highlighting the construction of the machine learning training pipeline, basic machine learning modelling, the calculation of basic accuracy metrics and the packaging of the models in simple portable format allowing for a flexible, fast and efficient inference across large datasets.
 
+The Lemon Canyon region is approximately 188 by 155 pixels, translating to a space of 1.8km by 1.5 km. The B4 and B8 spectrums of this region were superposed on top of each other to form a multispectrum tensor of 2 by 188 by 155 pixels. 
+Z-score normalization was applied to tuples representing B4 and B8 features, to place the multi-spectrum values into a standard normal distribution required by our deep learning models.
 
-add info from Kiarie and Bogdan here
+The Pytorch Python library is picked as our machine library of choice. This library is currently the most popular deep learning library, as it allows for fast and efficient prototyping, and simple model deployment. This allows us to scale up training easily using specialized hardwares such as Graphical processing units (GPU)/ Tensor Processing Units (TPU)s and perform cheap inference across CPUs. 
 
+The models picked to form part of our training scaffolding are a linear regression model and a 2 layer multilayer perceptron using leaky-RELU non-linearity. Both of these models are trained using backpropagation, with an error functio of mean squared error.
+
+The first step involved in creating our prototype involved porting over the multi-spectrum data into a Pytorch data structure, allowing for efficient data pipelines creation and model training. The resultant data set object, is then split across a train, validation and test set 40:10:50 ratio, translating to 10578 train examples, 2644 validation examples and 13223 test examples. This train-val-test split is visualized below:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.50]{images/train-data.png}
+    \captionsetup{justification=centering}
+    \captionof{figure}{Train-Test-Validation}
+    \label{fig:poc_train_data}
+\end{figure}
+
+Model performance is measured using Mean Absolute Error (M.A.E.), as described below:
+
+\begin{equation}
+\mathrm{MAE}=\frac{\sum_{i=1}^{n}\left|y_{i}-x_{i}\right|}{n}
+\end{equation}
+
+where:
+
+$y_{i} \quad=$ prediction
+$x_{i} \quad=$ true value
+$n     \quad=$ total number of data points
+I
+This metric is selected, as opposed to Root Mean Squared Error (R.M.S.E.), which is sensitive to upper bound errors, thereby having a tendency to increase its value more than M.A.E. as the test sample size increases.
+The trained models when compared across the test data results in the M.A.E. errors shown in table []
+
+\begin{tabular}{|l|l|l|}
+\hline & Linear Regressor & Multi-layer perceptron \\
+\hline Z-score mean absolute error & $0.554 \pm 0.492$ & $0.525 \pm 0.332$ \\
+\hline Un-normalized score & $4.052 \pm 4.416$ & $3.947 \pm 4.483$ \\
+\hline
+\end{tabular}
+
+When the errors are further analysed across 20 bins each representing a canopy height of the region ranging in height from ≤1m to ≤35m; it can be seen that the average error is directly proportional to the predicted height model.
+\begin{figure}[H]                                                                                                                                                             
+\centering                                                                                                                                                                    
+\includegraphics[scale=0.50]{images/MAE-across-binned-tree-heights.png}
+    \captionsetup{justification=centering}
+    \captionof{figure}{Binned M.A.E. across binned canopy heights}       
+    \label{fig:poc_train_data}                     
+\end{figure}
+
+The results from these simple models trained across a limited dataset yeilds promising results as shown in the test images below. These images are generated by visualizing the CHM predictions using unseen B4 and B8 bands. 
+\begin{figure}[H]                                                                                                                                                                                                                    
+\centering       
+\includegraphics[scale=0.50]{images/model-predictions.png}                                                                                                       
+    \captionsetup{justification=centering}                             
+    \captionof{figure}{Model predictions across test dataset vs ground truth labels}
+    \label{fig:poc_train_data}                                    
+\end{figure}
+
+It can be seen that the predictions from the B4 and B8 closely resemble the ground truth labels on the far right.
+
+When feature selection is measured using XGBoost, a tree-based machine learning algorithm, we find that the most influential band for prediction using the simple models above is B4.
+\begin{figure}[H]                                                                                                                                                                                                            
+\centering       
+\includegraphics[scale=0.50]{images/feature-importance.png}
+    \captionsetup{justification=centering}                                                                                                                                    
+    \captionof{figure}{XGBoost tree feature importance measures}
+    \label{fig:poc_train_data}                                                      
+\end{figure}
+
+The promising results from these simple models can be improved two-fold, firstly, from a data perspective and secondly from a modelling one. 
+
+The more fine-grained and multi-spectrum data we have the more likely it is that model performance will increase - this will be seen a drop in M.A.E. Secondly given more data, we can begin to experiment with some of the state-of-the-art in the field that takes into account temporospatial information. 
+
+From a modelling perspective, applying convolution allows us to factor in neighbouring pixel data - allowing us to exploit information about regional geography, while sequential models such as recurrent neural networks or transformers, allow us to extract temporal information allowing from satellite imagery taken across different time periods. Thus minimizing the number of handcrafted features that our models need for prediction, whilst allowing us to tease out as much signal from our noisy multispectral data.
 
