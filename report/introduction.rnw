@@ -26,12 +26,12 @@ This expansion requires high-quality LiDAR data over the state's spatial extent;
 a uniform LiDAR dataset does not currently exist for the entirety of the state. At the same time, 
 data from other sources may be available to generate a land-cover dataset and for expanding the CHM.
 
-The current project was focused on a proof-of-concept for generating a land-cover dataset and expanding the CHM, using publicly-available data. 
-The overall aim was to provide the closest approximation of relevant information that would generally be obtained by the collection of LiDAR data.  
+A small number of  CHM models for the State of California are freely available, but the available data are lacking transparency about their creation methods, or they are only available in small downloads. At the same time, a significant number of raw classified point clouds are publicly accessible (from United States Geological Survey (USGS)).  These publicly-available data provide an opportunity of developing a CHM that assures  a scalable, replicable, and repeatable approach. 
 
-Although there is a small number of freely available CHM models for the State of California, the available data are lacking transparency about their creation methods or are only available in small downloads. Because United States Geological Survey (USGS) makes a significant number of raw classified point clouds publicly accessible, the current project was based on developing workflows to generate a CHM. This developed CHM assures a scalable, replicable, and repeatable approach to the methods used, with a test case providing a proof-of-concept.  The test case used all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010 and vary in resolution, sampling technique, and provider. 
+The current project was based on developing workflows to generate this type of CHM, including a test case to provide a proof of concept.  The test case used all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010, and vary in resolution, sampling technique, and provider.  
+%The overall aim of this project was to provide the closest approximation of relevant information that would generally be obtained by the collection of LiDAR data.  
 
-This report provides an overview of the datasets used to develop the CHM test case, and presenting a proof-of-concept.  Detailed documentation for geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) are available on the linked repositories.
+This report provides an overview of the datasets used to develop the CHM test case, documenting the proof of concept.   Detailed documentation for geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) that were part of this project are available on the linked repositories.
 
 
 %test region in Lemon Canyon (California
