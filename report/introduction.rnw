@@ -17,7 +17,9 @@ prototype platform for the data-informed planning of forestry interventions is d
 launched in the second quarter of 2021. This prototype is currently based on a
 fine-scale land-cover model, the
 Canopy Height Model (CHM), which is capable of detecting ``tree-approximate objects''. The model is built on 
- high-quality LiDAR (light detection and ranging) data.
+ high-quality LiDAR (light detection and ranging) data. LiDAR measurements (point clouds) reflect state of the art technology for calculating above-ground biomass \citep{chan_estimating_2021}, 
+such as estimates of tree height in forest ecosystems. LiDAR data can outperform traditional synthetic aperture radar (SAR) approaches, 
+which fail to accurately depict vegetation surface information \citep{lu_survey_2016}.  
 
 The model's potential to support data-informed decision-making 
 has prompted interest in 
@@ -32,6 +34,9 @@ The current project was based on developing an approach to generate this type of
 %The overall aim of this project was to provide the closest approximation of relevant information that would generally be obtained by the collection of LiDAR data.  
 
 This report provides an overview of the approach and datasets used to develop the CHM test case.   Detailed documentation for geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) that were part of this project are available on the linked repositories.
+
+%add a bit more in once the overall report become clear
+%context for forest fires?
 
 
 %test region in Lemon Canyon (California

@@ -14,22 +14,15 @@
 %\end{itemize}
 %
 
-The model developed in the current project was based on Vibrant Planet's CHM. The CHM was used to train a machine-learning process against satellite pixel (Sentinel-2) information.  LiDAR measurements (point clouds) reflect state of the art technology for calculating above-ground biomass \citep{chan_estimating_2021}, 
-such as estimates of tree height in forest ecosystems. LiDAR data can outperform traditional synthetic aperture radar (SAR) approaches, 
-which fail to accurately depict vegetation surface information \citep{lu_survey_2016}.  The CHM, derived from raw LiDAR point clouds, 
-formed the basis of the current model, which was used to train a machine-learning process against satellite pixel (Sentinel-2) information.   
-
-The latter data
-are from Copernicus Sentinel-2, a constellation of two polar-orbiting satellites collecting global visible and near infrared imagery.  
-For the purpose of this project, Sentinel-2 can be used to generate vegetation indices like Normalized Burn Ratio (NBR) and Normalized Difference Vegetation Index (NDVI)
+The model developed in the current project was based on Vibrant Planet's CHM. The CHM was used to train a machine-learning process against satellite pixel (Sentinel-2) information. 
+The Sentinel-2 data were from Copernicus Sentinel-2, a constellation of two polar-orbiting satellites collecting global visible and near infrared imagery.  
+For the purpose of this project, Sentinel-2 was used to generate vegetation indices like Normalized Burn Ratio (NBR) and Normalized Difference Vegetation Index (NDVI)
  \citep{pandit_estimating_2018, wang_estimating_2020}. These indices  can be correlated with outside vegetation feature layers and associated 
  Sentinel-2 bands (near-infrared, red-edge, shortwave-infrared) at higher resolutions (10 to 20~m) than traditionally-used Landsat data (30~m). 
  Forest ecologists and geospatial scientists commonly use the NBR (\cite{kennedy_detecting_2010}) and the NDVI to correlate spectral responses with vegetation features (e.g., biomass; \cite{ghosh_aboveground_2018}) and track forest fires. Particularly the three available red-edge sensors and associated indices are valuable in discriminating the different levels of burn 
  severity in forest ecosystems \citep{fernandez-manso_sentinel-2a_2016}. 
 %
-%For our initial testing we are specifically employing Sentinel-2 L2A ground reflectance data. Sentinel L2A is available from May 2018 to the present. Not yet incorporated is Sentinel L1C; which dates as far back April 2016. The difficulty in working with the L1C is the level of cleaning needed in order to use this product in our pipeline. Several tools developed by the Sentinel project to explore (e.g. SNAP) and clean (e.g. Sen2Cor) Sentinel-2 data are readily available; however, more sophisticated approaches to analyse time series for land classification \citep{campos-taberner_understanding_2020}, as available for LandSat imagery \citep{white_nationwide_2017, wulder_satellite-based_2020, hermosilla_mass_2016} are yet to be explored and require new workflows to process the data. 
-%
-%Working with a California-wide Sentinel-2 imagery requires reprojection into a uniform coordinate system and workflows to implement our own gridded tiling system. With these workflows in place, we can use the whole database via S3 and query gap-free imagery with low cloud-obstruction to derive spectral indices which can used for the training process with LiDAR information. Only then can we discover the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classification.
+For the initial testing, Sentinel-2 L2A ground reflectance data were used. These data were available from May 2018 to the present.   Using California-wide Sentinel-2 imagery requires re-projection into a uniform coordinate system and workflows to implement a  gridded tiling system for this project. Implementation of these workflows means that the entire  database can be used via S3 and query gap-free imagery with low cloud-obstruction; this imagery can then be used to derive spectral indices for the training process with LiDAR information.  This process allows an assessment of the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classifications.
 
 
 
