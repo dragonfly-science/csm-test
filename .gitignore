@@ -11,3 +11,5 @@ report/s3
 **.log
 **.aux
 **.pdf
+report/***.bbl
+report/***.blg
