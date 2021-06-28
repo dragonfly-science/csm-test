@@ -16,22 +16,25 @@ a focus on forestry management. Its
 prototype platform for the data-informed planning of forestry interventions is due to be 
 launched in the second quarter of 2021. This prototype is currently based on a
 fine-scale land-cover model, the
-Canopy Height Model, which is capable of detecting ``tree-approximate objects''. The model is built on 
- high-quality
-LiDAR (light detection and ranging) data.
+Canopy Height Model (CHM), which is capable of detecting ``tree-approximate objects''. The model is built on 
+ high-quality LiDAR (light detection and ranging) data.
 
 The model's potential to support data-informed decision-making 
 has prompted interest in 
 expanding its scope to the entirety of the State of California.
 This expansion requires high-quality LiDAR data over the state's spatial extent; however,
-a uniform LiDAR dataset does not currently exist for the entirety of the state. At the same time, data from other sources may available to generate a land-cover dataset for expanding the Canopy Height Model.
+a uniform LiDAR dataset does not currently exist for the entirety of the state. At the same time, 
+data from other sources may be available to generate a land-cover dataset and for expanding the CHM.
 
-The current project was focused on generating a land-cover dataset, using publicly-available data. The overall aim was to provide the closest approximation of relevant information that would generally be obtained by the collection of LiDAR data.  
+The current project was focused on a proof-of-concept for generating a land-cover dataset and expanding the CHM, using publicly-available data. 
+The overall aim was to provide the closest approximation of relevant information that would generally be obtained by the collection of LiDAR data.  
 
-This report provides an overview of this exploration and proof-of-concept project.  Detailed documentation for geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) are available on the linked repositories.
+Although there is a small number of freely available CHM models for the State of California, the available data are lacking transparency about their creation methods or are only available in small downloads. Because United States Geological Survey (USGS) makes a significant number of raw classified point clouds publicly accessible, the current project was based on developing workflows to generate a CHM. This CHM assures  a scalable, replicable, and repeatable approach to the methods used, with a test case providing a proof-of-concept.  The test case used all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010 and vary in resolution, sampling technique, and provider. 
 
- 
- 
+This report provides an overview of the datasets used to develop the CHM test case, and presenting a proof-of-concept.  Detailed documentation for geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) are available on the linked repositories.
+
+
+%test region in Lemon Canyon (California
 
 %
 %\subsection{Summary}
@@ -59,7 +62,7 @@ This report provides an overview of this exploration and proof-of-concept projec
 %
 %\paragraph{LiDAR} \
 %
-%LiDAR measurements (point clouds) are state of the art technology for calculating above ground biomass \citep{chan_estimating_2021}, like tree height estimates in forest ecosystems. LiDAR can outperform traditional synthetic aperture radar (SAR) approaches which fail to accurately depict vegetation surface information \citep{lu_survey_2016}.  The canopy height model (CHM), derived from raw LiDAR point clouds, constitutes the 'heart' of our model and is used to train a machine learning process against satellite pixel (Sentinel-2) information.  There is a small amount of freely available CHM models for the state of California. The data that is available is lacking in transparency about its creation methods or is only available as small downloads. USGS does make a large number of raw classified point clouds publicly accessible, so we decided to develop our own workflows to generate a CHM assuring a scalable, replicable, and repeatable approach to our method.  Large scale access to the data is still an issue; however, the ability to develop our own surface models is straight forward with software like PDAL. For our test case, we receive all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010 and vary in resolution, sampling technique, and provider. 
+%%LiDAR measurements (point clouds) are state of the art technology for calculating above ground biomass \citep{chan_estimating_2021}, like tree height estimates in forest ecosystems. LiDAR can outperform traditional synthetic aperture radar (SAR) approaches which fail to accurately depict vegetation surface information \citep{lu_survey_2016}.  The canopy height model (CHM), derived from raw LiDAR point clouds, constitutes the 'heart' of our model and is used to train a machine learning process against satellite pixel (Sentinel-2) information.  There is a small amount of freely available CHM models for the state of California. The data that is available is lacking in transparency about its creation methods or is only available as small downloads. USGS does make a large number of raw classified point clouds publicly accessible, so we decided to develop our own workflows to generate a CHM assuring a scalable, replicable, and repeatable approach to our method.  Large scale access to the data is still an issue; however, the ability to develop our own surface models is straight forward with software like PDAL. For our test case, we receive all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010 and vary in resolution, sampling technique, and provider. 
 %
 %A particular challenge associated with an extensive data source is merging the vendor provided point clouds into a streamlined, scalable process consistent across the entire state. Current workflows at Vibrant Planet rely on vendor provided digital terrain models (DTM) and use the Fusion software to derive a digital surface model (DSM) and a resulting canopy height model (CHM). Since vendor provided CHM are not universally available for all datasets and the workflows to derive these are unknown, we demonstrate our own process to generate a DTM, DSM, and CHM using PDAL (Point Data Abstraction Library). This process enables us to work with the full point cloud database and guarantee replicability with future LiDAR dataset regardless of vendor specific point classification differences. 
 %
