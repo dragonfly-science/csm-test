@@ -1,7 +1,131 @@
 \newpage
 
+\section{Appendix A}
 
-\section{Appendix}
+
+
+\section{Appendix B}
+
+
+\subsection{Geospatial Tools}
+
+\subsubsection{Geospatial Data Abstraction Library (GDAL) Usage}
+
+The Geospatial Data Abstraction Library or GDAL, is an open source library specifically developed for working with raster and vector geospatial data. For raster processing, GDAL libraries are implemented in the backend across the majority of geospatial software tools used today including ArcGIS, FME, and QGIS. The power in GDAL is its command line capability for geospatial data processing. GDAL is is relatively easy to script/scale, is well doucmented, and works with virtually all major geospatial data types.
+
+For the purposes of our project, we are leveraging GDAL 3.2.2 for all our important raster processing:
+\begin{itemize}
+    \item Reprojections (\texttt{gdalwarp})
+    \item Resampling (\texttt{gdal\_translate/gdalwarp})
+    \item Masking (\texttt{gdal\_translate/gdalwarp})
+    \item Data type conversions (\texttt{gdal\_translate})
+    \item Metadata queries (\texttt{gdalinfo})
+    \item Raster calculations (\texttt{gdal\_calc.py})
+    \item Rasterization (\texttt{gdal\_rasterize})
+\end{itemize}
+
+Additionally, we are implementing GDAL's capabilities to create:
+\begin{itemize}
+    \item Hillshade
+    \item Slope
+    \item Aspect
+    \item Roughness
+\end{itemize}
+
+\subsubsection{PostGIS/PostgreSQL Usage}
+
+PostgreSQL (13.3) used to manage vector data as tables. PostGIS is an extension for PostgreSQL providing capabilities to manage these tables as geospatial layers. Vector data is uploaded to PostgreSQL using ogr2ogr. This method allows us to directly load 'file geodatabase' file types to our database without the need to covert to shapefile first. Conversion to shapefile truncates the column names; therefore, this is very useful tool helping keep our data intact. Utilizing ogr2ogr as our upload also allows us to force all geometries to multipolygon, further cleaning and generalizing the data.
+
+Both the Calveg and FRID (vegetation classification layers) require cleaning and correction of invalid geometries. These are large complex data sets containing millions of vertices and complex geometries. PostGIS (2.4) is an excellent tool for handling these types of large operations. Cleaning is a necessary step for upstream processes like rasterization, but also necessary to work with the data properly.  Once clean, we export the tables using ogr2ogr. Using this command as an export provides us the opportunity to build a single unified shapefile.  Working with a single shapefile, although large, permits easy clips of the data using a bounding box. In the future, it is more likely we will skip the export back to shapefile and query regions directly from the PostgreSQL table instead, leveraging the speed and power of properly indexed data.  For now, our process is tested and functioning.
+
+\subsubsection{Vector Rasterization}
+
+Rasterization of vectors is necessary for our machine learning models. If we are doing pixel to pixel comparisons, the vector data must be in the same format.  Rather than rasterizing the entire vector data set, we clip the data in the shapefile as needed and perfrom the rasterization on the fly.  At the time of the conversion to raster we pass the necessary extents and resolution for the output. We've found this method to be quick since the read and storage of vector data is more efficient.
+
+\subsubsection{Point Cloud Data Abstraction Library (PDAL) Usage}
+
+PDAL (2.3.0) is an open library written in C++ for managing and processing point cloud data. This tool is similar to LASTools in the Windows environment and offers similar capabilities. The advantages for us in using PDAL for this project are many. One, PDAL is an easily scripted tool allowing for scaling. At its core, PDAL utilizes JSON configurations called pipelines and allows us to string multiple processes into single documents. This method for developing individual complex pipelines for point clouds gives us the control needed to run these processes across myriad cores.  Two, PDAL is developed to handle varied point cloud data types outside of the traditional ASPRS LAS. This may be important as we begin to generate surfaces from varied sources. Three, being an open library, we can if needed build additional capabilities in to the tool. One example being, adding additional libraries for reading LAS and LAZ formats.
+
+In our project, we are implementing PDAL for point cloud filtering plus, generation of Digital Terrain Models (DTM) and Digital Surface Models (DSM). In a basic PDAL process we will:
+\begin{enumerate}
+    \item Refine point clouds into ground and non-ground points
+    \item Generate Digital Terrain Model (DTM) interpolation from ground points
+    \item Generate Digital Surface Model (DSM) interpolation from highest points
+\end{enumerate}
+
+Results from the generation of the DTM and DSM are then used to calculate the Canopy Height Model (CHM).
+
+PDAL is not developed specifically for the generation of surface grids (rasters); however, it does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Notably, the IDW method does not interpolate over large areas where data is not present. Specifically, in our surface generations, this results in regions of 'nodata' where there are insufficient ground points for interpolation.  This is a known outcome and currently addressed by increasing the window size for the IDW to search for neighboring points.  Currently, we are confident in this solution for addressing 'nodata' regions of the surface model; however, we are continuing to research other solutions (e.g. Triangulated Irregular Networks).
+
+
+\subsubsection{Sentinel 2 Handling}
+
+Handling and manipulation of Sentinel 2 data is performed using GDAL. Raw Sentinel data comes to us in JP2 format and is projected in its corresponding UTM zone. Our first operation is to bring all the Sentinel into a singular projection, California Albers (EPSG:3310). For the purposes of geospatial operations, we also convert images into GeoTiff format. If needed, Sentinel-2 images are re-sampled into 10m resolution. Our re-sampling method is to use gdal\_translate and to split the pixel, e.g a 20m resolution pixel is split into four new pixels to achieve 10m resolution.
+
+\subsubsection{Pixel Alignment}
+
+In order to have clean pixel sampling, we need to ensure all our data aligns to be the best of our abilities.  This is ensured through several processes. First, projection. All data for our project is developed to be in the same projection wih the same origin. Second, resolution. Each data set is always forced into a 10m resolution when GDAL commands allow.  Third, extents.  Extents are always captured the the beginning of a process and reapplied to the outputs. Forth, scripting. Scripting allows us to build repeatable processes capturing all the parameters needed along the way.
+
+\subsubsection{Production Data Infrastructure}
+
+While systems like PostGIS and QGIS are essential as exploration and debugging tools for GIS workflows, they suffer from important scale limitations that make them unsuitable for Machine Learning applications of the scope ultimately required by Vibrant Planet. To complement these systems, the team deployed a cloud infrastructure stack centered around a 'data lake' architecture, consisting of the following components:
+\begin{itemize}
+  \item Amazon S3 as the data storage abstraction layer for both tabular and image data.
+  \item A standalone Hive metastore, backed by a Postgres database, enabling the storage of tabular data.
+  \item Trino as the distributed compute environment responsible for tabular data processing.
+  \item Dask as the distributed compute environment responsible for image data processing.
+\end{itemize}
+
+The architecture stack was deployed using Kubernetes running on an Amazon EKS cluster. Dedicated node groups were set up for Trino (backed by T3.large instances) and Dask workers (backed by R5.large instances). Processing the area of interest required a peak of 30 instances running at any one time, with a total estimated run time for the entire data preparation pipeline of under 48 hours. Depending on its complexity, model training may add a significant amount of financial and time cost to these compute requirements. 
+
+Image data processing was done using the same GDAL commands developed in the exploration stage, adapted using the pattern of 'embarassing parallelism', where independent tasks were created for each of about 25,000 distinct image files identified in the area of interest. Hive tables were used to manage run metadata (i.e., what files needed processing, or had already been processed), whereas Dask workers were used to complete the processing itself. This design choice makes the processing incremental and easy to resume when faced with inevitable infrastructure errors.
+
+\subsubsection{Data Pre-Processing}
+
+The data processing consisted of the following concrete steps:
+
+\begin{enumerate}
+   \item \textbf{Identifying MGRS tiles of interest.} This task was done by leveraging an exhaustive listing of level 1B Sentinel data stored on Google Cloud Storage. This table was imported into the data lake, as no similar metadata file was found for the Amazon instantiation of the Sentinel-2 dataset. While the image listings themselves could not be used (due to Google's version of Sentinel2 containing only the 'rawer' Level 1B data, as compared to the Level 2A data hosted by Amazon), the table proved useful due to its containing an exhaustive listing of all MGRS tiles for which Sentinel data is available, as well as their spatial coordinates. The identification of the 9 MGRS tiles of interest was thus done using a simple SQL filter query against this large metadata file. 
+   \item \textbf{Identifying Sentinel data-takes of interest.} This was done simply by listing all existing data take files in the the S3 keys corresponding to each bucket.
+   \item \textbf{Identifying high quality data takes.} This task involved reading the granule metadata corresponding to each datatake. Because the metadata lists an estimated cloud cover percentage, it was possible to separate out images with less than 35 % cloud cover. The 35 % threshold was identified during the exploratory phase.
+   \item \textbf{Reprojecting Sentinel datatakes into a uniform coordinate system.} All Sentinel tiles are provided in the UTM coordinate system. Because the area of interest spans multiple UTM bands, it was necessary to harmonize them through reprojection into the California Albers projection -- a planar coordinate system developed specifically for geographic information relating to state's geography.
+   \item \textbf{Clipping reprojected datatakes to uniform grid.} Because datatakes corresponding to multiple MGRS tiles could cover the same area, it was necessary to overlay them to create a composite dataset. The first step in creating the overlay involved clipping each tile to a uniform extent, using square tiles with a side of 40 km (this choice was dictated by memory constraints on individual machines used for the data processing.)
+   \item \textbf{Merging clipped datatakes into annual summaries.} Clipped datatakes corresponding to the same grid square and year were merged using a simple noise reduction algorithm. Namely, a median value was taken for each pixel across all datatakes referring to the same location during each year's dry season (to minimize artifacts due to snow and clouds, given that clouds were not removed from the processed images.). Where more than 18 data takes were present, the median was approximated as the median of median values taken across each batch of up to 18 data takes (the batch size was determined empirically, to fit within memory constraints.)
+\end{enumerate}
+
+The pre-processing results in a composite image for each band and for each year. This image, an example of which is shown below, represents one layer of features for the Machine Learning model (\autoref{fig:sent2db}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.50]{images/band.png}
+    \captionsetup{justification=centering}
+    \captionof{figure}{Sentinel-2 composite}
+    \label{fig:sent2db}
+\end{figure}
+
+
+\subsubsection{Canopy Height Model (CHM) Calculation}
+
+Calculation of the CHM (\autoref{eq:chm}) is an important aspect of our project, but a rather easy process.
+
+\begin{equation}
+CHM= DSM - DTM
+\label {eq:chm}
+\end{equation}
+
+We are using \texttt{gdal\_calc.py} for this operation. Gdal{\_}calc.py is a commandline tool offered by the GDAL library. Importantly, this tool provides us control over extents and data types of the outputs. Setting and switching between data types, like UInt16 and Float32, is important for keeping all our data in the same format.
+
+
+\subsection{CHM Accuracy Assessment}
+
+To demonstrate confidence in our CHM the prototype development is preceded by an accuracy assessment for the generation of CHM’s from different sources. Our test region is located in the Lemon Canyon (\autoref{fig:lemoncanyon}, California) approximately 50 km North from the Lake Tahoe test region. We selected this area based on the distance to our prototype, the valley structure with a range of distinct topographic features (e.g. slopes, aspects) and one of the available LiDAR verification plots located within the test boundaries ($\sim$ 2.7 km$^2$). For this plot we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93~pts~m$^{-2}$) accuracy from a publicly available source (OpenTopography, 2014). The data source provided a pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM).
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.75]{s3/images/referenceMap_lemonCanyon.png}
+    \captionof{figure}{Lemon Canyon Test Region}
+    \label{fig:lemoncanyon}
+\end{figure}
 
 As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results.  
 
