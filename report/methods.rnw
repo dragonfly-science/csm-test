@@ -68,36 +68,9 @@ In order to assess the difference between the three different CHM’s the output
 
 \subsection{Proof of concept: Upscaling canopy height with Sentinel-2}
 
-To upscale LiDAR derived CHM information with Sentinel-2 imagery a sophisticated process had to deployed to ingest, align and extract information from a range of different datasources. While we decided to use two Sentinel bands (10 m, red \& near-infrared) as inputs for this demo due to the size of the training dataset, we have prepared additional spectral vegetation indices and classification layers via GDAL and PostgreSQL/PostGIS (see Appendix B) which we will incorporate as additional labels in future models.
+To upscale LiDAR derived CHM information with Sentinel-2 imagery a sophisticated process had to deployed to ingest, align and extract information from a range of different data sources. While we decided to use two Sentinel bands (10 m, red \& near-infrared) as inputs for this demo due to the size of the training dataset, we have prepared additional spectral vegetation indices and classification layers via GDAL and PostgreSQL/PostGIS (see Appendix B) which we will incorporate as additional labels in future models. Once these pipelines have been established, we were able to export the items into a scalable production data infrastructure for machine learning processes. We used Amazon Web Service (AWS) S3 for image storage, a standalone Hive metastore backed by a Postgres database for tabular data storage (vector/metadata) and a Trino and Dask environment for tabular and image data processing respectively (see Appendix B). 
 
-Production Data Infrastructure
-
-While systems like PostGIS and QGIS are essential as exploration and debugging tools for GIS workflows, they suffer from important scale limitations that make them unsuitable for Machine Learning applications of the scope ultimately required by Vibrant Planet. To complement these systems, the team deployed a cloud infrastructure stack centered around a 'data lake' architecture, consisting of the following components:
-\begin{itemize}
-  \item Amazon S3 as the data storage abstraction layer for both tabular and image data.
-  \item A standalone Hive metastore, backed by a Postgres database, enabling the storage of tabular data.
-  \item Trino as the distributed compute environment responsible for tabular data processing.
-  \item Dask as the distributed compute environment responsible for image data processing.
-\end{itemize}
-
-The architecture stack was deployed using Kubernetes running on an Amazon EKS cluster. Dedicated node groups were set up for Trino (backed by T3.large instances) and Dask workers (backed by R5.large instances). Processing the area of interest required a peak of 30 instances running at any one time, with a total estimated run time for the entire data preparation pipeline of under 48 hours. Depending on its complexity, model training may add a significant amount of financial and time cost to these compute requirements. 
-
-Image data processing was done using the same GDAL commands developed in the exploration stage, adapted using the pattern of 'embarassing parallelism', where independent tasks were created for each of about 25,000 distinct image files identified in the area of interest. Hive tables were used to manage run metadata (i.e., what files needed processing, or had already been processed), whereas Dask workers were used to complete the processing itself. This design choice makes the processing incremental and easy to resume when faced with inevitable infrastructure errors.
-
-\subsubsection{Data Pre-Processing}
-
-The data processing consisted of the following concrete steps:
-
-\begin{enumerate}
-   \item \textbf{Identifying MGRS tiles of interest.} This task was done by leveraging an exhaustive listing of level 1B Sentinel data stored on Google Cloud Storage. This table was imported into the data lake, as no similar metadata file was found for the Amazon instantiation of the Sentinel-2 dataset. While the image listings themselves could not be used (due to Google's version of Sentinel2 containing only the 'rawer' Level 1B data, as compared to the Level 2A data hosted by Amazon), the table proved useful due to its containing an exhaustive listing of all MGRS tiles for which Sentinel data is available, as well as their spatial coordinates. The identification of the 9 MGRS tiles of interest was thus done using a simple SQL filter query against this large metadata file. 
-   \item \textbf{Identifying Sentinel data-takes of interest.} This was done simply by listing all existing data take files in the the S3 keys corresponding to each bucket.
-   \item \textbf{Identifying high quality data takes.} This task involved reading the granule metadata corresponding to each datatake. Because the metadata lists an estimated cloud cover percentage, it was possible to separate out images with less than 35 % cloud cover. The 35 % threshold was identified during the exploratory phase.
-   \item \textbf{Reprojecting Sentinel datatakes into a uniform coordinate system.} All Sentinel tiles are provided in the UTM coordinate system. Because the area of interest spans multiple UTM bands, it was necessary to harmonize them through reprojection into the California Albers projection -- a planar coordinate system developed specifically for geographic information relating to state's geography.
-   \item \textbf{Clipping reprojected datatakes to uniform grid.} Because datatakes corresponding to multiple MGRS tiles could cover the same area, it was necessary to overlay them to create a composite dataset. The first step in creating the overlay involved clipping each tile to a uniform extent, using square tiles with a side of 40 km (this choice was dictated by memory constraints on individual machines used for the data processing.)
-   \item \textbf{Merging clipped datatakes into annual summaries.} Clipped datatakes corresponding to the same grid square and year were merged using a simple noise reduction algorithm. Namely, a median value was taken for each pixel across all datatakes referring to the same location during each year's dry season (to minimize artifacts due to snow and clouds, given that clouds were not removed from the processed images.). Where more than 18 data takes were present, the median was approximated as the median of median values taken across each batch of up to 18 data takes (the batch size was determined empirically, to fit within memory constraints.)
-\end{enumerate}
-
-The pre-processing results in a composite image for each band and for each year. This image, an example of which is shown below, represents one layer of features for the Machine Learning model (\autoref{fig:sent2db}).
+For the data pre-processing we had to identify Sentinel-2 data of interest based on 9 tiles of the Military Grid Reference System (MGRS) for California and reproject them in California Albers reference system. Via an SQL filter we were able to the metadata for imagery with the least amount of noise (e.g. < 35 \% cloud obstruction). Based on the MGRS imageries were clipped to uniform tiles with 40 km sides and spatially but not temporally overlaying pixels were merged using a median filter for the growing season. The pre-processing resulted in a composite image for each band and for each year. This image, an example of which is shown below, represents one layer of features for the Machine Learning model (\autoref{fig:sent2db}).
 
 \begin{figure}[H]
 \centering
@@ -107,16 +80,16 @@ The pre-processing results in a composite image for each band and for each year.
     \label{fig:sent2db}
 \end{figure}
 
-The methods highlighted in this section do not aim to solve the prediction of CHM values but instead lay down the groundwork needed to move towards deep learning solutions that make use of all our multi-modal satellite data, whilst doing away with handcrafted features such as NDVI and NBR. They therefore serve as an overview of the engineering process, highlighting the construction of the machine learning training pipeline, basic machine learning modelling, the calculation of basic accuracy metrics and the packaging of the models in simple portable format allowing for a flexible, fast and efficient inference across large datasets.
+%The methods highlighted in this section do not aim to solve the prediction of CHM values but instead lay down the groundwork needed to move towards deep learning solutions that make use of all our multi-modal satellite data, whilst doing away with handcrafted features such as NDVI and NBR. They therefore serve as an overview of the engineering process, highlighting the construction of the machine learning training pipeline, basic machine learning modelling, the calculation of basic accuracy metrics and the packaging of the models in simple portable format allowing for a flexible, fast and efficient inference across large datasets.
 
-The Lemon Canyon region is approximately 188 by 155 pixels, translating to a space of 1.8km by 1.5 km. The B4 and B8 spectrums of this region were superposed on top of each other to form a multispectrum tensor of 2 by 188 by 155 pixels. 
-Z-score normalization was applied to tuples representing B4 and B8 features, to place the multi-spectrum values into a standard normal distribution required by our deep learning models.
+The Lemon Canyon region is approximately 188 by 155 pixels, translating to a space of 1.8km by 1.5 km. The band 4 (B4, red) and band 8 (B8, near-infrared) spectrums of this region were superposed on top of each other to form a multispectrum tensor of 2 by 188 by 155 pixels. 
+Z-score normalization was applied to tuples representing B4 and B8 features, to place the multi-spectrum values into a standard normal distribution required by our deep learning models. We used the Pytorch Python library for adaptive and scalable model training procedures with specialized graphical/tensor processing units. The models picked to form part of our training scaffolding are a linear regression model and a 2 layer multilayer perceptron using leaky-RELU non-linearity. Both of these models are trained using backpropagation, with an error function of mean squared error. The spectral information has been piped into Pytorch data structure and split across a train, validation and test set 40:10:50 ratio, translating to 10578 train examples, 2644 validation examples and 13223 test examples. This train-val-test split is visualized below:
 
-The Pytorch Python library is picked as our machine library of choice. This library is currently the most popular deep learning library, as it allows for fast and efficient prototyping, and simple model deployment. This allows us to scale up training easily using specialized hardwares such as Graphical processing units (GPU)/ Tensor Processing Units (TPU)s and perform cheap inference across CPUs. 
+%The Pytorch Python library is picked as our machine library of choice. This library is currently the most popular deep learning library, as it allows for fast and efficient prototyping, and simple model deployment. This allows us to scale up training easily using specialized hardwares such as Graphical processing units (GPU)/ Tensor Processing Units (TPU)s and perform cheap inference across CPUs. 
 
-The models picked to form part of our training scaffolding are a linear regression model and a 2 layer multilayer perceptron using leaky-RELU non-linearity. Both of these models are trained using backpropagation, with an error function of mean squared error.
+%The models picked to form part of our training scaffolding are a linear regression model and a 2 layer multilayer perceptron using leaky-RELU non-linearity. Both of these models are trained using backpropagation, with an error function of mean squared error.
 
-The first step involved in creating our prototype involved porting over the multi-spectrum data into a Pytorch data structure, allowing for efficient data pipelines creation and model training. The resultant data set object, is then split across a train, validation and test set 40:10:50 ratio, translating to 10578 train examples, 2644 validation examples and 13223 test examples. This train-val-test split is visualized below:
+%The first step involved in creating our prototype involved porting over the multi-spectrum data into a Pytorch data structure, allowing for efficient data pipelines creation and model training. The resultant data set object, is then split across a train, validation and test set 40:10:50 ratio, translating to 10578 train examples, 2644 validation examples and 13223 test examples. This train-val-test split is visualized below:
 
 \begin{figure}[H]
 \centering
@@ -140,8 +113,6 @@ $n     \quad=$ total number of data points
 
 This metric is selected, as opposed to Root Mean Squared Error (R.M.S.E.), which is sensitive to upper bound errors, thereby having a tendency to increase its value more than M.A.E. as the test sample size increases.
 The trained models when compared across the test data results in the M.A.E. errors shown in table below:
-
-
 
 
 %--------------------------
