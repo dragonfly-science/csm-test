@@ -14,56 +14,61 @@
 %\end{itemize}
 %
 
-The model developed in the current project was based on Vibrant Planet's CHM. The CHM was used to train a machine-learning process against satellite pixel (Sentinel-2) information. The Sentinel-2 data were from Copernicus Sentinel-2, a constellation of two polar-orbiting satellites collecting global visible and near infrared imagery.  
-For the purpose of this project, Sentinel-2 was used to generate vegetation indices like Normalized Burn Ratio (NBR) and Normalized Difference Vegetation Index (NDVI)
- \citep{pandit_estimating_2018, wang_estimating_2020}. These indices  can be correlated with outside vegetation feature layers and associated Sentinel-2 bands (near-infrared, red-edge, shortwave-infrared) at higher resolutions (10 to 20~m) than traditionally-used Landsat data (30~m). Forest ecologists and geospatial scientists commonly use the NBR (\cite{kennedy_detecting_2010}) and the NDVI to correlate spectral responses with vegetation features (e.g., biomass; \cite{ghosh_aboveground_2018}) and track forest fires. Particularly the three available red-edge sensors and associated indices are valuable in discriminating the different levels of burn 
- severity in forest ecosystems \citep{fernandez-manso_sentinel-2a_2016}. 
-%
-For the initial testing, Sentinel-2 L2A ground reflectance data are used. These data are collected at a five-day cadence for any given location, and are comprised of twelve spectral bands at a resolution ranging from 10 to 60~m per pixel. Sentinel-2 L2A is available from May 2018 to the present.  Using California-wide Sentinel-2 imagery requires re-projection into a uniform coordinate system and workflows to implement a gridded tiling system for this project. Implementation of these workflows means that the entire  database can be used via S3 and query gap-free imagery with low cloud-obstruction; this imagery can then be used to derive spectral indices for the training process with LiDAR information.  This process allows an assessment of the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classifications.
+The LiDAR upscaling approach is preceded by a demonstration and evaluation of our workflows to produce a canopy height model (CHM) from unclassified LiDAR point cloud data. The proof of concept upscales the CHM by training Sentinel-2 derived spectral indices on this information to infer mean canopy height pixels where vegetation height information is unavailable.
+
+Our test region is located in the Lemon Canyon (\autoref{fig:lemoncanyon}, California) approximately 50 km North of Lake Tahoe. We selected this area based the valley structure with a range of distinct topographic features (e.g. slopes, aspects) and one of the available LiDAR verification plots located within the test boundaries ($\sim$ 2.7 km$^2$). For this plot we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93~pts~m$^{-2}$) accuracy from a publicly available source (OpenTopography, 2014). The data source provided a pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM).
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.75]{s3/images/referenceMap_lemonCanyon.png}
+    \captionof{figure}{Lemon Canyon Test Region}
+    \label{fig:lemoncanyon}
+\end{figure}
 
 
+A particular challenge associated with an extensive data source is merging the vendor provided point clouds into a streamlined, scalable process consistent across the entire state. Current workflows at Vibrant Planet rely on vendor provided digital terrain models (DTM) and use the Fusion software to derive a digital surface model (DSM) and a resulting canopy height model (CHM). Since vendor provided CHM are not universally available for all datasets and the workflows to derive these are unknown, we demonstrate our own process to generate a DTM, DSM, and CHM using the Point Data Abstraction Library (PDAL). This process enables us to work with the full point cloud database and guarantee replicability with future LiDAR dataset regardless of vendor specific point classification differences. As an overall raster processing tool, we rely heavily on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, reprojections, and raster calculations. GDAL is not suited for point cloud data processing, therefore, we move to PDAL for these operations.
 
+Particularly the generation of a DTM is a crucial process which is prone to producing gaps due to a lack of ground information at the center of large trees with dense canopy structure. In addition to general cleaning algorithms (e.g. outlier classifier) used for the DSM, the PDAL pipeline to generate a DTM includes a ground filtering process (Progressive Morphological Filter, \cite{zhang_progressive_2003}) to make the DTM exlusively incorporate points identified as ground. Once both layers have been generated,the canopy height model (\autoref{eq:chm}) is calculated by subtracting the ground information (DTM) from the vegetation surface information (DSM) and is performed with GDAL commandline tool \texttt{gdal\_calc.py} to retain/switch data formats (e.g. UInt16 and Float32):
 
+\begin{equation}
+CHM= DSM - DTM
+\label {eq:chm}
+\end{equation}
 
-%
-%
-%A particular challenge associated with an extensive data source is merging the vendor provided point clouds into a streamlined, scalable process consistent across the entire state. Current workflows at Vibrant Planet rely on vendor provided digital terrain models (DTM) and use the Fusion software to derive a digital surface model (DSM) and a resulting canopy height model (CHM). Since vendor provided CHM are not universally available for all datasets and the workflows to derive these are unknown, we demonstrate our own process to generate a DTM, DSM, and CHM using PDAL (Point Data Abstraction Library). This process enables us to work with the full point cloud database and guarantee replicability with future LiDAR dataset regardless of vendor specific point classification differences. 
-%
-%
-%
-%%
-%
-%%
+\subsection{Accuracy Assessment CHM}
 
- 
-% 
-% There is a small amount of freely available CHM models for the state of California. The data that is available is lacking in transparency about its creation methods or is only available as small downloads. USGS does make a large number of raw classified point clouds publicly accessible, so we decided to develop our own workflows to generate a CHM assuring a scalable, replicable, and repeatable approach to our method.  Large scale access to the data is still an issue; however, the ability to develop our own surface models is straight forward with software like PDAL. For our test case, we receive all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010 and vary in resolution, sampling technique, and provider. 
-%
-%
-%
-%
-%This section describes the selected geospatial tools, and documents the development of the accuracy assessment (Lemon Canyon) and upscaling-prototype of our test region (Lake Tahoe basin). Currently GDAL\footnote{GDAL documentation: \url{https://gdal.org/}} is used as the primary source of geospatial processing and all relevant geospatial tools created to convert, reproject and align the datasets are reported below. A detailed documentation for the geospatial processing deployed for our test region can be found on the Github repository\footnote{GitHub repository: \url{https://github.com/Vibrant-Planet/vp-csm}}. While this initial proof-of-concept is not considered to meet the required level of accuracy, it is designed to demonstrate the overall feasibility of the data collation, exercising all required pathways from data acquisition to output generation.
-%
-%
-%
-%
-%
-%
-%
-%The method section describes the selected Geospatial Tools and documents the workflows to develop the accuracy assessment (Lemon Canyon) and upscaling-prototype of our test region (Lake Tahoe basin). Currently GDAL\footnote{GDAL documentation: \url{https://gdal.org/}} is used as the primary source of geospatial processing and all relevant geospatial tools created to convert, reproject and align the datasets are reported below. A detailed documentation for the geospatial processing deployed for our test region can be found on the Github repository\footnote{GitHub repository: \url{https://github.com/Vibrant-Planet/vp-csm}}. While this initial proof-of-concept is not considered to meet the required level of accuracy, it is designed to demonstrate the overall feasibility of the data collation, exercising all required pathways from data acquisition to output generation.
-%
+In the following layer comparison we refer to Vibrant Planet products as *.vp, Opentopography as *.topo and Dragonfly as *.fly.
 
-\subsection{Geospatial Tools and Data Handling}
+In the accuracy assessment we will use the OpenTopography provided model (1) as a reference against the Fusion (2) and PDAL (3) generated outputs. While the OpenTopography workflows to produce these layers are not documented, the products have been tested in regions with distinctive ridges and steep terrain (e.g. grand canyon\footnote{Opentopography CHM: \url{https://opentopography.org/news/opentopography-releases-canopy-height-model-tool}}) and this product has been officially released in January 2021. For the purpose of this assessment we will use it as a reference CHM. We provided Vibrant Planet with the DTM and point cloud from this data source to calculate a CHM within Fusion. For the third CHM model we used the raw point cloud to generate our own CHM model using PDAL and GDAL pipelines:
 
-From a geospatial standpoint, we much ensure our data is properly projected, of the same resolution, and of the same type in order for our pixels to align. All our data has a spatial component and requires specialized tools to handle these data. As a basic process, we are developing all our data in a raster format, in California Alblers (EPSG:3310) projection, at 10m resolution. The primary tools used to perfrom our geospatial processes are:
+\begin{enumerate}
+	\item CHM.topo provided by Opentopography using their own DTM.topo and DSM.topo (all 1 m$^2$)
+	\item CHM.vp generated in Fusion using DTM.topo provided by Opentopography
+	\item CHM.fly generated with PDAL and GDAL using the raw point cloud
+\end{enumerate}
 
-\begin{itemize}
-    \item the Geospatial Data Abstraction Library (GDAL)
-    \item the Point Cloud Data Abstraction Library (PDAL)
-    \item PostgreSQL/PostGIS 
-\end{itemize}
+CHM.vp (2), Fusion workflow:
 
-As an overall raster processing tool, we rely heavily on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, reprojections, and raster calculations. GDAL is not suited for point cloud data processing, therefore, we move to PDAL for these operations. PDAL's supports point classification, point cloud filtration, and is specilized is working with large collections point cloud data.  When processing vectors, we first convert the data for use as PostgreSQL/PostGIS tables. With data in tables, we then tidy the data by repairing broken geometries and removing uncessary columns. At this stage vector tables may be further processed with standard geospatial operations using PostGIS operations. Tables are then processed, prepped, and exported for rasterization.  
+The Fusion workflow to create a CHM.vp uses the DTM.topo provided by Opentopography and has been produced by Vibrant Planet using the following steps:
+
+\begin{enumerate}
+	\item Conversion of *.tif file into *.asc using ArcGIS
+	\item Conversion of *.asc into *.dtm to ingest into Fusion using inbuilt ‘ASCII2DTM’ function
+	\item Producing a CHM using the converted DTM and raw point cloud information
+	\item  Conversion of the CHM from *.dtm to *.tif using Fusion ‘DTM2TIF’ function
+\end{enumerate}
+
+The resulting CHM.vp (2) will be used in the consecutive accuracy assessment to compare it against the Opentopography generated CHM.topo (1).
+
+CHM.fly (3), PDAL workflow:
+
+Before we generated our final CHM.fly (3) with PDAL we produced a range of preliminary outputs and verified alignment, projection and pixel values with the existing datasets. Particularly the production of a gap-free DTM is a crucial process where a prior ground point filter has to be implemented to extract true last-return information from points which have been reflected by other surface features and aboveground vegetation. It is inevitable that the ground filter produces gaps within the point cloud for large trees with dense canopies. Therefore it is necessary to carefully select and adjust the ground filter as well as an interpolation process which does not exaggerate the height within the DTM. Successful generation of a DTM is verified by creating a hillshade output to check that the interpolation process does not accidentally create ‘surface bumps’ as a result of of incorporating mis-identified ground points a the center of trees into the process. The consecutive production of a gap-free DSM is a much more trivial task since it does not require an initial point classification. For this process all points can be used and the interpolation ‘drapes’ a surface on top of the point cloud. Once DTM.fly and DSM.fly are generated the CHM.fly can be calculated using a raster calculation in GDAL by subtracting the ground information from the surface information. The result is a CHM.fly for the Lemon Canyon extending ~ 2.7 km$^2$, ~ 2.6 Million pixels at a resolution of 1 m$^2$.
+
+In order to assess the difference between the three different CHM’s the outputs by VP (2) and Dragonfly (3) were subtracted from the Opentopography CHM (1). The resulting layer can be analysed within QGIS raster statistics to calculate differences.
+
+\subsection{Proof of concept: Upscaling canopy height with Sentinel-2}
+
+To upscale LiDAR derived CHM information with Sentinel-2 imagery a sophisticated process had to deployed to ingest, align and extract information from a range of different datasources. While we decided to use two Sentinel bands (10 m, red \& near-infrared) as inputs for this demo due to the size of the training dataset, we have prepared additional spectral vegetation indices and classification layers via GDAL and PostgreSQL/PostGIS (see Appendix B) which we will incorporate as additional labels in future models.
 
 Production Data Infrastructure
 
@@ -101,67 +106,6 @@ The pre-processing results in a composite image for each band and for each year.
     \captionof{figure}{Sentinel-2 composite}
     \label{fig:sent2db}
 \end{figure}
-
-
-\subsubsection{Canopy Height Model (CHM) Calculation}
-
-Calculation of the CHM (\autoref{eq:chm}) is an important aspect of our project, but a rather easy process.
-
-\begin{equation}
-CHM= DSM - DTM
-\label {eq:chm}
-\end{equation}
-
-We are using \texttt{gdal\_calc.py} for this operation. Gdal{\_}calc.py is a commandline tool offered by the GDAL library. Importantly, this tool provides us control over extents and data types of the outputs. Setting and switching between data types, like UInt16 and Float32, is important for keeping all our data in the same format.
-
-
-\subsection{CHM Accuracy Assessment}
-
-To demonstrate confidence in our CHM the prototype development is preceded by an accuracy assessment for the generation of CHM’s from different sources. Our test region is located in the Lemon Canyon (\autoref{fig:lemoncanyon}, California) approximately 50 km North from the Lake Tahoe test region. We selected this area based on the distance to our prototype, the valley structure with a range of distinct topographic features (e.g. slopes, aspects) and one of the available LiDAR verification plots located within the test boundaries ($\sim$ 2.7 km$^2$). For this plot we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93~pts~m$^{-2}$) accuracy from a publicly available source (OpenTopography, 2014). The data source provided a pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM).
-
-\begin{figure}[H]
-\centering
-    \includegraphics[scale=0.75]{s3/images/referenceMap_lemonCanyon.png}
-    \captionof{figure}{Lemon Canyon Test Region}
-    \label{fig:lemoncanyon}
-\end{figure}
-
-In the following layer comparison we refer to Vibrant Planet products as *.vp, Opentopography as *.topo and Dragonfly as *.fly.
-
-In the accuracy assessment we will use the OpenTopography provided model (1) as a reference against the Fusion (2) and PDAL (3) generated outputs. While the OpenTopography workflows to produce these layers are not documented, the products have been tested in regions with distinctive ridges and steep terrain (e.g. grand canyon\footnote{Opentopography CHM: \url{https://opentopography.org/news/opentopography-releases-canopy-height-model-tool}}) and this product has been officially released in January 2021. For the purpose of this assessment we will use it as a reference CHM. We provided Vibrant Planet with the DTM and point cloud from this data source to calculate a CHM within Fusion. For the third CHM model we used the raw point cloud to generate our own CHM model using PDAL and GDAL pipelines:
-
-\begin{enumerate}
-	\item CHM.topo provided by Opentopography using their own DTM.topo and DSM.topo (all 1 m$^2$)
-	\item CHM.vp generated in Fusion using DTM.topo provided by Opentopography
-	\item CHM.fly generated with PDAL and GDAL using the raw point cloud
-\end{enumerate}
-
-CHM.vp (2), Fusion workflow:
-
-The Fusion workflow to create a CHM.vp uses the DTM.topo provided by Opentopography and has been produced by Vibrant Planet using the following steps:
-
-\begin{enumerate}
-	\item Conversion of *.tif file into *.asc using ArcGIS
-	\item Conversion of *.asc into *.dtm to ingest into Fusion using inbuilt ‘ASCII2DTM’ function
-	\item Producing a CHM using the converted DTM and raw point cloud information
-	\item  Conversion of the CHM from *.dtm to *.tif using Fusion ‘DTM2TIF’ function
-\end{enumerate}
-
-The resulting CHM.vp (2) will be used in the consecutive accuracy assessment to compare it against the Opentopography generated CHM.topo (1).
-
-CHM.fly (3), PDAL workflow:
-
-Before we generated our final CHM.fly (3) with PDAL we produced a range of preliminary outputs and verified alignment, projection and pixel values with the existing datasets. Particularly the production of a gap-free DTM is a crucial process where a prior ground point filter has to be implemented to extract true last-return information from points which have been reflected by other surface features and aboveground vegetation. It is inevitable that the ground filter produces gaps within the point cloud for large trees with dense canopies. Therefore it is necessary to carefully select and adjust the ground filter as well as an interpolation process which does not exaggerate the height within the DTM. Successful generation of a DTM is verified by creating a hillshade output to check that the interpolation process does not accidentally create ‘surface bumps’ as a result of of incorporating mis-identified ground points a the center of trees into the process. The consecutive production of a gap-free DSM is a much more trivial task since it does not require an initial point classification. For this process all points can be used and the interpolation ‘drapes’ a surface on top of the point cloud. Once DTM.fly and DSM.fly are generated the CHM.fly can be calculated using a raster calculation in GDAL by subtracting the ground information from the surface information. The result is a CHM.fly for the Lemon Canyon extending ~ 2.7 km$^2$, ~ 2.6 Million pixels at a resolution of 1 m$^2$.
-
-
-In order to assess the difference between the three different CHM’s the outputs by VP (2) and Dragonfly (3) were subtracted from the Opentopography CHM (1). The resulting layer can be analysed within QGIS raster statistics to calculate differences.
-
-
-\subsection{Prototype Development}
-
-The proof of concept demonstrates the capability of our model to upscale canopy height from areas with available LiDAR point cloud information to areas where information has not been collected. The prototype uses CHM information to train state-wide Sentinel-2 spectral information layers.  We used a canopy height model generated with our PDAL workflows from the raw point cloud of the Lake Tahoe basin area. The dataset has been collected from the USGS in a 2010 survey\footnote{USFS Lake Tahoe point cloud: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032011.26910.1}} and has a resolution of 13.20 pts m$^{-2}$. The LiDAR dataset provides pre-classified ground points at a resolution of 2.26 pts m$^{-2}$. Within our workflow we will re-classify the points to improve the accuracy in the DTM.
-
-The test region used in the final proof-of-concept is located within the city of Incline Village (California) located at the Northern tip of the Lake Tahoe. We selected the area due to Vibrant Planet’s high confidence in the quality of the LiDAR data collection and the proximity of one of VP’s members home. This process provides us with an additional ground-truth component in our CHM due to the limited availability of field plots.We also incorporated a rasterized version of the fire returnal interval departure (FRID 2019) dataset which contains 34 dominant vegetation classes from the CALVEG. All the datasets are projected into California Albers (EPSG:3310) and raster alignment is verified. We then calculate the normalised difference vegetation index (NVDI) from Sentinel-2 bands (NIR \& Red, 10 m). The 1 m resolution canopy height model and the FRID layer are used to train the 10x10 m Sentinel-2 pixels using a linear correlation between the mean canopy height and the NDVI values calculated from the spectral bands. The upscaling process predicts mean canopy height for areas where traditional LiDAR is unavailable.
 
 The methods highlighted in this section do not aim to solve the prediction of CHM values but instead lay down the groundwork needed to move towards deep learning solutions that make use of all our multi-modal satellite data, whilst doing away with handcrafted features such as NDVI and NBR. They therefore serve as an overview of the engineering process, highlighting the construction of the machine learning training pipeline, basic machine learning modelling, the calculation of basic accuracy metrics and the packaging of the models in simple portable format allowing for a flexible, fast and efficient inference across large datasets.
 
@@ -240,3 +184,62 @@ The more fine-grained and multi-spectrum data we have the more likely it is that
 
 From a modelling perspective, applying convolution allows us to factor in neighbouring pixel data - allowing us to exploit information about regional geography, while sequential models such as recurrent neural networks or transformers, allow us to extract temporal information from satellite imagery taken across different time periods. Thus minimizing the number of handcrafted features that our models need for prediction, whilst allowing us to tease out as much signal from our noisy multispectral data.
 
+
+%--------------------------
+
+
+
+ 
+% 
+% There is a small amount of freely available CHM models for the state of California. The data that is available is lacking in transparency about its creation methods or is only available as small downloads. USGS does make a large number of raw classified point clouds publicly accessible, so we decided to develop our own workflows to generate a CHM assuring a scalable, replicable, and repeatable approach to our method.  Large scale access to the data is still an issue; however, the ability to develop our own surface models is straight forward with software like PDAL. For our test case, we receive all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010 and vary in resolution, sampling technique, and provider. 
+%
+%
+%
+%
+%This section describes the selected geospatial tools, and documents the development of the accuracy assessment (Lemon Canyon) and upscaling-prototype of our test region (Lake Tahoe basin). Currently GDAL\footnote{GDAL documentation: \url{https://gdal.org/}} is used as the primary source of geospatial processing and all relevant geospatial tools created to convert, reproject and align the datasets are reported below. A detailed documentation for the geospatial processing deployed for our test region can be found on the Github repository\footnote{GitHub repository: \url{https://github.com/Vibrant-Planet/vp-csm}}. While this initial proof-of-concept is not considered to meet the required level of accuracy, it is designed to demonstrate the overall feasibility of the data collation, exercising all required pathways from data acquisition to output generation.
+%
+%
+%
+
+
+
+
+
+
+
+
+
+
+
+%The proof of concept demonstrates the capability of our model to upscale canopy height from areas with available LiDAR point cloud information to areas where information has not been collected. The prototype uses CHM information to train state-wide Sentinel-2 spectral information layers.  We used a canopy height model generated with our PDAL workflows from the raw point cloud of the Lake Tahoe basin area. The dataset has been collected from the USGS in a 2010 survey\footnote{USFS Lake Tahoe point cloud: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032011.26910.1}} and has a resolution of 13.20 pts m$^{-2}$. The LiDAR dataset provides pre-classified ground points at a resolution of 2.26 pts m$^{-2}$. Within our workflow we will re-classify the points to improve the accuracy in the DTM.
+
+%The test region used in the final proof-of-concept is located within the city of Incline Village (California) located at the Northern tip of the Lake Tahoe. We selected the area due to Vibrant Planet’s high confidence in the quality of the LiDAR data collection and the proximity of one of VP’s members home. This process provides us with an additional ground-truth component in our CHM due to the limited availability of field plots.We also incorporated a rasterized version of the fire returnal interval departure (FRID 2019) dataset which contains 34 dominant vegetation classes from the CALVEG. All the datasets are projected into California Albers (EPSG:3310) and raster alignment is verified. We then calculate the normalised difference vegetation index (NVDI) from Sentinel-2 bands (NIR \& Red, 10 m). The 1 m resolution canopy height model and the FRID layer are used to train the 10x10 m Sentinel-2 pixels using a linear correlation between the mean canopy height and the NDVI values calculated from the spectral bands. The upscaling process predicts mean canopy height for areas where traditional LiDAR is unavailable.
+
+
+%The method section describes the selected Geospatial Tools and documents the workflows to develop the accuracy assessment (Lemon Canyon) and upscaling-prototype of our test region (Lake Tahoe basin). Currently GDAL\footnote{GDAL documentation: \url{https://gdal.org/}} is used as the primary source of geospatial processing and all relevant geospatial tools created to convert, reproject and align the datasets are reported below. A detailed documentation for the geospatial processing deployed for our test region can be found on the Github repository\footnote{GitHub repository: \url{https://github.com/Vibrant-Planet/vp-csm}}. While this initial proof-of-concept is not considered to meet the required level of accuracy, it is designed to demonstrate the overall feasibility of the data collation, exercising all required pathways from data acquisition to output generation.
+
+
+
+
+%From a geospatial standpoint, we much ensure our data is properly projected, of the same resolution, and of the same type in order for our pixels to align. All our data has a spatial component and requires specialized tools to handle these data. As a basic process, we are developing all our data in a raster format, in California Alblers (EPSG:3310) projection, at 10m resolution. The primary tools used to perform our geospatial processes are:
+
+%\begin{itemize}
+%    \item the Geospatial Data Abstraction Library (GDAL)
+%    \item the Point Cloud Data Abstraction Library (PDAL)
+%    \item PostgreSQL/PostGIS 
+%\end{itemize}
+
+%As an overall raster processing tool, we rely heavily on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, reprojections, and raster calculations. GDAL is not suited for point cloud data processing, therefore, we move to PDAL for these operations. PDAL's supports point classification, point cloud filtration, and is specilized is working with large collections point cloud data.  When processing vectors, we first convert the data for use as PostgreSQL/PostGIS tables. With data in tables, we then tidy the data by repairing broken geometries and removing uncessary columns. At this stage vector tables may be further processed with standard geospatial operations using PostGIS operations. Tables are then processed, prepped, and exported for rasterization.  
+
+
+
+%We are using \texttt{gdal\_calc.py} for this operation. Gdal{\_}calc.py is a commandline tool offered by the GDAL library. Importantly, this tool provides us control over extents and data types of the outputs. Setting and switching between data types, like UInt16 and Float32, is important for keeping all our data in the same format.
+
+
+
+%The model developed in the current project was based on Vibrant Planet's CHM. The CHM was used to train a machine-learning process against satellite pixel (Sentinel-2) information. The Sentinel-2 data were from Copernicus Sentinel-2, a constellation of two polar-orbiting satellites collecting global visible and near infrared imagery.  
+%For the purpose of this project, Sentinel-2 was used to generate vegetation indices like Normalized Burn Ratio (NBR) and Normalized Difference Vegetation Index (NDVI)
+% \citep{pandit_estimating_2018, wang_estimating_2020}. These indices  can be correlated with outside vegetation feature layers and associated Sentinel-2 bands (near-infrared, red-edge, shortwave-infrared) at higher resolutions (10 to 20~m) than traditionally-used Landsat data (30~m). Forest ecologists and geospatial scientists commonly use the NBR (\cite{kennedy_detecting_2010}) and the NDVI to correlate spectral responses with vegetation features (e.g., biomass; \cite{ghosh_aboveground_2018}) and track forest fires. Particularly the three available red-edge sensors and associated indices are valuable in discriminating the different levels of burn 
+% severity in forest ecosystems \citep{fernandez-manso_sentinel-2a_2016}. 
+%
+%For the initial testing, Sentinel-2 L2A ground reflectance data are used. These data are collected at a five-day cadence for any given location, and are comprised of twelve spectral bands at a resolution ranging from 10 to 60~m per pixel. Sentinel-2 L2A is available from May 2018 to the present.  Using California-wide Sentinel-2 imagery requires re-projection into a uniform coordinate system and workflows to implement a gridded tiling system for this project. Implementation of these workflows means that the entire  database can be used via S3 and query gap-free imagery with low cloud-obstruction; this imagery can then be used to derive spectral indices for the training process with LiDAR information.  This process allows an assessment of the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classifications.
