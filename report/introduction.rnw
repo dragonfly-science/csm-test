@@ -17,27 +17,32 @@ prototype platform for the data-informed planning of forestry interventions is d
 launched in the second quarter of 2021. This prototype is currently based on a
 fine-scale land-cover model, the
 Canopy Height Model (CHM), which is capable of detecting ``tree-approximate objects''. The model is built on 
- high-quality LiDAR (light detection and ranging) data. LiDAR measurements (point clouds) reflect state of the art technology for calculating above-ground biomass \citep{chan_estimating_2021}, 
-such as estimates of tree height in forest ecosystems. LiDAR data can outperform traditional synthetic aperture radar (SAR) approaches, 
-which fail to accurately depict vegetation surface information \citep{lu_survey_2016}.  
+ high-quality LiDAR (light detection and ranging) data. LiDAR measurements (point clouds) reflect state of the art technology for calculating above-ground biomass \citep{chan_estimating_2021}, and is a powerful tool to derive other phenotypic characteristics based on LiDAR metrics (e.g. canopy density; \citep{chan_estimating_2021}. LiDAR data can outperform traditional synthetic aperture radar (SAR) approaches, which fail to accurately depict vegetation surface information \citep{lu_survey_2016}.  
 
 The model's potential to support data-informed decision-making 
 has prompted interest in 
 expanding its scope to the entirety of the State of California.
 This expansion requires high-quality LiDAR data over the state's spatial extent; however,
-a uniform LiDAR dataset does not currently exist for the entirety of the state. At the same time, 
-data from other sources may be available to generate a land-cover dataset and for expanding the CHM.
+a uniform LiDAR dataset does not currently exist for the entirety of the state. A small number of  CHM's for the State of California are freely available, but provided layers are lacking transparency about their creation methods While Vibrant Planet has existing worfklows to derive CHM's, the application is limited by the availability of vendor provided Digital Terrain Models (DTM). Currently a significant number of raw classified point clouds are publicly accessible (e.g. from United States Geological Survey (USGS)) and hence provide an opportunity to develop new processes to classify points and create a scalable, replicable, and repeatable approach. Within this report we will present and evaluate our own workflows to generate CHM to operate independently from current limitations.
 
-A small number of  CHM models for the State of California are freely available, but the available data are lacking transparency about their creation methods, or they are only available in small downloads. At the same time, a significant number of raw classified point clouds are publicly accessible (from United States Geological Survey (USGS)).  These publicly-available data provide an opportunity for developing a CHM that assures  a scalable, replicable, and repeatable approach. 
+Once workflows to generate CHM's from raw point clouds are established, the information can be upscaled by training data layers which extend over the entire state. Landsat imagery is the method of choice to generate landscape level datasets for forest monitoring \citep{matasci_large-area_2018,pham_monitoring_2017, huang_integration_2019, ghosh_aboveground_2018} and novel workflows to develop time series analysis have been developed \citep{white_nationwide_2017, wulder_satellite-based_2020, hermosilla_mass_2016}. Currently, the methodologies are significantly limited by the spatial resolution of the Landsat pixels (30 m) and few papers have discussed training of satellite information with LiDAR \citep{latifi_stratified_2015, wangda_species_2019, wang_estimating_2020}. In 2017 the European Space Agency opened the Sentinel-2 image library to the public, offering new opportunities to refine monitoring approaches at higher resolutions (10 - 20 m) and band selection. However, implementation of the Sentinel-2 datasets pose a significant challenge in terms of data ingestion, reprojection and cleaning which have yet to be explored. 
 
-The current project was based on developing an approach to generate this type of CHM, including a test case as a proof of concept.  %needs re-wording
-The test case used all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010, and vary in resolution, sampling technique, and provider.  
+% add forest fire context?
+
+This report provides an overview of the approach and datasets used to develop the CHM test case and the consecutive upscaling of LiDAR derived canopy height information via Sentinel-2 imagery. A detailed documentation for geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) that were part of this project are available in the Appendix and linked repositories.
+
+
+
+
+
+
+
+%The current project was based on developing an approach to generate a CHM , including a test case as a proof of concept.  %needs re-wording
+%The test case used all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010, and vary in resolution, sampling technique, and provider.  
 %The overall aim of this project was to provide the closest approximation of relevant information that would generally be obtained by the collection of LiDAR data.  
 
-This report provides an overview of the approach and datasets used to develop the CHM test case.   Detailed documentation for geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) that were part of this project are available on the linked repositories.
 
-%add a bit more in once the overall report become clear
-%context for forest fires?
+
 
 
 %test region in Lemon Canyon (California
