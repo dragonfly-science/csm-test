@@ -2,7 +2,6 @@
 
 \section{Appendix A}
 
-
 %\subsubsection{Sentinel 2}
 %
 %Compared to Landsat multispectral bands, the Sentinel-2 bands provide three red-edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass. SNAP is an open source common architecture for ESA Toolboxes ideal for the exploitation of Earth Observation data \footnote{Available here: \url{https://step.esa.int/main/toolboxes/snap/}}. SNAP provides toolboxes to derive information (e.g. vegetation indices) from Sentinel data.
@@ -486,8 +485,6 @@
 
 \section{Appendix B}
 
-
-
 \subsubsection{Production Data Infrastructure}
 
 While systems like PostGIS and QGIS are essential as exploration and debugging tools for GIS workflows, they suffer from important scale limitations that make them unsuitable for Machine Learning applications of the scope ultimately required by Vibrant Planet. To complement these systems, the team deployed a cloud infrastructure stack centered around a 'data lake' architecture, consisting of the following components:
@@ -524,7 +521,6 @@ The pre-processing results in a composite image for each band and for each year.
     \captionof{figure}{Sentinel-2 composite}
     \label{fig:sent2db}
 \end{figure}
-
 
 \subsubsection{Canopy Height Model (CHM) Calculation}
 
@@ -618,7 +614,6 @@ In order to have clean pixel sampling, we need to ensure all our data aligns to 
   \item Resolution: Each data set is always forced into a 10m resolution when GDAL commands allow.  
   \item Extents:  Extents are always captured the the beginning of a process and reapplied to the outputs. 
 \end{itemize}
-
 
 \subsection{Appendix C - Incline Village test area}
 
