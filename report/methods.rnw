@@ -3,7 +3,7 @@
 \section{Methods}
 
 %overview sentence about the components that make this project
-%The methods used for this proof-of-concept were based on:
+%The methods used for this proof-of-concept were based on testing using the following data sets:
 %
 %\begin{itemize}
 %  \item Sentinel-2 satellite data;
@@ -19,7 +19,7 @@ For the purpose of this project, Sentinel-2 was used to generate vegetation indi
  \citep{pandit_estimating_2018, wang_estimating_2020}. These indices  can be correlated with outside vegetation feature layers and associated Sentinel-2 bands (near-infrared, red-edge, shortwave-infrared) at higher resolutions (10 to 20~m) than traditionally-used Landsat data (30~m). Forest ecologists and geospatial scientists commonly use the NBR (\cite{kennedy_detecting_2010}) and the NDVI to correlate spectral responses with vegetation features (e.g., biomass; \cite{ghosh_aboveground_2018}) and track forest fires. Particularly the three available red-edge sensors and associated indices are valuable in discriminating the different levels of burn 
  severity in forest ecosystems \citep{fernandez-manso_sentinel-2a_2016}. 
 %
-For the initial testing, Sentinel-2 L2A ground reflectance data are used. These data are collected at a five-day cadence for any given location, and are comprised of twelve spectral bands at a resolution ranging from 10 to 60~m per pixel. Sentinel-2 L2A is available from May 2018 to the present.  Using California-wide Sentinel-2 imagery requires re-projection into a uniform coordinate system and workflows to implement a  gridded tiling system for this project. Implementation of these workflows means that the entire  database can be used via S3 and query gap-free imagery with low cloud-obstruction; this imagery can then be used to derive spectral indices for the training process with LiDAR information.  This process allows an assessment of the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classifications.
+For the initial testing, Sentinel-2 L2A ground reflectance data are used. These data are collected at a five-day cadence for any given location, and are comprised of twelve spectral bands at a resolution ranging from 10 to 60~m per pixel. Sentinel-2 L2A is available from May 2018 to the present.  Using California-wide Sentinel-2 imagery requires re-projection into a uniform coordinate system and workflows to implement a gridded tiling system for this project. Implementation of these workflows means that the entire  database can be used via S3 and query gap-free imagery with low cloud-obstruction; this imagery can then be used to derive spectral indices for the training process with LiDAR information.  This process allows an assessment of the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classifications.
 
 
 
@@ -55,19 +55,15 @@ For the initial testing, Sentinel-2 L2A ground reflectance data are used. These 
 
 \subsection{Geospatial Tools and Data Handling}
 
-Geospatial Data Abstraction Library (GDAL) Usage
+From a geospatial standpoint, we much ensure our data is properly projected, of the same resolution, and of the same type in order for our pixels to align. All our data has a spatial component and requires specialized tools to handle these data. As a basic process, we are developing all our data in a raster format, in California Alblers (EPSG:3310) projection, at 10m resolution. The primary tools used to perfrom our geospatial processes are:
 
-PostGIS/PostgreSQL Usage
+\begin{itemize}
+    \item the Geospatial Data Abstraction Library (GDAL)
+    \item the Point Cloud Data Abstraction Library (PDAL)
+    \item PostgreSQL/PostGIS 
+\end{itemize}
 
-Vector Rasterization
-
-Point Cloud Data Abstraction Library (PDAL) Usage
-
-Results from the generation of the DTM and DSM are then used to calculate the Canopy Height Model (CHM).
-
-Sentinel 2 Handling
-
-Pixel Alignment
+As an overall raster processing tool, we rely heavily on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, reprojections, and raster calculations. GDAL is not suited for point cloud data processing, therefore, we move to PDAL for these operations. PDAL's supports point classification, point cloud filtration, and is specilized is working with large collections point cloud data.  When processing vectors, we first convert the data for use as PostgreSQL/PostGIS tables. With data in tables, we then tidy the data by repairing broken geometries and removing uncessary columns. At this stage vector tables may be further processed with standard geospatial operations using PostGIS operations. Tables are then processed, prepped, and exported for rasterization.  
 
 Production Data Infrastructure
 
