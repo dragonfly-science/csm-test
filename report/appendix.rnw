@@ -3,6 +3,15 @@
 
 \section{Appendix}
 
+
+\subsection{Appendix A - Literature Review}
+
+
+\subsection{Appendix B - Geospatial Tools}
+
+\subsection{Appendix C - Incline Village test area}
+
+
 As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results.  
 
 Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
