@@ -14,15 +14,12 @@
 %\end{itemize}
 %
 
-The model developed in the current project was based on Vibrant Planet's CHM. The CHM was used to train a machine-learning process against satellite pixel (Sentinel-2) information. 
-The Sentinel-2 data were from Copernicus Sentinel-2, a constellation of two polar-orbiting satellites collecting global visible and near infrared imagery.  
+The model developed in the current project was based on Vibrant Planet's CHM. The CHM was used to train a machine-learning process against satellite pixel (Sentinel-2) information. The Sentinel-2 data were from Copernicus Sentinel-2, a constellation of two polar-orbiting satellites collecting global visible and near infrared imagery.  
 For the purpose of this project, Sentinel-2 was used to generate vegetation indices like Normalized Burn Ratio (NBR) and Normalized Difference Vegetation Index (NDVI)
- \citep{pandit_estimating_2018, wang_estimating_2020}. These indices  can be correlated with outside vegetation feature layers and associated 
- Sentinel-2 bands (near-infrared, red-edge, shortwave-infrared) at higher resolutions (10 to 20~m) than traditionally-used Landsat data (30~m). 
- Forest ecologists and geospatial scientists commonly use the NBR (\cite{kennedy_detecting_2010}) and the NDVI to correlate spectral responses with vegetation features (e.g., biomass; \cite{ghosh_aboveground_2018}) and track forest fires. Particularly the three available red-edge sensors and associated indices are valuable in discriminating the different levels of burn 
+ \citep{pandit_estimating_2018, wang_estimating_2020}. These indices  can be correlated with outside vegetation feature layers and associated Sentinel-2 bands (near-infrared, red-edge, shortwave-infrared) at higher resolutions (10 to 20~m) than traditionally-used Landsat data (30~m). Forest ecologists and geospatial scientists commonly use the NBR (\cite{kennedy_detecting_2010}) and the NDVI to correlate spectral responses with vegetation features (e.g., biomass; \cite{ghosh_aboveground_2018}) and track forest fires. Particularly the three available red-edge sensors and associated indices are valuable in discriminating the different levels of burn 
  severity in forest ecosystems \citep{fernandez-manso_sentinel-2a_2016}. 
 %
-For the initial testing, Sentinel-2 L2A ground reflectance data were used. These data  are collected at a five-day cadence for any given location, and are comprised of twelve spectral bands at a resolution ranging from 10 to 60~m per pixel.  Sentinel-2 L2A were available from May 2018 to the present.   Using California-wide Sentinel-2 imagery requires re-projection into a uniform coordinate system and workflows to implement a  gridded tiling system for this project. Implementation of these workflows means that the entire  database can be used via S3 and query gap-free imagery with low cloud-obstruction; this imagery can then be used to derive spectral indices for the training process with LiDAR information.  This process allows an assessment of the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classifications.
+For the initial testing, Sentinel-2 L2A ground reflectance data are used. These data are collected at a five-day cadence for any given location, and are comprised of twelve spectral bands at a resolution ranging from 10 to 60~m per pixel. Sentinel-2 L2A is available from May 2018 to the present.  Using California-wide Sentinel-2 imagery requires re-projection into a uniform coordinate system and workflows to implement a  gridded tiling system for this project. Implementation of these workflows means that the entire  database can be used via S3 and query gap-free imagery with low cloud-obstruction; this imagery can then be used to derive spectral indices for the training process with LiDAR information.  This process allows an assessment of the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classifications.
 
 
 
@@ -55,66 +52,24 @@ For the initial testing, Sentinel-2 L2A ground reflectance data were used. These
 %
 %The method section describes the selected Geospatial Tools and documents the workflows to develop the accuracy assessment (Lemon Canyon) and upscaling-prototype of our test region (Lake Tahoe basin). Currently GDAL\footnote{GDAL documentation: \url{https://gdal.org/}} is used as the primary source of geospatial processing and all relevant geospatial tools created to convert, reproject and align the datasets are reported below. A detailed documentation for the geospatial processing deployed for our test region can be found on the Github repository\footnote{GitHub repository: \url{https://github.com/Vibrant-Planet/vp-csm}}. While this initial proof-of-concept is not considered to meet the required level of accuracy, it is designed to demonstrate the overall feasibility of the data collation, exercising all required pathways from data acquisition to output generation.
 %
-\subsection{Geospatial Tools}
 
-\subsubsection{Geospatial Data Abstraction Library (GDAL) Usage}
+\subsection{Geospatial Tools and Data Handling}
 
-The Geospatial Data Abstraction Library or GDAL, is an open source library specifically developed for working with raster and vector geospatial data. For raster processing, GDAL libraries are implemented in the backend across the majority of geospatial software tools used today including ArcGIS, FME, and QGIS. The power in GDAL is its command line capability for geospatial data processing. GDAL is is relatively easy to script/scale, is well doucmented, and works with virtually all major geospatial data types.
+Geospatial Data Abstraction Library (GDAL) Usage
 
-For the purposes of our project, we are leveraging GDAL 3.2.2 for all our important raster processing:
-\begin{itemize}
-    \item Reprojections (\texttt{gdalwarp})
-    \item Resampling (\texttt{gdal\_translate/gdalwarp})
-    \item Masking (\texttt{gdal\_translate/gdalwarp})
-    \item Data type conversions (\texttt{gdal\_translate})
-    \item Metadata queries (\texttt{gdalinfo})
-    \item Raster calculations (\texttt{gdal\_calc.py})
-    \item Rasterization (\texttt{gdal\_rasterize})
-\end{itemize}
+PostGIS/PostgreSQL Usage
 
-Additionally, we are implementing GDAL's capabilities to create:
-\begin{itemize}
-    \item Hillshade
-    \item Slope
-    \item Aspect
-    \item Roughness
-\end{itemize}
+Vector Rasterization
 
-\subsubsection{PostGIS/PostgreSQL Usage}
-
-PostgreSQL (13.3) used to manage vector data as tables. PostGIS is an extension for PostgreSQL providing capabilities to manage these tables as geospatial layers. Vector data is uploaded to PostgreSQL using ogr2ogr. This method allows us to directly load 'file geodatabase' file types to our database without the need to covert to shapefile first. Conversion to shapefile truncates the column names; therefore, this is very useful tool helping keep our data intact. Utilizing ogr2ogr as our upload also allows us to force all geometries to multipolygon, further cleaning and generalizing the data.
-
-Both the Calveg and FRID (vegetation classification layers) require cleaning and correction of invalid geometries. These are large complex data sets containing millions of vertices and complex geometries. PostGIS (2.4) is an excellent tool for handling these types of large operations. Cleaning is a necessary step for upstream processes like rasterization, but also necessary to work with the data properly.  Once clean, we export the tables using ogr2ogr. Using this command as an export provides us the opportunity to build a single unified shapefile.  Working with a single shapefile, although large, permits easy clips of the data using a bounding box. In the future, it is more likely we will skip the export back to shapefile and query regions directly from the PostgreSQL table instead, leveraging the speed and power of properly indexed data.  For now, our process is tested and functioning.
-
-\subsubsection{Vector Rasterization}
-
-Rasterization of vectors is necessary for our machine learning models. If we are doing pixel to pixel comparisons, the vector data must be in the same format.  Rather than rasterizing the entire vector data set, we clip the data in the shapefile as needed and perfrom the rasterization on the fly.  At the time of the conversion to raster we pass the necessary extents and resolution for the output. We've found this method to be quick since the read and storage of vector data is more efficient.
-
-\subsubsection{Point Cloud Data Abstraction Library (PDAL) Usage}
-
-PDAL (2.3.0) is an open library written in C++ for managing and processing point cloud data. This tool is similar to LASTools in the Windows environment and offers similar capabilities. The advantages for us in using PDAL for this project are many. One, PDAL is an easily scripted tool allowing for scaling. At its core, PDAL utilizes JSON configurations called pipelines and allows us to string multiple processes into single documents. This method for developing individual complex pipelines for point clouds gives us the control needed to run these processes across myriad cores.  Two, PDAL is developed to handle varied point cloud data types outside of the traditional ASPRS LAS. This may be important as we begin to generate surfaces from varied sources. Three, being an open library, we can if needed build additional capabilities in to the tool. One example being, adding additional libraries for reading LAS and LAZ formats.
-
-In our project, we are implementing PDAL for point cloud filtering plus, generation of Digital Terrain Models (DTM) and Digital Surface Models (DSM). In a basic PDAL process we will:
-\begin{enumerate}
-    \item Refine point clouds into ground and non-ground points
-    \item Generate Digital Terrain Model (DTM) interpolation from ground points
-    \item Generate Digital Surface Model (DSM) interpolation from highest points
-\end{enumerate}
+Point Cloud Data Abstraction Library (PDAL) Usage
 
 Results from the generation of the DTM and DSM are then used to calculate the Canopy Height Model (CHM).
 
-PDAL is not developed specifically for the generation of surface grids (rasters); however, it does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Notably, the IDW method does not interpolate over large areas where data is not present. Specifically, in our surface generations, this results in regions of 'nodata' where there are insufficient ground points for interpolation.  This is a known outcome and currently addressed by increasing the window size for the IDW to search for neighboring points.  Currently, we are confident in this solution for addressing 'nodata' regions of the surface model; however, we are continuing to research other solutions (e.g. Triangulated Irregular Networks).
+Sentinel 2 Handling
 
+Pixel Alignment
 
-\subsubsection{Sentinel 2 Handling}
-
-Handling and manipulation of Sentinel 2 data is performed using GDAL. Raw Sentinel data comes to us in JP2 format and is projected in its corresponding UTM zone. Our first operation is to bring all the Sentinel into a singular projection, California Albers (EPSG:3310). For the purposes of geospatial operations, we also convert images into GeoTiff format. If needed, Sentinel-2 images are re-sampled into 10m resolution. Our re-sampling method is to use gdal\_translate and to split the pixel, e.g a 20m resolution pixel is split into four new pixels to achieve 10m resolution.
-
-\subsubsection{Pixel Alignment}
-
-In order to have clean pixel sampling, we need to ensure all our data aligns to be the best of our abilities.  This is ensured through several processes. First, projection. All data for our project is developed to be in the same projection wih the same origin. Second, resolution. Each data set is always forced into a 10m resolution when GDAL commands allow.  Third, extents.  Extents are always captured the the beginning of a process and reapplied to the outputs. Forth, scripting. Scripting allows us to build repeatable processes capturing all the parameters needed along the way.
-
-\subsubsection{Production Data Infrastructure}
+Production Data Infrastructure
 
 While systems like PostGIS and QGIS are essential as exploration and debugging tools for GIS workflows, they suffer from important scale limitations that make them unsuitable for Machine Learning applications of the scope ultimately required by Vibrant Planet. To complement these systems, the team deployed a cloud infrastructure stack centered around a 'data lake' architecture, consisting of the following components:
 \begin{itemize}
