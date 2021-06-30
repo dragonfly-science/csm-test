@@ -106,7 +106,7 @@ The resulting layer was analysed within QGIS raster statistics to calculate diff
 \subsection{Proof of concept: Upscaling canopy height with Sentinel-2 imagery}
 
 To upscale LiDAR-derived CHM information with Sentinel-2 imagery, a multi-step process was deployed to ingest, align 
-and extract information from a range of different data sources. Because of the size o the training datast, two 
+and extract information from a range of different data sources. Because of the size of the training datast, two 
  Sentinel-2 bands (10~m, red \& near-infrared) were used as inputs for illustrating this proof of concept. Nevertheless,
   additional spectral vegetation indices and classification
  layers were also prepared using GDAL and PostgreSQL/PostGIS (see Appendix B), which will be incorporated as additional labels in future models. 
@@ -117,13 +117,9 @@ and extract information from a range of different data sources. Because of the s
 
 For the data pre-processing, it was necessary to identify Sentinel-2 data of interest based on 9 tiles of the Military 
 Grid Reference System (MGRS) for California, and reproject them in the California Albers reference system. 
-Via an SQL filter we were able to the metadata for imagery with the least amount of noise (e.g. < 35 \% cloud obstruction). 
-Via an SQL filter, it was possible to query the metadata to identify pixels with the least amount of noise (e.g., less than 35\% cloud obstruction), 
-representing the most accurate spectral depiction of ground information.
-Based on the MGRS, imageries were clipped to uniform tiles with 40~km sides; spatially (but not temporally) overlaying pixels were merged 
-using a median filter for the growing season. The pre-processing resulted in a composite image for each band and for each year. This image
-represents one layer of features for the machine-L
-learning model (see example below \autoref{fig:sent2db}).
+Via an SQL filter we were able to query the metadata to identify pixels with the least amount of noise (e.g. < 35 \% cloud obstruction), representing the most accurate spectral depiction of ground information.
+Based on the MGRS, imageries were clipped to uniform tiles with 40~km sides; annual gap-free images were produced using median spectral values for temporally overlaying pixels with acceptable noise values for the dry season. The pre-processing resulted in a composite image for each band and for each year. This image
+represents one layer of features for the machine-learning model (see example below \autoref{fig:sent2db}).
 
 \begin{figure}[H]
 \centering
@@ -140,7 +136,7 @@ spectrums of this region were superposed to form a multispectrum tensor of 2 by 
 To place the multispectrum values into 
 a standard normal distribution required by the deep-learning models, Z-score normalisation was applied to tuples representing B4 and B8 features.
 The  Pytorch Python library was used for adaptive and scalable model-training procedures with specialised graphical and tensor processing units. 
-The models selected for the training process were a linear regression model and a 2 -layer multilayer perceptron using leaky-RELU non-linearity. 
+The models selected for the training process were a linear regression model and a 2-layer multilayer perceptron using leaky-RELU non-linearity. 
 Both of these models were trained using backpropagation, with an error function of mean squared error. The spectral information was 
 moved into the Pytorch data structure and split across a train, validation and test set, at a ratio of 40:10:50; this ratio corresponded with
  10,578 training examples, 2644 
