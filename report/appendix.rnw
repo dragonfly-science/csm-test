@@ -646,7 +646,18 @@ The data processing consisted of the following concrete steps:
 
 \subsection{Appendix C - Incline Village test area}
 
-As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results.  
+As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results (/autoref{fig:AOIlc}.  
+
+
+\begin{figure}[H]
+  \centering
+      \includegraphics[scale=0.75]{s3/images/referenceMap.png}
+      \captionof{figure}{Lemon Canyon and Lake Tahoe Test Regions}\label{fig:AOIlc}
+  \end{figure}
+  
+  
+
+
 
 Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
 
