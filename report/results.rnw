@@ -16,7 +16,7 @@ We first assessed the results from the model developed here against surface mode
 
 \subsection{Accuracy assessment of the CHMs}
 
-The accuracy assessment of the CHMs was conducted using the 2.7-km$^2$ Lemon Canyon test region \autoref{tab:title}. (\autoref{fig:DSMflyBlend}). Although the United States Forest Service (USFS) LiDAR point cloud dates back to 2014, the field plot located within the test region was surveyed in 2015, with trees present classified as \textit{Pinus jeffreyi}\footnote{Access here: \url{https://www.conifers.org/pi/Pinus_jeffreyi.php}}. This pine species is found on arid mountain slopes in southern Oregon, Sierra Nevada, and California and typically reaches heights between 24 and 39~m \citep{kral_pinus_1993}. 
+The accuracy assessment of the CHMs was conducted using the 2.7-km$^2$ Lemon Canyon test region (\autoref{fig:dsm-assess}). Although the United States Forest Service (USFS) LiDAR point cloud dates back to 2014, the field plot located within the test region was surveyed in 2015, with trees present classified as \textit{Pinus jeffreyi}\footnote{Access here: \url{https://www.conifers.org/pi/Pinus_jeffreyi.php}}. This pine species is found on arid mountain slopes in southern Oregon, Sierra Nevada, and California and typically reaches heights between 24 and 39~m \citep{kral_pinus_1993}. 
 
 %In the following layer comparison we refer to Vibrant Planet products as *.vp, Opentopography as *.topo and Dragonfly as *.fly. 
 
@@ -25,82 +25,92 @@ classified 25.1\% more ground points than the CHM.topo,
 %vendor model, 
 increasing the resolution from 3.70 points m$^{-2}$ to 4.63 points m$^{-2}$. 
 
-When comparing the DTM outputs directly (~ 2.6 million pixels),  the outputs from DTM.fly were on average 0.41 ± 0.21 m lower than outputs from DTM.topo. Visual inspection of a hillshade render (terrain shading method) of the DTM.topo (\autoref{fig:DTMtopo}) and DTM.fly (\autoref{fig:DTMfly}) confirmed that no above-ground vegetation points were included in the DTM, which would otherwise reveal ``bumps'' at the centre of trees. This visual assessment verified that DTM.fly had not elevated the surface by mis-classifying above-ground vegetation as ground; instead, the model identified a higher level of detail within ground features and incorporated them. For the DSM comparison, there was an average difference of 0.02 ± 1.46~m  between DSM.fly %(\autoref{fig:DSMfly}) 
-and DSM.topo which incorporate all available points in the surface generation process. 
+When comparing the DTM outputs directly (~ 2.6 million pixels),  the outputs from DTM.fly were on average 0.41 ± 0.21 m lower than outputs from DTM.topo. Visual inspection of a hillshade render (terrain shading method) of the DTM.topo and DTM.fly (see \autoref{fig:chm-assess}) confirmed that no above-ground vegetation points were included in the DTM, which would otherwise reveal ``bumps'' at the centre of trees. This visual assessment verified that DTM.fly had not elevated the surface by mis-classifying above-ground vegetation as ground; instead, the model identified a higher level of detail within ground features and incorporated them. For the DSM comparison, there was an average difference of 0.02 ± 1.46~m  between DSM.fly %(\autoref{fig:DSMfly}) 
+and DSM.topo, which incorporated all available points in the surface generation process. 
 
 \begin{figure}[H]
-\label{fig:chm-assess}
   \centering
     \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lemonCanyon/googleEarthDSMflyBlend.png}
-      \captionsetup{justification=centering}
+    \captionsetup{justification=centering}
       \caption{Google Earth blend with DSM.fly}\label{fig:DSMflyBlend}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/googleEarthDSMflyBlend.png}
     \end{subfigure}
     \begin{subfigure}{.45\linewidth}
+    \captionsetup{justification=centering}    
+      \caption{DSM.fly}\label{fig:DSMfly}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/DSMfly.png}
-      \captionsetup{justification=centering}    
-      \caption{DSM Dragonfly}\label{fig:DSMfly}
-    \end{subfigure}
+         \end{subfigure}
 
     \vspace{0.25cm}
     \begin{subfigure}{.45\linewidth}
+     \captionsetup{justification=centering}
+     \caption{DTM.fly}\label{fig:DTMfly}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/DTMfly.png}
-      \captionsetup{justification=centering}
-      \caption{DTM Dragonfly}\label{fig:DTMfly}
-    \end{subfigure}
+         \end{subfigure}
     \begin{subfigure}{.45\linewidth}
+     \caption{DTM.topo}\label{fig:DTMtopo}
+     \captionsetup{justification=centering}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/DTMtopo.png}
-      \captionsetup{justification=centering}
-      \caption{DTM OpenTopography}\label{fig:DTMtopo}
-    \end{subfigure}
-  \caption {Surface Output Visualisations} \label{tab:title} 
+         \end{subfigure}
+  \caption {Visualisation of surface outputs from the digital surface model (DSM) and the digital terrain model (DTM) developed
+  in this project (DSM.fly and DTM.fly) and from the OpenTopography DTM (DTM.topo). Also shown is a blend of the DSM.fly with Google Earth.} \label{fig:dsm-assess}
+%\label{tab:title} 
 \end{figure}
 
 
 \newpage
 
-For our CHM comparison we used CHM.topo (\autoref{fig:CHMtopo}) with maximum canopy height at 36.39 m as a reference and compared them against CHM.vp (\autoref{fig:CHMvp}) and CHM.fly (\autoref{fig:CHMfly}):
+For the CHM comparison, we used CHM.topo %(\autoref{fig:CHMtopo}) 
+with a maximum canopy height of 36.39~m as a reference and compared the outputs against outputs from CHM.vp %(\autoref{fig:CHMvp}) 
+and CHM.fly (\autoref{fig:chm-assess}). %(\autoref{fig:CHMfly}).
+This comparison showed that outputs from CHM.vp were 3.37 ± 5.44~ m taller than outputs from CHM.topo, with a maximum canopy height of 78~m.
+At the same time, outputs from CHM.fly were 0.36 ± 2.17~m taller than outputs from CHM.topo, 
+with a maximum canopy height of 36.56~m.
 
-CHM.vp is 3.37 ± 5.44 m taller than CHM.topo with a maximum canopy height of 78 m.
-CHM.fly is 0.36 ± 2.17 m taller than CHM.topo with a maximum canopy height of 36.56 m.
+%CHM.vp is 3.37 ± 5.44 m taller than CHM.topo with a maximum canopy height of 78 m.
+%CHM.fly is 0.36 ± 2.17 m taller than CHM.topo with a maximum canopy height of 36.56 m.
 
 The results suggested that CHM.fly calculates higher tree estimates than CHM.topo. This is likely due to the enhanced resolution in the DTM.fly which is lowering the overall elevation surface by 0.41 m and this effect is further translated into the CHM.fly which is on average 0.36 m higher than CHM.topo. Both models, CHM.topo and CHM.fly labeled trees in the Lemon Canyon with a maximum height of 36.39 m and 36.56 m respectively confirming expected maximum heights documented for \textit{Pinus jeffreyi}, CHM.vp on the other hand identified trees more than double in height (78 m). While the LiDAR verification plot located within the test region provided accurate tree height measurements for 14 trees, we were only able to use dominant trees (4 total, 12 - 13 m) to identify them within the radius of the field plot (method has been suggested by VP). CHM.fly which has been generated from 2014 data and within a 50 m radius of the field plot (established in 2015) we identified several height labels above 11 - 12 m but not exceeding 13 m. This additionalverification step confirmed that CHM.fly accurately reflects vertical field measurements. Overall the results confirmed that CHM.fly is in line with vendor provided CHM.topo and field data can be approximated to our output, suggesting that the model meets quality criteria to train our prototype. 
 
 \begin{figure}[H]
   \centering
     \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lemonCanyon/googleEarth.png}
-      \captionsetup{justification=centering}
+    \captionsetup{justification=centering}
       \caption{Google Earth blend with DSM.fly}\label{fig:GElc}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/googleEarth.png}
     \end{subfigure}
     \begin{subfigure}{.45\linewidth}
+     \captionsetup{justification=centering}    
+      \caption{CHM.fly}\label{fig:CHMfly}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMfly.png} 
-      \captionsetup{justification=centering}    
-      \caption{CHM Dragonfly}\label{fig:CHMfly}
     \end{subfigure}
 
     \vspace{0.25cm}
     \begin{subfigure}{.45\linewidth}
+    \captionsetup{justification=centering}
+      \caption{CHM.topo}\label{fig:CHMtopo}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMtopo.png}
-      \captionsetup{justification=centering}
-      \caption{CHM OpenTopography}\label{fig:CHMtopo}
-    \end{subfigure}
+          \end{subfigure}
     \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMvp.png}
       \captionsetup{justification=centering}
-      \caption{CHM Vibrant Planet}\label{fig:CHMvp}
+      \caption{CHM.vp}\label{fig:CHMvp}
+      \includegraphics[scale=0.50]{s3/images/lemonCanyon/CHMvp.png}
     \end{subfigure}
 
     \vspace{0.5cm}
     \begin{tabularx}{0.9\textwidth}{XXXXX}
       \cellcolor{black}\textcolor{White}0 & \cellcolor{darkPurple}\textcolor{White}{10} & \cellcolor{Purple}\textcolor{White}{20} & \cellcolor{Pink}\textcolor{White}{30} & \cellcolor{Yellow}\textcolor{lightGray}{40+ meters}
     \end{tabularx}
-  \caption {CHM Output Results} \label{tab:title} 
+  \caption {Visualisation of surface outputs from the Canopy Height Model (CHM) developed
+  in this project (CHM.fly), from OpenTopography (CHM.topo), and from Vibrant Planet (CHM.vp). 
+  Also shown is a blend of the Digital Surface Model developed here (DSM.fly) with Google Earth.} 
+  \label{fig:chm-assess}
+  %\label{tab:title} 
 \end{figure}
 
 \newpage
-
-\subsection{Prototype Development}
+%K up to here
+\subsection{Prototype development}
 
 The results for the machine-learning concept revealed that a simple model deployed off a complex data infrastructure was able to predict canopy height information for areas where this data was unavailable. The model predicts trees which are on average 4.052 ± 4.416 m taller/smaller than identified in the validation dataset. This output is slightly improved for the multi-layer perceptron, which predicts 3.947 ± 4.483 m taller/smaller trees (\autoref{tab:meanerror}). 
 
