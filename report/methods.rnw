@@ -141,7 +141,7 @@ The models selected for the training process were a linear regression model and 
 Both of these models were trained using backpropagation, with an error function of mean squared error. The spectral information was 
 moved into the Pytorch data structure and split across a train, validation and test set, at a ratio of 40:10:50; this ratio corresponded with
  10,578 training examples, 2644 
-validation examples, and 13,223 test examples (illustrated in \autoref{fig:poc_train_data}). 
+validation examples, and 13,223 test examples (illustrated in \autoref{fig:spec-inf}). 
 %Z-score normalisation was applied to tuples representing B4 and B8 features, to place the multi-spectrum values into 
 %a standard normal distribution required by our deep learning models. We used the Pytorch Python library for adaptive and scalable model training procedures with specialized graphical/tensor processing units. The models picked to form part of our training scaffolding are a linear regression model and a 2 layer multilayer perceptron using leaky-RELU non-linearity. Both of these models are trained using backpropagation, with an error function of mean squared error. The spectral information has been piped into Pytorch data structure and split across a train, validation and test set 40:10:50 ratio, translating to 10578 train examples, 2644 validation examples and 13223 test examples. This train-val-test split is visualized below:
 
@@ -152,17 +152,17 @@ validation examples, and 13,223 test examples (illustrated in \autoref{fig:poc_t
 
 %The first step involved in creating our prototype involved porting over the multi-spectrum data into a Pytorch data structure, allowing for efficient data pipelines creation and model training. The resultant data set object, is then split across a train, validation and test set 40:10:50 ratio, translating to 10578 train examples, 2644 validation examples and 13223 test examples. This train-val-test split is visualized below:
 
-\begin{figure}[H]
-\centering
+\begin{figure}[h]
+\begin{center}
 \includegraphics[scale=0.50]{images/train-data.png}
-    \captionsetup{justification=centering}
-    \captionof{figure}{Illustration of the spectral information split into train (40\%), 
+\end{center}
+    \caption{Illustration of the spectral information split into train (40\%), 
     validation (10\%), and test (50\%)  regions for the Lemon Canyon test region. Pixel scales provided on the 
     axis with canopy height normalised greyscale (0--255).}
-    \label{fig:poc_train_data}
+    \label{fig:spec-inf}
 \end{figure}
 
-Model performance was measured using Mean Absolute Error (M.A.E.), as described below:
+Model performance was measured using Mean Absolute Error (MAE), as described below:
 
 \begin{equation}
 \mathrm{MAE}=\frac{\sum_{i=1}^{n}\left|y_{i}-x_{i}\right|}{n},
@@ -172,7 +172,7 @@ where: $y_{i} \quad=$ prediction,
 $x_{i} \quad=$ true value, 
 $n     \quad=$ total number of data points.
 
-This metric was selected instead of the Root Mean Squared Error (R.M.S.E.), which is sensitive to upper bound errors. This sensitivity
+This metric was selected instead of the Root Mean Squared Error (RMSE), which is sensitive to upper bound errors. This sensitivity
 means that the R.M.S.E. has the tendency to increase its value more than M.A.E. as the test sample size increases.
 %Comparing the trained models across the test data resulted in M.A.E. errors 
 %The trained models when compared across the test data results in the M.A.E. errors shown in table below:
