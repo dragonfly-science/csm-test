@@ -131,25 +131,44 @@ The results for the machine-learning concept revealed that a simple model deploy
 complex data infrastructure was able to predict canopy height information for areas where these data were unavailable. 
 The model predicted trees that were on average 4.052 ± 4.416 m taller or shorter than trees identified in the validation dataset. 
 This output was slightly improved for the multi-layer perceptron, which predicted trees that were on average
- 3.947 ± 4.483 m taller or shorter trees (\autoref{tab:meanerror}). 
+ 3.947 ± 4.483 m taller or shorter trees (\autoref{tab:mean-error}). 
 
 
-\begin{tabular}{|l|l|l|}
-  \captionsetup{justification=centering}
-  \captionof{tabular}{Mean error distribution}       
-\label{tab:meanerror}        
-\hline & Linear Regressor & Multi-layer perceptron \\
-\hline Z-score mean absolute error & $0.554 \pm 0.492$ & $0.525 \pm 0.332$ \\
-\hline Un-normalized score & $4.052 \pm 4.416$ & $3.947 \pm 4.483$ \\
-\hline
+\begin{table}[!h]
+  \caption{Mean error distribution for the machine-learning concept to predict canopy height.}
+ \label{tab:mean-error}  
+ \begin{center}
+ \begin{tabular}{lll}
+        \addlinespace
+  & Linear regressor & Multi-layer perceptron \\
+ Z-score mean absolute error & $0.554 \pm 0.492$ & $0.525 \pm 0.332$ \\
+ Un-normalized score & $4.052 \pm 4.416$ & $3.947 \pm 4.483$ \\
 \end{tabular}
+  \end{center}
+\end{table}
 
-When the errors are further analysed across 20 bins each representing a canopy height of the region ranging in height from ≤1m to ≤35m; it can be seen that the average error is directly proportional to the predicted height model (\autoref{fig:poc_train_data}).
-\begin{figure}[H]                                                                                                                                                             
-\centering                                                                                                                                                                    
-\includegraphics[scale=0.50]{images/MAE-across-binned-tree-heights.png}
-    \captionsetup{justification=centering}
-    \captionof{figure}{Binned M.A.E. across binned canopy heights}       
+%\begin{tabular}{|l|l|l|}
+%  \captionsetup{justification=centering}
+%  \caption{tabular}{Mean error distribution}       
+%\label{tab:meanerror}        
+%\hline & Linear Regressor & Multi-layer perceptron \\
+%\hline Z-score mean absolute error & $0.554 \pm 0.492$ & $0.525 \pm 0.332$ \\
+%\hline Un-normalized score & $4.052 \pm 4.416$ & $3.947 \pm 4.483$ \\
+%\hline
+%\end{tabular}
+%
+
+
+The errors were further analysed across 20 height classes, each representing a canopy height of the region, 
+ranging in height from ≤1m to ≤35m. The average error from this analysis was  
+ directly proportional to the predicted height model (\autoref{fig:poc_train_data}).
+
+
+\begin{figure}[h]
+\begin{center}                                                                                                                                                                   
+\includegraphics[width=0.8\textwidth]{images/MAE-across-binned-tree-heights.png}
+\end{center}
+\caption{Binned M.A.E. across binned canopy heights}       
     \label{fig:poc_train_data}                     
 \end{figure}
 
