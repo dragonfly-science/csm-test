@@ -129,7 +129,8 @@ learning model (see example below \autoref{fig:sent2db}).
 \centering
 \includegraphics[scale=0.50]{images/band.png}
     \captionsetup{justification=centering}
-    \captionof{figure}{Sentinel-2 composite}
+    \captionof{figure}{Example pf a cloud-free composite Sentinel-2 image using mean spectral reflectance 
+    values within a period of interest (here: dry season).}
     \label{fig:sent2db}
 \end{figure}
 
@@ -159,7 +160,9 @@ validation examples, and 13,223 test examples (illustrated in \autoref{fig:poc_t
 \centering
 \includegraphics[scale=0.50]{images/train-data.png}
     \captionsetup{justification=centering}
-    \captionof{figure}{Illustration of the spectral information split into train, validation and test sets.}
+    \captionof{figure}{Illustration of the spectral information split into train (40\%), 
+    validation (10\%), and test region (50\%) for the Lemon Canyon test region. Pixel scales provided on the 
+    axis with canopy height normalised greyscale (0--255).}
     \label{fig:poc_train_data}
 \end{figure}
 

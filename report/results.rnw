@@ -16,7 +16,8 @@ We first assessed the results from the model developed here against surface mode
 
 \subsection{Accuracy assessment of the CHMs}
 
-The accuracy assessment of the CHMs was conducted using the 2.7-km$^2$ Lemon Canyon test region \autoref{tab:title}. (\autoref{fig:DSMflyBlend}). Although the United States Forest Service (USFS) LiDAR point cloud dates back to 2014, the field plot located within the test region was surveyed in 2015, with trees present classified as \textit{Pinus jeffreyi}\footnote{Access here: \url{https://www.conifers.org/pi/Pinus_jeffreyi.php}}. This pine species is found on arid mountain slopes in southern Oregon, Sierra Nevada, and California and typically reaches heights between 24 and 39~m \citep{kral_pinus_1993}. 
+The accuracy assessment of the CHMs was conducted using the 2.7-km$^2$ Lemon Canyon test region \autoref{fig:chm-assess}
+(\autoref{fig:DSMflyBlend}). Although the United States Forest Service (USFS) LiDAR point cloud dates back to 2014, the field plot located within the test region was surveyed in 2015, with trees present classified as \textit{Pinus jeffreyi}\footnote{Access here: \url{https://www.conifers.org/pi/Pinus_jeffreyi.php}}. This pine species is found on arid mountain slopes in southern Oregon, Sierra Nevada, and California and typically reaches heights between 24 and 39~m \citep{kral_pinus_1993}. 
 
 %In the following layer comparison we refer to Vibrant Planet products as *.vp, Opentopography as *.topo and Dragonfly as *.fly. 
 
@@ -29,7 +30,6 @@ When comparing the DTM outputs directly (~ 2.6 million pixels),  the outputs fro
 and DSM.topo which incorporate all available points in the surface generation process. 
 
 \begin{figure}[H]
-\label{fig:chm-assess}
   \centering
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/googleEarthDSMflyBlend.png}
@@ -53,7 +53,8 @@ and DSM.topo which incorporate all available points in the surface generation pr
       \captionsetup{justification=centering}
       \caption{DTM OpenTopography}\label{fig:DTMtopo}
     \end{subfigure}
-  \caption {Surface Output Visualisations} \label{tab:title} 
+  \caption {Surface Output Visualisations} \label{fig:chm-assess}
+%\label{tab:title} 
 \end{figure}
 
 
