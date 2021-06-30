@@ -1,6 +1,6 @@
 \newpage
 
-\section{Appendix A}
+\section{Data sources}
 
 %\subsubsection{Sentinel 2}
 %
@@ -35,34 +35,34 @@
 %
 %References to include from the table: \citep{tucker_red_1979,sims_relationships_2002, huete_overview_2002, jordan_derivation_1969, wicaksono_mangrove_2016, huete_soil-adjusted_1988, zhu_exploring_2017, kamal_object-based_2015, castillo_estimation_2017, hill_vegetation_2013, merzlyak_non-destructive_1999, kross_assessment_2015, gitelson_spectral_1994, sharma_active-optical_2015, gitelson_relationships_2003, dash_meris_2004, daughtry_estimating_2000, fernandez-manso_sentinel-2a_2016, blackburn_spectral_1998, frampton_evaluating_2013, hardisky_influence_1983, ji_analysis_2009}
 %
-%1* Subtraction of NIR reciprocal reflectance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content \citep{gitelson_relationships_2003} 
+%1* Subtraction of NIR reciprocal reflectance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content \citep{gitelson_relationships_2003}
 %
-%2* IRECI had highest correlation to biomass (r = 0.8) in \cite{castillo_estimation_2017} (Mangrove Forest Philippines) and further improved with added elevation 
+%2* IRECI had highest correlation to biomass (r = 0.8) in \cite{castillo_estimation_2017} (Mangrove Forest Philippines) and further improved with added elevation
 %
-%3* SWIR bands are used as important indicators in forest regeneration studies \citep{boonprong_random_2018}. Important for vegetation mapping as a standalone \citep{immitzer_first_2016}. Large changes for seasonal reflectance in European forest species \citep{grabska_forest_2019} 
+%3* SWIR bands are used as important indicators in forest regeneration studies \citep{boonprong_random_2018}. Important for vegetation mapping as a standalone \citep{immitzer_first_2016}. Large changes for seasonal reflectance in European forest species \citep{grabska_forest_2019}
 %
-%4* Delineating water bodies if required \citep{ji_analysis_2009} 
+%4* Delineating water bodies if required \citep{ji_analysis_2009}
 %
 %
-%Papers: 
+%Papers:
 %
-%Estimating AGB in sub-tropical Nepal using Sentinel 2 \citep{pandit_estimating_2018}. Field-based AGB as a dependent variable, as well as spectral band values and spectral-derived vegetation indices as independent variables in the Random Forest \citep{breiman_random_2001}. In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices (\autoref{tab:vegindices}) as a typical output of a random forest to estimate AGB (R² = 0.81 and RMSE = 25.57 t ha$^{-1}$; \cite{pandit_estimating_2018}. 
+%Estimating AGB in sub-tropical Nepal using Sentinel 2 \citep{pandit_estimating_2018}. Field-based AGB as a dependent variable, as well as spectral band values and spectral-derived vegetation indices as independent variables in the Random Forest \citep{breiman_random_2001}. In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices (\autoref{tab:vegindices}) as a typical output of a random forest to estimate AGB (R² = 0.81 and RMSE = 25.57 t ha$^{-1}$; \cite{pandit_estimating_2018}.
 %
-%Estimating AGB in in tropical forest using Sentinel-1 (SAR) and vegetation indices from Sentinel-2 \citep{ghosh_aboveground_2018}. Sentinel-1 data does not work as a good predictor variable for the study area, as C-band SAR backscatter saturates at a biomass density of 100 Mg ha$^{-1}$. R package, CARET was used to implement RF regression to rank important predictor variables. Stochastic gradient boosting modelling (SGB, same R package) combines both regression tree and boosted algorithms to predict the response variable. SGB models were fitted, with varying values for the number of regression trees (50 – 5000), tree complexity of 1, 3 and 5. The value for learning rate was fixed at 0.01. Combination of satellite sensors shows the best result for \textit{S. robusta} forest, with a coefficient of determination value of 0.71 and an RMSE value of 105.027 t ha$^{-1}$ \citep{ghosh_aboveground_2018}. 
+%Estimating AGB in in tropical forest using Sentinel-1 (SAR) and vegetation indices from Sentinel-2 \citep{ghosh_aboveground_2018}. Sentinel-1 data does not work as a good predictor variable for the study area, as C-band SAR backscatter saturates at a biomass density of 100 Mg ha$^{-1}$. R package, CARET was used to implement RF regression to rank important predictor variables. Stochastic gradient boosting modelling (SGB, same R package) combines both regression tree and boosted algorithms to predict the response variable. SGB models were fitted, with varying values for the number of regression trees (50 – 5000), tree complexity of 1, 3 and 5. The value for learning rate was fixed at 0.01. Combination of satellite sensors shows the best result for \textit{S. robusta} forest, with a coefficient of determination value of 0.71 and an RMSE value of 105.027 t ha$^{-1}$ \citep{ghosh_aboveground_2018}.
 %
 %
 %\newpage
 %
 %\paragraph{Normalized Burn Ratio} \
 %
-%The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones and can be derived from landsat or sentinel imagery. The formula is similar to NDVI (\autoref{eq:nbr}), except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths \autoref{fig:nbr-overview}. It can also be used to monitor forest disturbances such as logging activities \citep{shimizu_using_2016}.The formula is similar to NDVI, NBR uses the ratio between NIR and SWIR bands. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero. 
+%The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones and can be derived from landsat or sentinel imagery. The formula is similar to NDVI (\autoref{eq:nbr}), except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths \autoref{fig:nbr-overview}. It can also be used to monitor forest disturbances such as logging activities \citep{shimizu_using_2016}.The formula is similar to NDVI, NBR uses the ratio between NIR and SWIR bands. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero.
 %
 %\begin{equation}
 %NBR = (NIR-SWIR)/(NIR+SWIR)
 %\label {eq:nbr}
 %\end{equation}
 %
-%For any burn related damage/regeneration calculations we can verify fire activity locations via the Fire Information for Resource Management System (FIRMS\footnote{Available here: \url{https://firms.modaps.eosdis.nasa.gov/download/}}). The data come from the Collection 6 Near Real Time (NRT), extracted from the standard MCD14ML fire product produced at the MODIS Fire Science Computing Facility \citep{roteta_development_2019}. 
+%For any burn related damage/regeneration calculations we can verify fire activity locations via the Fire Information for Resource Management System (FIRMS\footnote{Available here: \url{https://firms.modaps.eosdis.nasa.gov/download/}}). The data come from the Collection 6 Near Real Time (NRT), extracted from the standard MCD14ML fire product produced at the MODIS Fire Science Computing Facility \citep{roteta_development_2019}.
 %
 %\begin{figure}[ht]
 %  \label{fig:nbr-overview}
@@ -71,17 +71,17 @@
 %
 %\end{figure}
 %
-%Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the active fires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows.  visually created using BAMS (Burned Area Mapping Software) methodology \citep{roteta_development_2019}, which consists of a trained classification to detect burned areas between images from two dates\footnote{Available here: \url{https://climate.esa.int/en/projects/fire/data/}}. 
+%Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the active fires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows.  visually created using BAMS (Burned Area Mapping Software) methodology \citep{roteta_development_2019}, which consists of a trained classification to detect burned areas between images from two dates\footnote{Available here: \url{https://climate.esa.int/en/projects/fire/data/}}.
 %
-%Fire on Madeira, Spain \citep{navarro_evaluation_2017}. Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided. 
+%Fire on Madeira, Spain \citep{navarro_evaluation_2017}. Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided.
 %
-%Classification of burn severity for wildfire in Spain using Sentinel-2 \citep{fernandez-manso_sentinel-2a_2016} (with NBR). Superiority of red-edge spectral indices (particularly, Modified Simple Ratio Red-edge, Chlorophyll Index Red-edge, Normalized Difference Vegetation Index Red-edge) over conventional spectral indices. Fisher’s Least Significant Difference test confirmed that Sentinel-2A MSI red-edge spectral indices are adequate to discriminate four burn severity levels. 
+%Classification of burn severity for wildfire in Spain using Sentinel-2 \citep{fernandez-manso_sentinel-2a_2016} (with NBR). Superiority of red-edge spectral indices (particularly, Modified Simple Ratio Red-edge, Chlorophyll Index Red-edge, Normalized Difference Vegetation Index Red-edge) over conventional spectral indices. Fisher’s Least Significant Difference test confirmed that Sentinel-2A MSI red-edge spectral indices are adequate to discriminate four burn severity levels.
 %
 %\paragraph{Problems with Sentinel 2 Data} \
 %
 %General problem with spatial resolution (30 m). The round FIA plots overlap with multiple pixels and sometimes the forest edge. Relatively new, so does not have the high temporal value as landsat. Will probably fail to distinguish tree phenology (e.g. growth stages) and can reach a spectral saturation point if biomass is too high.
 %
-%Papers: 
+%Papers:
 %
 %Bamboo forest in China: Seasonality, different growth phenomena in different years. Correlation between spectral bands and biomass varies within a period of months. Biomass calculation based on DBH and age \citep{chen_exploring_2019}. Also used random forest to evaluate key variables. \
 %
@@ -483,7 +483,7 @@
 
 
 
-\section{Appendix B}
+\section{Tools}
 
 \subsubsection{Production Data Infrastructure}
 
@@ -495,7 +495,7 @@ While systems like PostGIS and QGIS are essential as exploration and debugging t
   \item Dask as the distributed compute environment responsible for image data processing.
 \end{itemize}
 
-The architecture stack was deployed using Kubernetes running on an Amazon EKS cluster. Dedicated node groups were set up for Trino (backed by T3.large instances) and Dask workers (backed by R5.large instances). Processing the area of interest required a peak of 30 instances running at any one time, with a total estimated run time for the entire data preparation pipeline of under 48 hours. Depending on its complexity, model training may add a significant amount of financial and time cost to these compute requirements. 
+The architecture stack was deployed using Kubernetes running on an Amazon EKS cluster. Dedicated node groups were set up for Trino (backed by T3.large instances) and Dask workers (backed by R5.large instances). Processing the area of interest required a peak of 30 instances running at any one time, with a total estimated run time for the entire data preparation pipeline of under 48 hours. Depending on its complexity, model training may add a significant amount of financial and time cost to these compute requirements.
 
 Image data processing was done using the same GDAL commands developed in the exploration stage, adapted using the pattern of 'embarassing parallelism', where independent tasks were created for each of about 25,000 distinct image files identified in the area of interest. Hive tables were used to manage run metadata (i.e., what files needed processing, or had already been processed), whereas Dask workers were used to complete the processing itself. This design choice makes the processing incremental and easy to resume when faced with inevitable infrastructure errors.
 
@@ -504,7 +504,7 @@ Image data processing was done using the same GDAL commands developed in the exp
 The data processing consisted of the following concrete steps:
 
 \begin{enumerate}
-   \item \textbf{Identifying MGRS tiles of interest.} This task was done by leveraging an exhaustive listing of level 1B Sentinel data stored on Google Cloud Storage. This table was imported into the data lake, as no similar metadata file was found for the Amazon instantiation of the Sentinel-2 dataset. While the image listings themselves could not be used (due to Google's version of Sentinel2 containing only the 'rawer' Level 1B data, as compared to the Level 2A data hosted by Amazon), the table proved useful due to its containing an exhaustive listing of all MGRS tiles for which Sentinel data is available, as well as their spatial coordinates. The identification of the 9 MGRS tiles of interest was thus done using a simple SQL filter query against this large metadata file. 
+   \item \textbf{Identifying MGRS tiles of interest.} This task was done by leveraging an exhaustive listing of level 1B Sentinel data stored on Google Cloud Storage. This table was imported into the data lake, as no similar metadata file was found for the Amazon instantiation of the Sentinel-2 dataset. While the image listings themselves could not be used (due to Google's version of Sentinel2 containing only the 'rawer' Level 1B data, as compared to the Level 2A data hosted by Amazon), the table proved useful due to its containing an exhaustive listing of all MGRS tiles for which Sentinel data is available, as well as their spatial coordinates. The identification of the 9 MGRS tiles of interest was thus done using a simple SQL filter query against this large metadata file.
    \item \textbf{Identifying Sentinel data-takes of interest.} This was done simply by listing all existing data take files in the the S3 keys corresponding to each bucket.
    \item \textbf{Identifying high quality data takes.} This task involved reading the granule metadata corresponding to each datatake. Because the metadata lists an estimated cloud cover percentage, it was possible to separate out images with less than 35 % cloud cover. The 35 % threshold was identified during the exploratory phase.
    \item \textbf{Reprojecting Sentinel datatakes into a uniform coordinate system.} All Sentinel tiles are provided in the UTM coordinate system. Because the area of interest spans multiple UTM bands, it was necessary to harmonize them through reprojection into the California Albers projection -- a planar coordinate system developed specifically for geographic information relating to state's geography.
@@ -546,10 +546,10 @@ To demonstrate confidence in our CHM the prototype development is preceded by an
 \end{figure}
 
 
-\subsection{Appendix A - Literature Review}
+\subsection{Literature Review}
 
 
-\subsection{Appendix B - Geospatial Tools}
+\subsection{Geospatial Tools}
 
 \subsubsection{Geospatial Data Abstraction Library (GDAL) Usage}
 
@@ -566,7 +566,7 @@ For the purposes of our project, we are leveraging GDAL 3.2.2 for all our import
     \item Rasterization (\texttt{gdal\_rasterize})
 \end{itemize}
 
-Vector processing is made avialable through GDAL via the ogr2ogr command.  In our case ogr2ogr is primarily utilized for data transformations and basic clipping. More complex operations are handled using PostGIS. 
+Vector processing is made avialable through GDAL via the ogr2ogr command.  In our case ogr2ogr is primarily utilized for data transformations and basic clipping. More complex operations are handled using PostGIS.
 
 Additionally, we are implementing GDAL's capabilities to create:
 \begin{itemize}
@@ -578,7 +578,7 @@ Additionally, we are implementing GDAL's capabilities to create:
 
 \subsubsection{Point Cloud Data Abstraction Library (PDAL) Usage}
 
-PDAL (2.3.0) is an open library written in C++ for managing and processing point cloud data. This tool is similar to LASTools in the Windows environment and offers similar capabilities. PDAL is an easily scripted tool allowing for scaling. At its core, PDAL utilizes JSON configurations called pipelines and allows us to string multiple processes into JSON documents. This method for developing individual complex pipelines for point clouds gives us the control needed to run these processes across myriad cores.  PDAL is also developed to handle varied point cloud data types outside of the traditional ASPRS LAS. This may be important as we begin to generate surfaces from varied sources. 
+PDAL (2.3.0) is an open library written in C++ for managing and processing point cloud data. This tool is similar to LASTools in the Windows environment and offers similar capabilities. PDAL is an easily scripted tool allowing for scaling. At its core, PDAL utilizes JSON configurations called pipelines and allows us to string multiple processes into JSON documents. This method for developing individual complex pipelines for point clouds gives us the control needed to run these processes across myriad cores.  PDAL is also developed to handle varied point cloud data types outside of the traditional ASPRS LAS. This may be important as we begin to generate surfaces from varied sources.
 
 In our project, we are implementing PDAL for point cloud filtering plus, generation of Digital Terrain Models (DTM) and Digital Surface Models (DSM). In a basic PDAL process we will:
 \begin{enumerate}
@@ -587,7 +587,7 @@ In our project, we are implementing PDAL for point cloud filtering plus, generat
     \item Generate Digital Surface Model (DSM) interpolation from highest points
 \end{enumerate}
 
-PDAL is not developed specifically for the generation of surface grids (rasters); however, it does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Notably, the IDW method does not interpolate over large areas where data is not present. Specifically, in our surface generations, this results in regions of 'nodata' where there are insufficient ground points for interpolation.  This is a known outcome and currently addressed by increasing the window size for the IDW to search for neighboring points.  Currently, we are confident in this solution for addressing 'nodata' regions of the surface model; however, we are continuing to research other solutions (e.g. Triangulated Irregular Networks) and additional interpolation tools like GRASS GIS and SAGA GIS. 
+PDAL is not developed specifically for the generation of surface grids (rasters); however, it does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Notably, the IDW method does not interpolate over large areas where data is not present. Specifically, in our surface generations, this results in regions of 'nodata' where there are insufficient ground points for interpolation.  This is a known outcome and currently addressed by increasing the window size for the IDW to search for neighboring points.  Currently, we are confident in this solution for addressing 'nodata' regions of the surface model; however, we are continuing to research other solutions (e.g. Triangulated Irregular Networks) and additional interpolation tools like GRASS GIS and SAGA GIS.
 
 \subsubsection{PostGIS/PostgreSQL Usage}
 
@@ -610,9 +610,9 @@ Handling and manipulation of Sentinel 2 data is performed using GDAL. Raw Sentin
 In order to have clean pixel sampling, we need to ensure all our data aligns to be the best of our abilities.  This is ensured through several processes.
 
 \begin{itemize}
-  \item Projection: All data for our project is developed to be in the same projection wih the same origin. 
-  \item Resolution: Each data set is always forced into a 10m resolution when GDAL commands allow.  
-  \item Extents:  Extents are always captured the the beginning of a process and reapplied to the outputs. 
+  \item Projection: All data for our project is developed to be in the same projection wih the same origin.
+  \item Resolution: Each data set is always forced into a 10m resolution when GDAL commands allow.
+  \item Extents:  Extents are always captured the the beginning of a process and reapplied to the outputs.
 \end{itemize}
 
 
@@ -626,7 +626,7 @@ While systems like PostGIS and QGIS are essential as exploration and debugging t
   \item Dask as the distributed compute environment responsible for image data processing.
 \end{itemize}
 
-The architecture stack was deployed using Kubernetes running on an Amazon EKS cluster. Dedicated node groups were set up for Trino (backed by T3.large instances) and Dask workers (backed by R5.large instances). Processing the area of interest required a peak of 30 instances running at any one time, with a total estimated run time for the entire data preparation pipeline of under 48 hours. Depending on its complexity, model training may add a significant amount of financial and time cost to these compute requirements. 
+The architecture stack was deployed using Kubernetes running on an Amazon EKS cluster. Dedicated node groups were set up for Trino (backed by T3.large instances) and Dask workers (backed by R5.large instances). Processing the area of interest required a peak of 30 instances running at any one time, with a total estimated run time for the entire data preparation pipeline of under 48 hours. Depending on its complexity, model training may add a significant amount of financial and time cost to these compute requirements.
 
 Image data processing was done using the same GDAL commands developed in the exploration stage, adapted using the pattern of 'embarassing parallelism', where independent tasks were created for each of about 25,000 distinct image files identified in the area of interest. Hive tables were used to manage run metadata (i.e., what files needed processing, or had already been processed), whereas Dask workers were used to complete the processing itself. This design choice makes the processing incremental and easy to resume when faced with inevitable infrastructure errors.
 
@@ -635,7 +635,7 @@ Image data processing was done using the same GDAL commands developed in the exp
 The data processing consisted of the following concrete steps:
 
 \begin{enumerate}
-   \item \textbf{Identifying MGRS tiles of interest.} This task was done by leveraging an exhaustive listing of level 1B Sentinel data stored on Google Cloud Storage. This table was imported into the data lake, as no similar metadata file was found for the Amazon instantiation of the Sentinel-2 dataset. While the image listings themselves could not be used (due to Google's version of Sentinel2 containing only the 'rawer' Level 1B data, as compared to the Level 2A data hosted by Amazon), the table proved useful due to its containing an exhaustive listing of all MGRS tiles for which Sentinel data is available, as well as their spatial coordinates. The identification of the 9 MGRS tiles of interest was thus done using a simple SQL filter query against this large metadata file. 
+   \item \textbf{Identifying MGRS tiles of interest.} This task was done by leveraging an exhaustive listing of level 1B Sentinel data stored on Google Cloud Storage. This table was imported into the data lake, as no similar metadata file was found for the Amazon instantiation of the Sentinel-2 dataset. While the image listings themselves could not be used (due to Google's version of Sentinel2 containing only the 'rawer' Level 1B data, as compared to the Level 2A data hosted by Amazon), the table proved useful due to its containing an exhaustive listing of all MGRS tiles for which Sentinel data is available, as well as their spatial coordinates. The identification of the 9 MGRS tiles of interest was thus done using a simple SQL filter query against this large metadata file.
    \item \textbf{Identifying Sentinel data-takes of interest.} This was done simply by listing all existing data take files in the the S3 keys corresponding to each bucket.
    \item \textbf{Identifying high quality data takes.} This task involved reading the granule metadata corresponding to each datatake. Because the metadata lists an estimated cloud cover percentage, it was possible to separate out images with less than 35 % cloud cover. The 35 % threshold was identified during the exploratory phase.
    \item \textbf{Reprojecting Sentinel datatakes into a uniform coordinate system.} All Sentinel tiles are provided in the UTM coordinate system. Because the area of interest spans multiple UTM bands, it was necessary to harmonize them through reprojection into the California Albers projection -- a planar coordinate system developed specifically for geographic information relating to state's geography.
@@ -644,9 +644,9 @@ The data processing consisted of the following concrete steps:
 \end{enumerate}
 
 
-\subsection{Appendix C - Incline Village test area}
+\subsection{Incline Village test area}
 
-As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results (/autoref{fig:AOIlc}.  
+As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results (/autoref{fig:AOIlc}.
 
 
 \begin{figure}[H]
@@ -654,8 +654,8 @@ As part of our surface development testing, a small region north of Lake Tahoe w
       \includegraphics[scale=0.75]{s3/images/referenceMap.png}
       \captionof{figure}{Lemon Canyon and Lake Tahoe Test Regions}\label{fig:AOIlc}
   \end{figure}
-  
-  
+
+
 
 
 
@@ -669,8 +669,8 @@ Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
       \caption{Google Earth}\label{fig:taba}
     \end{subfigure}
     \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lakeTahoe/CHMfly.png} 
-      \captionsetup{justification=centering}     
+      \includegraphics[scale=0.50]{s3/images/lakeTahoe/CHMfly.png}
+      \captionsetup{justification=centering}
       \caption{CHM Dragonfly}\label{fig:tabb}
     \end{subfigure}
 
@@ -678,15 +678,15 @@ Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lakeTahoe/CHMtopo.png}
       \captionsetup{justification=centering}
-      \caption{CHM OpenTopography}\label{fig:tabc} 
+      \caption{CHM OpenTopography}\label{fig:tabc}
     \end{subfigure}
-   
+
     \vspace{0.5cm}
     \begin{tabularx}{\textwidth}{XXXXX}
       \cellcolor{black}\textcolor{White}0 & \cellcolor{darkPurple}\textcolor{White}{10} & \cellcolor{Purple}\textcolor{White}{20} & \cellcolor{Pink}\textcolor{White}{30} & \cellcolor{Yellow}\textcolor{lightGray}{40+ meters}
     \end{tabularx}
     \caption {CHM Output Results} \label{tab:title}
-  
+
 \end{figure}
 
 \newpage
@@ -698,11 +698,11 @@ Results for surface generation in Lake Tahoe Test Region
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lakeTahoe/googleEarth.png}
       \captionsetup{justification=centering}
-      \caption{Google Earth Satellite}\label{fig:taba} 
+      \caption{Google Earth Satellite}\label{fig:taba}
     \end{subfigure}
     \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lakeTahoe/DSMfly.png} 
-      \captionsetup{justification=centering}     
+      \includegraphics[scale=0.50]{s3/images/lakeTahoe/DSMfly.png}
+      \captionsetup{justification=centering}
       \caption{DSM Dragonfly}\label{fig:tabb}
     \end{subfigure}
 
@@ -715,7 +715,7 @@ Results for surface generation in Lake Tahoe Test Region
     \begin{subfigure}{.45\linewidth}
       \includegraphics[scale=0.50]{s3/images/lakeTahoe/DTMtopo.png}
       \captionsetup{justification=centering}
-      \caption{DTM OpenTopography}\label{fig:tabd} 
+      \caption{DTM OpenTopography}\label{fig:tabd}
     \end{subfigure}
-  \caption {Surface Output Visualisations for Lake Tahoe Region} \label{tab:title} 
+  \caption {Surface Output Visualisations for Lake Tahoe Region} \label{tab:title}
 \end{figure}
