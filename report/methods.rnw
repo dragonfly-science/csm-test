@@ -127,7 +127,7 @@ learning model (see example below \autoref{fig:sent2db}).
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.50]{images/band.png}
+\includegraphics[scale=0.85]{images/bandScale.png}
     \captionsetup{justification=centering}
     \captionof{figure}{Example pf a cloud-free composite Sentinel-2 image using mean spectral reflectance 
     values within a period of interest (here: dry season).}
