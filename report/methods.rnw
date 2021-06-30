@@ -14,48 +14,71 @@
 %\end{itemize}
 %
 
-The LiDAR upscaling approach is preceded by a demonstration and evaluation of our workflows to produce a canopy height model (CHM) from unclassified LiDAR point cloud data. The proof of concept upscales the CHM by training Sentinel-2 derived spectral indices on this information to infer mean canopy height pixels where vegetation height information is unavailable.
+The LiDAR upscaling approach was preceded by a demonstration and evaluation of our processes to produce a CHM from unclassified LiDAR point cloud data. This proof of concept then upscaled the CHM by training Sentinel-2-derived spectral indices on this information to infer mean canopy height pixels for areas vegetation height information was not available.
 
-Our test region is located in the Lemon Canyon (\autoref{fig:lemoncanyon}, California) approximately 50 km North of Lake Tahoe. We selected this area based the valley structure with a range of distinct topographic features (e.g. slopes, aspects) and one of the available LiDAR verification plots located within the test boundaries ($\sim$ 2.7 km$^2$). For this plot we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93~pts~m$^{-2}$) accuracy from a publicly available source (OpenTopography, 2014). The data source provided a pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM).
+The current test region was located in Lemon Canyon, California, approximately 50~km north of Lake Tahoe (\autoref{fig:lemoncanyon}). 
+This area was selected as a test region based on the valley structure and its range of distinct topographical features (e.g., slopes, aspects);
+ in addition, one of the available LiDAR verification plots is located within the test region's boundaries ($\sim$ 2.7~km$^2$). For this plot, 
+ a subset of the 2014 LiDAR dataset was downloaded from the National Center for Airborne Laser Mapping (NCALM, University of Houston), 
+ at an accuracy of 5 to 35~cm (8.93~pts~m$^{-2}$)  from a publicly-available source (OpenTopography 2014). The data source provided a 
+ pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived CHM.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \centering
     \includegraphics[scale=0.75]{s3/images/referenceMap_lemonCanyon.png}
-    \captionof{figure}{Lemon Canyon Test Region}
+    \captionof{figure}{Aerial image of the test region, Lemon Canyon, California.}
     \label{fig:lemoncanyon}
 \end{figure}
 
+One of the challenges associated with an extensive data source is merging the vendor-provided point clouds into an efficient, scalable process 
+consistent across the entire state. Current processes at Vibrant Planet rely on vendor-provided DTMs, and use the software Fusion 
+to derive a DSM and a resulting  CHM. Because vendor-provided CHMs are not universally available for all datasets, and the 
+processes used to derive these CHMs are unknown, the current project developed a process to generate a DTM, 
+DSM, and CHM using the Point Data Abstraction Library (PDAL). This process allowed the use of the entire point-cloud database and 
+ensured replicability with future LiDAR dataset regardless of vendor-specific point classification differences. As an overall raster 
+processing tool, this process relied greatly on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, 
+reprojections, and raster calculations. Because GDAL is not suited for point cloud data processing, we used PDAL for these operations.
 
-A particular challenge associated with an extensive data source is merging the vendor provided point clouds into a streamlined, scalable process consistent across the entire state. Current workflows at Vibrant Planet rely on vendor provided digital terrain models (DTM) and use the Fusion software to derive a digital surface model (DSM) and a resulting canopy height model (CHM). Since vendor provided CHM are not universally available for all datasets and the workflows to derive these are unknown, we demonstrate our own process to generate a DTM, DSM, and CHM using the Point Data Abstraction Library (PDAL). This process enables us to work with the full point cloud database and guarantee replicability with future LiDAR dataset regardless of vendor specific point classification differences. As an overall raster processing tool, we rely heavily on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, reprojections, and raster calculations. GDAL is not suited for point cloud data processing, therefore, we move to PDAL for these operations.
-
-Particularly the generation of a DTM is a crucial process which is prone to producing gaps due to a lack of ground information at the center of large trees with dense canopy structure. In addition to general cleaning algorithms (e.g. outlier classifier) used for the DSM, the PDAL pipeline to generate a DTM includes a ground filtering process (Progressive Morphological Filter, \cite{zhang_progressive_2003}) to make the DTM exlusively incorporate points identified as ground. Once both layers have been generated,the canopy height model (\autoref{eq:chm}) is calculated by subtracting the ground information (DTM) from the vegetation surface information (DSM) and is performed with GDAL commandline tool \texttt{gdal\_calc.py} to retain/switch data formats (e.g. UInt16 and Float32):
+Particularly, the generation of a DTM was a crucial process, which is prone to produce gaps due to a lack of ground information 
+at the centre of large trees with dense canopy structure. In addition to general data-processing algorithms used for the DSM  (e.g., outlier classification), 
+the PDAL framework for generating a DTM included a ground-filtering process (Progressive Morphological Filter, \cite{zhang_progressive_2003})
+ to make the DTM exclusively incorporate points identified as ground. Once both layers were generated, the CHM was calculated by 
+ subtracting the ground information (DTM) from the vegetation surface information (DSM):
 
 \begin{equation}
-CHM= DSM - DTM
+CHM = DSM - DTM.
 \label {eq:chm}
 \end{equation}
 
-\subsection{Accuracy Assessment CHM}
+The CHM was performed with  
+ the GDAL command line tool \texttt{gdal\_calc.py} to retain or switch data formats (e.g., UInt16 and Float32)
+ 
+\subsection{Accuracy Assessment of the CHM}
 
-In the following layer comparison we refer to Vibrant Planet products as *.vp, Opentopography as *.topo and Dragonfly as *.fly.
+For the following comparison of layers, products from Vibrant Planet are referred to by the suffix *.vp, products from OpenTopography  by *.topo, and 
+products from Dragonfly by *.fly.
 
-In the accuracy assessment we will use the OpenTopography provided model (1) as a reference against the Fusion (2) and PDAL (3) generated outputs. While the OpenTopography workflows to produce these layers are not documented, the products have been tested in regions with distinctive ridges and steep terrain (e.g. grand canyon\footnote{Opentopography CHM: \url{https://opentopography.org/news/opentopography-releases-canopy-height-model-tool}}) and this product has been officially released in January 2021. For the purpose of this assessment we will use it as a reference CHM. We provided Vibrant Planet with the DTM and point cloud from this data source to calculate a CHM within Fusion. For the third CHM model we used the raw point cloud to generate our own CHM model using PDAL and GDAL pipelines:
+In the accuracy assessment, the model provided by OpenTopography was used as a reference against the 
+outputs generated by Fusion and PDAL:
 
 \begin{enumerate}
-	\item CHM.topo provided by Opentopography using their own DTM.topo and DSM.topo (all 1 m$^2$)
-	\item CHM.vp generated in Fusion using DTM.topo provided by Opentopography
-	\item CHM.fly generated with PDAL and GDAL using the raw point cloud
+	\item CHM.topo provided by OpentTopography using their  DTM.topo and DSM.topo (all 1 m$^2$).
+	\item CHM.vp generated in Fusion using DTM.topo provided by OpenTopography.
+	\item CHM.fly generated with PDAL and GDAL using the raw point cloud.
 \end{enumerate}
 
-CHM.vp (2), Fusion workflow:
+Although the OpenTopography processes for producing the corresponding layers are not documented, 
+the products have been tested in regions with distinctive ridges and steep terrain (e.g., Grand Canyon\footnote{Opentopography CHM: \url{https://opentopography.org/news/opentopography-releases-canopy-height-model-tool}}); this product was officially released in January 2021. For the purpose of this assessment, it was used as a reference CHM.
+ To calculate a CHM within Fusion, Vibrant Planet was provided with the DTM and point cloud from this data source. For the third CHM model,
+  the raw point cloud was used to generate the Dragonfly CHM model using PDAL and GDAL frameworks:
 
-The Fusion workflow to create a CHM.vp uses the DTM.topo provided by Opentopography and has been produced by Vibrant Planet using the following steps:
+The Fusion process to create a CHM.vp uses the DTM.topo provided by OpenTopography, and was produced by Vibrant Planet using the following steps:
 
 \begin{enumerate}
-	\item Conversion of *.tif file into *.asc using ArcGIS
-	\item Conversion of *.asc into *.dtm to ingest into Fusion using inbuilt ‘ASCII2DTM’ function
-	\item Producing a CHM using the converted DTM and raw point cloud information
-	\item  Conversion of the CHM from *.dtm to *.tif using Fusion ‘DTM2TIF’ function
+	\item conversion of *.tif file into *.asc using ArcGIS;
+	\item conversion of *.asc into *.dtm to ingest into Fusion using inbuilt ‘ASCII2DTM’ function;
+	\item producing a CHM using the converted DTM and raw point cloud information
+	\item  conversion of the CHM from *.dtm to *.tif using the Fusion ‘DTM2TIF’ function.
 \end{enumerate}
 
 The resulting CHM.vp (2) will be used in the consecutive accuracy assessment to compare it against the Opentopography generated CHM.topo (1).
