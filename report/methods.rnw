@@ -118,7 +118,7 @@ and extract information from a range of different data sources. Because of the s
 For the data pre-processing, it was necessary to identify Sentinel-2 data of interest based on 9 tiles of the Military 
 Grid Reference System (MGRS) for California, and reproject them in the California Albers reference system. 
 Via an SQL filter we were able to query the metadata to identify pixels with the least amount of noise (e.g. < 35 \% cloud obstruction), representing the most accurate spectral depiction of ground information.
-Based on the MGRS, imageries were clipped to uniform tiles with 40~km sides; annual gap-free images were produced using median spectral values for temporally overlaying pixels with acceptable noise values for the dry season. The pre-processing resulted in a composite image for each band and for each year. This image
+Based on the MGRS, imageries were clipped to uniform tiles with 40~km sides; annual gap-free images were produced using median spectral values for temporally overlaying pixels (~ 18+) with acceptable noise values for the dry season (Apr 15 - Oct 15). The pre-processing resulted in a composite image for each band and for each year. This image
 represents one layer of features for the machine-learning model (see example below \autoref{fig:sent2db}).
 
 \begin{figure}[H]
