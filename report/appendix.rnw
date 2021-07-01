@@ -655,10 +655,6 @@ As part of our surface development testing, a small region north of Lake Tahoe w
       \captionof{figure}{Lemon Canyon and Lake Tahoe Test Regions}\label{fig:AOIlc}
   \end{figure}
 
-
-
-
-
 Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
 
 \begin{figure}[H]
@@ -719,3 +715,7 @@ Results for surface generation in Lake Tahoe Test Region
     \end{subfigure}
   \caption {Surface Output Visualisations for Lake Tahoe Region} \label{tab:title}
 \end{figure}
+
+\subsection{Data Included}
+
+Included with this report is a collection of zipped images and data from our testing. In the folder, one will find two main sub directories named 'data' and 'images'. The data directory contains all the GeoTiffs (DTM, DSM, CHM) from our testing in Lemon Canyon and the Lake Tahoe Region.  Along with the surfaces are the terrain shaded tiffs (HS) used for visualization purposes.  Surfaces are also broken into two projections: California Albers (EPSG:3310) and Web Mercator (EPSG:3857).  The image directory contains all the terrain images used in the report.  In addition, the asscociated QGIS files used to create these images are included.  Please note, it may be necessary to relink the file paths to make these files work properly.
