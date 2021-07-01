@@ -1,10 +1,23 @@
 \section*{Executive Summary}
 
-The expansion of Vibrant Planet's platform for natural resource management requires high-quality data to guide forestry management in the state of California. Best practice decision-making is currently limited to areas where LiDAR datasets are available. Within this model we provide a proof-of-concept how we aim extrapolate point cloud derived canopy height information to the whole state of California.
+The expansion of Vibrant Planet's platform for natural resource management requires high-quality data to guide forestry management in the State of California. Using a fine-scale land-cover model, the Canopy Height Model (CHM), best-practice decision-making is currently limited to areas where LiDAR (light detection and ranging) datasets are available. 
+To address this limitation, the current project explored approaches and datasets to develop a CHM test case using publicly-available data for a test region
+in California.  The exploration included the consecutive upscaling of LiDAR-derived canopy height information via Sentinel-2 imagery. This report documents the current
+ proof of concept, including geospatial processes and machine learning. It also outlines its potential expansion for extrapolating point cloud derived canopy height information for the entire State of California.
+%Detailed documentation of geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) that were part of this project
+%approaches for This project provides a proof-of-concept how we aim extrapolate point cloud derived canopy height information to the whole state of California.
 
-The prototype ingests publicly-available data, Sentinel-2 spectral bands, vegetation classification layers, to provide an approximation of relevant information without the deployment of costly LiDAR collection procedures.
+ The machine-learning concept trained Sentinel-2 satellite data to upscale canopy height information beyond the 
+ scope of current field data collections. This task was performed using processes developed here to generate 
+ canopy height models with improved quality terrain surfaces (25.1 \%) from unclassified LiDAR data. Owing to the high quality 
+ of the Sentinel-2 imagery, this procedure operated at an unprecedented resolution (10~m) for an upscaling operation at this scale.  
+Although the prototype in this early proof of concept had no refined expectations towards accuracy, it demonstrated that the technical 
+task of ingesting, aligning and analysing extensive datasets can be conducted in an efficient, replicable and scalable process. 
 
-This documents gives an overview of the state of this project, a brief breakdown of the methodological framework for the prototype and a literature research - revealing the extent of research considered to be deployed. A detailed documentation for geospatial processes, machine learning concepts and data ingestions via AWS can be found on the linked repositories.
+With the infrastructure framework of this model in place, additional spectral bands, vegetation indices, LiDAR point clouds and other state-wide layers 
+(e.g; forest classification) can be readily ingested into future models,. This addition of data and expansion of the model is
+expected to greatly improve the quality of the predictions.
 
-\emph{TODO: A summary of the models developed, and performance of them}
-
+%This documents gives an overview of the state of this project, a brief breakdown of the methodological framework for the prototype and a literature research - revealing the extent of research considered to be deployed. A detailed documentation for geospatial processes, machine-learning concepts and data processing can be found in the respective repositories.
+%
+%\emph{TODO: A summary of the models developed, and performance of them}

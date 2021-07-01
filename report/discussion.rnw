@@ -3,28 +3,58 @@
 \section{Discussion}
 
 
-\subsection{CHM Accuracy Assessment}
+\subsection{Accuracy assessment of the CHM}
 
-Our canopy height model generated from unclassified LiDAR point clouds using PDAL pipelines compares very favorably against the other CHM's analysed for the test region. The canopy heights calculated fell within the expected height of \textit{Pinus jeffreyi} (< 40 m) and we created a virtually identical DSM to the vendor provided version. Further, we provided evidence that our CHM accounts for higher amount of detail within the ground layer resulting in a more accurate depiction of canopy height in areas with heterogenous topography. While we have high confidence in our workflows to produce a CHM the output ultimately requires timely ground-truthing to give a definitive statement about it's accuracy. It is important to note, that an accurate depiction of of canopy height and the delineation of individual trees is limited by the resolution of the LiDAR data (8.93 pts m$^{-2}$). That being said, we are confident that our model provides the best approach while keeping these limitations in mind. A significant advantage of this workflow is it's scalability. We are now able to to derive CHM's from unclassified point clouds which removes vendor quality limitations and PDAL pipelines can be ingested readily into our AWS infrastructure. Removing the dependence on vendor provided DTM's and implementing a replicable procedure is a significant step towards producing a state-wide layer which can be updated readily.
+The CHM.fly, generated from unclassified LiDAR point clouds using PDAL pipelines, corresponded closely with the other CHMs analysed for the test region. The calculated canopy heights were within the expected height of \textit{Pinus jeffreyi} ($<$40~m), and we created an almost-identical DSM to the vendor-provided DSM. Furthermore, this proof of concept and test case provided evidence that the CHM.fly accounted for a higher degree of detail within the ground layer, resulting in a more accurate depiction of canopy height in areas with heterogenous topography. Although the processes for developing this CHM are robust, the output still requires 
+%While we have high confidence in our workflows to produce a CHM the output ultimately requires timely 
+ground truthing to confirm the model's accuracy. 
 
-
-\subsection{Prototype Development}
-
-The promising results from these simple models can be improved two-fold, firstly, from a data perspective and secondly from a modelling one. 
-
-The more fine-grained and multi-spectrum data we have the more likely it is that model performance will increase - this will be seen as a drop in M.A.E. Secondly given more data, we can begin to experiment with some of the state-of-the-art in the field that takes into account temporospatial information. 
-
-From a modelling perspective, applying convolution allows us to factor in neighbouring pixel data - allowing us to exploit information about regional geography, while sequential models such as recurrent neural networks or transformers, allow us to extract temporal information from satellite imagery taken across different time periods. Thus minimizing the number of handcrafted features that our models need for prediction, whilst allowing us to tease out as much signal from our noisy multispectral data.
-
-\subsection{Outlook}
+Both the accurate depiction of canopy height and the 
+delineation of individual trees are limited by the resolution of the LiDAR data (8.93 points m$^{-2}$). In view of these limitations,
+ the current exploration of approaches and datasets for a CHM test case allowed the development and
+ assessment of a robust approach for developing a CHM model for use with publicly-available data.
  
-While our initial model incorporated two Sentinel-2 bands we aim to further refine the training process by adding additional labels. The remaining 10 spectral bands can be ingested readily and contain valuable ecological information in the shortwave infrared and red-edge spectrum. Vegetation layers such as the 'Classification and Assessment with Landsat of Visible Ecological Groupings' (CALVEG) dataset will help the model understand phenological differences between tree species and the 'Fire Return Interval Departure' (FRID) provides post-fire information. Both datasets have been rectified, reprojected and rasterized and will gain additional relevance once we aim to upscale canopy height information to a state-wide layer. Further, topographic information (slope, aspect) can be derived from DTM's to continue to explore prediction power metrics for the machine learning process.
+A significant advantage of the process developed here is its  scalability: the process allows the development of CHMs from unclassified point clouds, removing vendor quality limitations (ground point filtering), and PDAL pipelines can be readily incorporated into the AWS infrastructure. Removing the reliance or dependence on external processes (ground-point filtering by OpenTopography) and implementing a replicable procedure are significant steps towards producing a state-wide layer which 
+can be readily updated.
 
-A major challenge for streamlining the datasets (LiDAR, field data, vegetation classification) is the significant temporal gap between the acquisition of these layers. While the cadence for Sentinel-2 data is five days the other data layers are a spatial patchwork dating 11 (LiDAR) and 20 years (CALVEG) back in time and have been assessed during a time period where it was either of ecological interest or convenient to access (e.g. distance to roads, growing season). We expect temporal analysis on Sentinel-2 imagery to help us bridge the gap between temporal heterogenous information and aim to further supplement our data with climate information (e.g. precipitation, temperature) to help us decipher temporal stratification between the data layers to ultimately produce a more comprehensive historical framework of California's forest ecosystems.  
+\subsection{Prototype development}
 
-An additional goal is to improve the accuracy of the machine learning output which is currently limited by the resolution of the Sentinel-2 pixels (10 m). Together with VP we will continue to explore methods to derive tree approximate objects (e.g. watershed analysis) to aid the ground-truthing process and delineate higher level of details in forest entities. However, at this stage it is anticipated that TAO's will require higher resolution training datasets than existing Sentinel-2 data (10 - 20 m). We will continue to discuss the implementation of these layers (e.g. synthetic aperture radar) and will test their feasibility in a similar context as the CHM accuracy assessment documented within this report. Additional datasources are expected to require a careful implementation process (data ingestion, alignment) and will be associated with additional costs.
+Building on the current project, the results from the models developed here can be improved two-fold, from a data and from a modelling perspective. 
+From a data perspective, increases in the resolution of data and in the amount of multi-spectrum data are expected to improve 
+model performance.  These model improvements will be evident in decreases in the MAE.  Furthermore, access to a larger amount of data
+will allow the exploration of methods used to incorporate temporal-spatial information. %reference/s?
+%The more fine-grained and multi-spectrum data we have the more likely it is that model performance will increase - this will be seen as a drop in M.A.E. Secondly given more data, we can begin to experiment with some of the state-of-the-art in the field that takes into account temporospatial information. 
 
-\subsection{Further Geospatial Testing}
+From a modelling perspective, applying convolution would allow the inclusion of neighbouring pixel data; these data in turn 
+allow the use of information about regional geography. At the same time, sequential models, such as recurrent neural networks or transformers, allow the
+ extraction of temporal information from satellite imagery taken across different time periods. Applying these approaches minimises the need to customise 
+ features of the models for predictions, while allowing the detection of signal from noisy multispectral data.
+ %noisy is jargon so needs changing 
+% 
+%From a modelling perspective, applying convolution allows us to factor in neighbouring pixel data - allowing us to exploit information about regional geography, while sequential models such as recurrent neural networks or transformers, allow us to extract temporal information from satellite imagery taken across different time periods. Thus minimizing the number of handcra??ed features that our models need for prediction, whilst allowing us to tease out as much signal from our noisy multispectral data.
+
+
+\subsection{Outlook} %more specific term?
+ 
+Although the initial model incorporated two Sentinel-2 band, we aim to further refine the training process by adding additional labels. The remaining 10 spectral bands can be readily ingested, and contain relevant ecological information in the shortwave infrared and red-edge spectrum. In addition,
+vegetation layers, such as the ``Classification and Assessment with Landsat of Visible Ecological Groupings'' dataset 
+(CALVEG; USFS) will be used to inform the model about phenological differences between tree species. Similarly, the ``Fire Return Interval Departure'' (FRID) %needs reference 
+provides post-fire information that can be incorporated into the model. Both datasets have been rectified, reprojected and rasterised; they will gain additional relevance once we aim to upscale canopy height information to a state-wide layer. Furthermore, topographic information (slope, aspect) can be derived from DTMs to continue the exploration of prediction power metrics for the machine-learning process.
+
+A notable challenge for streamlining the datasets (LiDAR, field, and vegetation classification data) is the temporal gap between the acquisition of these layers. While the cadence for Sentinel-2 data is five days, the dates of the other data layers range from dating back 11 years (LiDAR) and 20 years (CALVEG). We expect the temporal analysis of Sentinel-2 imagery to provide a way to address this gap between temporal heterogenous information. In
+addition, we plan to further supplement the data with climate information (e.g., precipitation, temperature). These climate data will be used to examine
+the temporal stratification between the data layers to then produce a more comprehensive historical framework of California's forest ecosystems.  
+
+%A major challenge for streamlining the datasets (LiDAR, field data, vegetation classification) is the significant temporal gap between the acquisition of these layers. While the cadence for Sentinel-2 data is five days the other data layers are a spatial patchwork dating 11 (LiDAR) and 20 years (CALVEG) back in time and have been assessed during a time period where it was either of ecological interest or convenient to access (e.g. distance to roads, growing season). We expect temporal analysis on Sentinel-2 imagery to help us bridge the gap between temporal heterogenous information and aim to further supplement our data with climate information (e.g. precipitation, temperature) to help us decipher temporal stratification between the data layers to ultimately produce a more comprehensive historical framework of California's forest ecosystems.  
+
+Another goal in the expansion of this project is to improve the accuracy of the machine-learning output, which is currently limited by the resolution of the Sentinel-2 pixels (10~m). In collaboration with Vibrant Planet, we will continue to explore methods to derive tree approximate objects (e.g., watershed analysis) to aid the ground-truthing process and delineate a higher level of detail in forest entities. 
+Nevertheless, it is likely that tree approximate objects will require training datasets at higher resolutions than existing 
+Sentinel-2 data (10 to 20~m). 
+%k to here
+We will continue to explore the implementation of these layers (e.g., synthetic aperture radar) and test their feasibility in a similar context as the CHM accuracy assessment documented within this report. 
+Additional datasources are expected to require a careful implementation process (data ingestion, alignment) and will be associated with additional costs.
+
+\subsection{Further geospatial testing}
 
 We are confident in the CHM we produced using PDAL, but we will continue to explore better methods of surface interpolation via geospatial tools such as SAGA\footnote{SAGA documentation: \url{http://www.saga-gis.org/}} and GRASS GIS\footnote{Grass GIS documentation:: \url{https://grass.osgeo.org/}}. While PDAL has provided positive results, it is not natively handling surface interpolations and passing this on to an external library. 
 As noted previously, we are confident with our first generations of a CHM. Through our testing, we were able to attain similar results to CHM's produced by OpenTopography. PDAL, especially around point cloud filtration, perfromed as planned providing clean, repeatable results. We expect to face challenges as we move from testing to implementation of our model on a greater scale, particularly around automation of point cloud ingestion and detection of projection information. With this being a seperate process, it is worth exploring tools with greater capabilites and methods for surface interpolations. By implementing these tools we are afforded opportunties to explore TIN modelling, spline interpolations, and enhancements to inverse distance weighted (IDW) interpolations. Explorations like these are necessary as we are going to process point clouds of varying densities where applying the best available interpolation method is necessary. Projection, as expected, is a continuing challenge.  With the variety of datasets from varying sources, we are continiously assessing our reprojection methods. Points clouds seem to be a particular challenge as they are often deleivered without useful source projection information. For our testing, this was not a significant issue. We were always able to accurately ascertain the source projection manually. As we upscale our point cloud ingestion, we will further explore methods to automatically detect source projection information.
