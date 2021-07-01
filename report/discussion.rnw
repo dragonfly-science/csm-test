@@ -3,14 +3,25 @@
 \section{Discussion}
 
 
-\subsection{CHM Accuracy Assessment}
+\subsection{Accuracy assessment of the CHM}
 
-Our canopy height model generated from unclassified LiDAR point clouds using PDAL pipelines compares very favorably against the other CHM's analysed for the test region. The canopy heights calculated fell within the expected height of \textit{Pinus jeffreyi} (< 40 m) and we created a virtually identical DSM to the vendor provided version. Further, we provided evidence that our CHM accounts for higher amount of detail within the ground layer resulting in a more accurate depiction of canopy height in areas with heterogenous topography. While we have high confidence in our workflows to produce a CHM the output ultimately requires timely ground-truthing to give a definitive statement about it's accuracy. It is important to note, that an accurate depiction of of canopy height and the delineation of individual trees is limited by the resolution of the LiDAR data (8.93 pts m$^{-2}$). That being said, we are confident that our model provides the best approach while keeping these limitations in mind. A significant advantage of this workflow is it's scalability. We are now able to to derive CHM's from unclassified point clouds which removes vendor quality limitations and PDAL pipelines can be ingested readily into our AWS infrastructure. Removing the dependence on vendor provided DTM's and implementing a replicable procedure is a significant step towards producing a state-wide layer which can be updated readily.
+The CHM.fly, generated from unclassified LiDAR point clouds using PDAL pipelines, corresponded closely with the other CHMs analysed for the test region. The calculated canopy heights were within the expected height of \textit{Pinus jeffreyi} ($<$40~m), and we created an almost-identical DSM to the vendor-provided DSM. Furthermore, this proof of concept and test case provided evidence that the CHM accounted for a higher degree of detail within the ground layer, resulting in a more accurate depiction of canopy height in areas with heterogenous topography. Although the processes for developing this CHM are robust, the output still requires 
+%While we have high confidence in our workflows to produce a CHM the output ultimately requires timely 
+ground truthing to confirm the model's accuracy. 
+
+Both the accurate depiction of canopy height and the 
+delineation of individual trees are limited by the resolution of the LiDAR data (8.93 points m$^{-2}$). In view of these limitations,
+ the current exploration of approaches and datasets for a CHM test case allowed the development and
+ assessment of a robust approach for developing a CHM model for use with publicly-available data.
+ 
+One significant advantage of the process developed here is its  scalability: the process allows the development of CHMs from unclassified point clouds, removing vendor quality limitations, and PDAL pipelines can be readily incorporated into the AWS infrastructure. Removing the dependence on 
+vendor-provided DTMs and implementing a replicable procedure are significant steps towards producing a state-wide layer which 
+can be readily updated.
 
 
-\subsection{Prototype Development}
+\subsection{Prototype development}
 
-The promising results from these simple models can be improved two-fold, firstly, from a data perspective and secondly from a modelling one. 
+The results from the models developed here can be improved two-fold, firstly, from a data perspective and secondly from a modelling one. 
 
 The more fine-grained and multi-spectrum data we have the more likely it is that model performance will increase - this will be seen as a drop in M.A.E. Secondly given more data, we can begin to experiment with some of the state-of-the-art in the field that takes into account temporospatial information. 
 

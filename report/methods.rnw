@@ -53,7 +53,7 @@ CHM = DSM - DTM.
 The CHM was performed with  
  the GDAL command line tool \texttt{gdal\_calc.py} to retain or switch data formats (e.g., UInt16 and Float32)
  
-\subsection{Accuracy Assessment of the CHM}
+\subsection{Accuracy assessment of the CHM}
 
 For the following comparison of layers, products from Vibrant Planet are referred to by the suffix *.vp, products from OpenTopography  by *.topo, and 
 products from Dragonfly by *.fly.
