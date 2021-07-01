@@ -24,10 +24,8 @@ syncs3:
 	mkdir -p s3/
 	$(RUN) bash -c "s3cmd sync s3://vibrant-planet/ s3/"
 
-files.zip: \
-	s3/images/lemonCanyon/lemonCanyon.DSM.fly.png \
-	s3/images/lemonCanyon/lemonCanyon.DTM.fly.png
-	$(RUN) bash -c "zip $@ $^"
+files.zip: 
+	$(RUN) bash -c "zip -r $@ s3/images/"
 
 .PHONY: clean
 clean:
