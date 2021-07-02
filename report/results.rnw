@@ -120,8 +120,7 @@ the DTM.fly, which was lowering the overall elevation surface by 0.41~m. This ef
       \cellcolor{black}\textcolor{White}0 & \cellcolor{darkPurple}\textcolor{White}{10} & \cellcolor{Purple}\textcolor{White}{20} & \cellcolor{Pink}\textcolor{White}{30} & \cellcolor{Yellow}\textcolor{lightGray}{40+ meters}
     \end{tabularx}
   \caption {Visualisation of surface outputs from the Canopy Height Model (CHM) developed
-  in this project (CHM.fly), from OpenTopography (CHM.topo), and from Vibrant Planet (CHM.vp). 
-  Also shown is a blend of the Digital Surface Model DSM.fly (developed here) with Google Earth.} 
+  in this project (CHM.fly), from OpenTopography (CHM.topo), and from Vibrant Planet (CHM.vp).} 
   \label{fig:chm-assess}
   %\label{tab:title} 
 \end{figure}
