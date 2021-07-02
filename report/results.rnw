@@ -94,7 +94,7 @@ the DTM.fly, which was lowering the overall elevation surface by 0.41~m. This ef
   \centering
     \begin{subfigure}{.45\linewidth}
     \captionsetup{justification=centering}
-      \caption{Google Earth blend with DSM.fly}\label{fig:GElc}
+      \caption{Google Earth imagery}\label{fig:GElc}
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/googleEarth.png}
     \end{subfigure}
     \begin{subfigure}{.45\linewidth}

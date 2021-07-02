@@ -4,7 +4,7 @@
 
 \subsubsection{Sentinel 2}
 
-Compared to Landsat multispectral bands, the Sentinel-2 bands provide three red-edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass. SNAP is an open source common architecture for ESA Toolboxes ideal for the exploitation of Earth Observation data \footnote{Available here: \url{https://step.esa.int/main/toolboxes/snap/}}. SNAP provides toolboxes to derive information (e.g. vegetation indices) from Sentinel data.
+Compared to Landsat multispectral bands, the Sentinel-2 bands provide three red-edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass. SNAP is an open source common architecture for ESA Toolboxes ideal for the exploitation of Earth Observation data \footnote{Available here: \url{https://step.esa.int/main/toolboxes/snap/}}. The software provides toolboxes to derive information (e.g. vegetation indices) from Sentinel data.
 
 Footnote to included in table header: \footnote{Available here: \url{https://www.arcgis.com/home/item.html?id=fd61b9e0c69c4e14bebd50a9a968348c}}
 
@@ -20,7 +20,7 @@ knitr::kable(sentinelbands, col.names = c('Band', 'Description', 'Wavelength (µ
 
 \paragraph{Vegetation Indices} \
 
-Vegetation indices including near-infrared wavelength have weaker relationships with biomass than those including shortwave infrared wavelength, especially for forest sites with complex stand structures. The results of image transformations such as the first principal component from the PCA showed stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass \citep{lu_survey_2016}.
+Vegetation indices based on near-infrared wavelengths have weaker relationships with biomass than those including shortwave-infrared wavelengths, especially for forest sites with complex stand structures \citep{lu_survey_2016}. The results for vegetation indices may show stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass \citep{lu_survey_2016}.
 
 
 \begin{tiny}
@@ -37,25 +37,25 @@ References to include from the table: \citep{tucker_red_1979,sims_relationships_
 
 1* Subtraction of NIR reciprocal reflectance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content \citep{gitelson_relationships_2003}
 
-2* IRECI had highest correlation to biomass (r = 0.8) in \cite{castillo_estimation_2017} (Mangrove Forest Philippines) and further improved with added elevation
+2* IRECI had highest correlation to biomass (r = 0.8) in a Mangrove Forest (Philippines, \cite{castillo_estimation_2017}) and further improved by supplementing elevation information
 
-3* SWIR bands are used as important indicators in forest regeneration studies \citep{boonprong_random_2018}. Important for vegetation mapping as a standalone \citep{immitzer_first_2016}. Large changes for seasonal reflectance in European forest species \citep{grabska_forest_2019}
+3* SWIR bands are used as important indicators in forest regeneration studies \citep{boonprong_random_2018} and raw bands are useful for vegetation mapping \citep{immitzer_first_2016}. Large changes for seasonal reflectance have been identified for European forest species \citep{grabska_forest_2019}
 
-4* Delineating water bodies if required \citep{ji_analysis_2009}
+4* The water index can be used to elineate water bodies \citep{ji_analysis_2009}
 
 
 Papers:
 
-Estimating AGB in sub-tropical Nepal using Sentinel 2 \citep{pandit_estimating_2018}. Field-based AGB as a dependent variable, as well as spectral band values and spectral-derived vegetation indices as independent variables in the Random Forest \citep{breiman_random_2001}. In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices (\autoref{tab:vegindices}) as a typical output of a random forest to estimate AGB (R² = 0.81 and RMSE = 25.57 t ha$^{-1}$; \cite{pandit_estimating_2018}.
+Estimating AGB in sub-tropical Nepal using Sentinel 2 \citep{pandit_estimating_2018}. Field-based AGB as a dependent variable, using spectral band values and spectral-derived vegetation indices as independent variables in a 'Random Forest' (RF) machine-learning approach \citep{breiman_random_2001}. In this algorithm, decision trees are generated to the maximum extent without pruning using a randomly-selected two thirds of the samples as training data with bootstrapping (re-sampling the data many times with replacement), which strengthens the flexibility by aggregating the prediction across individual trees to make a final prediction. The paper ranks importance of spectral band data and vegetation indices (\autoref{tab:vegindices}) as a typical output of a RF to estimate AGB (R² = 0.81 and RMSE = 25.57 t ha$^{-1}$; \cite{pandit_estimating_2018}.
 
-Estimating AGB in in tropical forest using Sentinel-1 (SAR) and vegetation indices from Sentinel-2 \citep{ghosh_aboveground_2018}. Sentinel-1 data does not work as a good predictor variable for the study area, as C-band SAR backscatter saturates at a biomass density of 100 Mg ha$^{-1}$. R package, CARET was used to implement RF regression to rank important predictor variables. Stochastic gradient boosting modelling (SGB, same R package) combines both regression tree and boosted algorithms to predict the response variable. SGB models were fitted, with varying values for the number of regression trees (50 – 5000), tree complexity of 1, 3 and 5. The value for learning rate was fixed at 0.01. Combination of satellite sensors shows the best result for \textit{S. robusta} forest, with a coefficient of determination value of 0.71 and an RMSE value of 105.027 t ha$^{-1}$ \citep{ghosh_aboveground_2018}.
+Estimating AGB in in tropical forest using Sentinel-1 (SAR) and vegetation indices from Sentinel-2 \citep{ghosh_aboveground_2018}. Sentinel-1 data does not work as a good predictor variable for the study area, as C-band SAR backscatter saturates at a biomass densities exceeding 100 Mg ha$^{-1}$. R package, CARET was used to implement RF regression to rank important predictor variables. Stochastic gradient boosting modelling (SGB, same R package) combines both regression tree and boosted algorithms to predict the response variable. SGB models were fitted, with varying values for the number of regression trees (50 – 5000), tree complexity of 1, 3 and 5. The value for learning rate was fixed at 0.01. Combination of satellite sensors shows the best result for \textit{S. robusta} forest, with a coefficient of determination value of 0.71 and an RMSE value of 105.027 t ha$^{-1}$ \citep{ghosh_aboveground_2018}.
 
 
 \newpage
 
 \paragraph{Normalized Burn Ratio} \
 
-The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones and can be derived from landsat or sentinel imagery. The formula is similar to NDVI (\autoref{eq:nbr}), except that the formula combines the use of both near infrared (NIR) and shortwave infrared (SWIR) wavelengths \autoref{fig:nbr-overview}. It can also be used to monitor forest disturbances such as logging activities \citep{shimizu_using_2016}.The formula is similar to NDVI, NBR uses the ratio between NIR and SWIR bands. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero.
+The Normalized Burn Ratio (NBR) is an index designed to highlight burnt areas in large fire zones and can be derived from Landsat or Sentinel imagery. The formula is similar to NDVI (\autoref{eq:nbr}), except that it combines near infrared (NIR) and shortwave infrared (SWIR) wavelengths \autoref{fig:nbr-overview}. It can also be used to monitor forest disturbances such as logging activities \citep{shimizu_using_2016}. A high NBR value indicates healthy vegetation while a low value indicates bare ground and recently burnt areas. Non-burnt areas are normally attributed to values close to zero.
 
 \begin{equation}
 NBR = (NIR-SWIR)/(NIR+SWIR)
@@ -71,19 +71,21 @@ For any burn related damage/regeneration calculations we can verify fire activit
 
 \end{figure}
 
+Papers:
+
 Sentinel 2 data to create fire database in sub-Saharan Africa (Roteta et al., 2019). Sentinel-2 MSI reflectance measurements in the short and near infrared wavebands plus the active fires detected by Terra and Aqua MODIS sensor. They were able to detect smaller fires than with common MODIS approach, but Sentinel-2 based products have lower temporal resolution and consequently are more affected by cloud/cloud shadows.  visually created using BAMS (Burned Area Mapping Software) methodology \citep{roteta_development_2019}, which consists of a trained classification to detect burned areas between images from two dates\footnote{Available here: \url{https://climate.esa.int/en/projects/fire/data/}}.
 
-Fire on Madeira, Spain \citep{navarro_evaluation_2017}. Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided.
+Fire studies on Madeira, Spain \citep{navarro_evaluation_2017}. Sentinel-2 data (5 days, 10 m resolution) for pre- and post-fire image assessments (sometimes just two). The framework can be used for the assessment of many other burnt areas globally. Enabling an extremely unprecedented perspective with a unique set of accurate, robust, timely and easily accessible information. No real measurement of accuracy provided.
 
 Classification of burn severity for wildfire in Spain using Sentinel-2 \citep{fernandez-manso_sentinel-2a_2016} (with NBR). Superiority of red-edge spectral indices (particularly, Modified Simple Ratio Red-edge, Chlorophyll Index Red-edge, Normalized Difference Vegetation Index Red-edge) over conventional spectral indices. Fisher’s Least Significant Difference test confirmed that Sentinel-2A MSI red-edge spectral indices are adequate to discriminate four burn severity levels.
 
 \paragraph{Problems with Sentinel 2 Data} \
 
-General problem with spatial resolution (30 m). The round FIA plots overlap with multiple pixels and sometimes the forest edge. Relatively new, so does not have the high temporal value as landsat. Will probably fail to distinguish tree phenology (e.g. growth stages) and can reach a spectral saturation point if biomass is too high.
+General problems associated with the resolution of the datasets (10 - 20 m). The radial structure of FIA field plots overlaps with multiple pixels and sometimes the forest edge. Relatively new, so does not have the high temporal value as landsat. Will probably fail to distinguish tree phenology (e.g. growth stages) and can reach a spectral saturation point if biomass is too high.
 
 Papers:
 
-Bamboo forest in China: Seasonality, different growth phenomena in different years. Correlation between spectral bands and biomass varies within a period of months. Biomass calculation based on DBH and age \citep{chen_exploring_2019}. Also used random forest to evaluate key variables. \
+Bamboo forest in China: Seasonality, different growth phenomena in different years. Correlation between spectral bands and biomass varies within a period of months. Biomass calculation based on DBH and age \citep{chen_exploring_2019}. Also used RF to evaluate key variables. \
 
 \paragraph{Sentinel-2 cleaning} \
 
@@ -97,11 +99,11 @@ Tested the ability of Sentinel imagery (Sentinel-1 (SAR) + Sentinel-2) for the r
 
 \subsubsection{LiDAR}
 
-LiDAR data is the new standard when it comes to estimating AGB. Common procedure to calculate AGB via vegetation/canopy height and measure accuracy by comparing it to AGB derived from forest plots. Everything > 2m is typically classified as canopy (Jonathan Kane, 29 April meeting). Identification of individual trees only possible if resolution matches the size of the individual canopy (< 1m, Van Kane, 29 April meeting). LiDAR is useful to estimate vegetation metrics (basal area and stem density with R² values of 0.86–0.95 across multiple studies, \cite{zald_influence_2014})
+LiDAR data is the new standard when it comes to estimating aboveground bioass (AGB). Common accuracy assessments workflows calculate AGB via vegetation/canopy height and measure accuracy by comparing it to AGB derived from forest plots. For these procedures everything > 2 m is typically classified as canopy (Jonathan Kane, 29 April meeting). Identification of individual trees is only possible if resolution matches the size of the individual canopy (< 1m, Van Kane, 29 April meeting). LiDAR has proven to be useful in estimating vegetation metrics (basal area and stem density with R² values of 0.86–0.95 across multiple studies, \cite{zald_influence_2014})
 
 Recent paper with Jonathan and Van Kane:
 
-Used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground biomass using Random Forests (RF) for a regional and landscape approach. Field plots (mostly FIA) with self calculated AGB as a response variable to predict AGB from LiDAR derived canopy height and density information (R² = 0.8, RMSE = 115 Mg ha$^{-1}$, Bias = 2 Mg ha$^{-1}$). A stratified random sample of AGB pixels from landscape-level AGB maps then served as training data for predicting AGB regionally from Landsat image time series variables processed through LandTrendr. Climate metrics calculated from down-scaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R² = 0.8, RMSE = 152 Mg ha$^{-1}$, Bias = 9 Mg ha$^{-1}$), including higher AGB values (>400 Mg ha$^{-1}$) where spectral predictors alone saturate \citep{hudak_carbon_2020}.
+They used a Carbon Monitoring System (CMS) to produce annual estimates of aboveground biomass (AGB) using Random Forests (RF) for a regional and landscape scale. Field plots (mostly FIA) with self calculated AGB as a response variable to predict AGB from LiDAR derived canopy height and density information (R² = 0.8, RMSE = 115 Mg ha$^{-1}$, Bias = 2 Mg ha$^{-1}$). A stratified random sample of AGB pixels from landscape-level AGB maps then served as training data for predicting AGB regionally from Landsat image time series variables processed through LandTrendr. Climate metrics calculated from down-scaled 30 year climate normals were used as predictors for both models (landscape and regional), as were topographic metrics calculated from elevation data; these environmental predictors allowed AGB estimation over the full range of observations with the regional model (R² = 0.8, RMSE = 152 Mg ha$^{-1}$, Bias = 9 Mg ha$^{-1}$), including higher AGB values (>400 Mg ha$^{-1}$) where spectral predictors alone saturate \citep{hudak_carbon_2020}.
 
 \paragraph{Combination of LiDAR and other remotely sensed information for biomass estimation} \
 
@@ -331,7 +333,7 @@ reference to include in caption: \cite{usgs_what_2018}
 
 LandTrendr provides a set of spectral-temporal segmentation algorithms that are useful for change detection in a time series of moderate resolution satellite imagery (primarily Landsat) and for generating trajectory-based spectral time series data largely absent of inter-annual signal noise. Can be used to assess forest regeneration over larger timescales. They provide a github repository evaluating how to extract the data from e.g. Google Earth(FVS)\footnote{Access here: \url{https://emapr.github.io/LT-GEE/landtrendr.html}}.
 
-\begin{figure}[bp]
+\begin{figure}[H]
  \includegraphics[scale=0.5]{../figures/landtrendr.png}
  \caption{Pixel change over updated intervals for the Normalized Burn Ratio (NBR)}
  \label{fig:landtrendr}
@@ -485,18 +487,6 @@ Three parameters to account for climatic variations: Temperature seasonality (TS
 
 \section{Tools}
 
-\subsection{CHM Accuracy Assessment}
-
-To demonstrate confidence in our CHM the prototype development is preceded by an accuracy assessment for the generation of CHM’s from different sources. Our test region is located in the Lemon Canyon (\autoref{fig:lemoncanyon}, California) approximately 50 km North from the Lake Tahoe test region. We selected this area based on the distance to our prototype, the valley structure with a range of distinct topographic features (e.g. slopes, aspects) and one of the available LiDAR verification plots located within the test boundaries ($\sim$ 2.7 km$^2$). For this plot we downloaded a subset of the 2014 LiDAR dataset from the national center for airborne laser mapping (NCALM) with 5 - 35 cm (8.93~pts~m$^{-2}$) accuracy from a publicly available source (OpenTopography, 2014). The data source provided a pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived canopy height model (CHM).
-
-\begin{figure}[H]
-\centering
-    \includegraphics[scale=0.75]{s3/images/referenceMap_lemonCanyon.png}
-    \captionof{figure}{Lemon Canyon Test Region}
-    \label{fig:lemoncanyon}
-\end{figure}
-
-
 \subsubsection{Geospatial Data Abstraction Library (GDAL) Usage}
 
 The Geospatial Data Abstraction Library or GDAL, is an open source library specifically developed for working with raster and vector geospatial data. For raster processing, GDAL libraries are implemented in the backend across the majority of geospatial software tools used today including ArcGIS, FME, and QGIS. The power in GDAL is its command line capability for geospatial data processing. GDAL is relatively easy to script/scale, is well doucmented, and works with virtually all major geospatial data types.
@@ -589,10 +579,13 @@ The data processing consisted of the following concrete steps:
    \item \textbf{Merging clipped datatakes into annual summaries.} Clipped datatakes corresponding to the same grid square and year were merged using a simple noise reduction algorithm. Namely, a median value was taken for each pixel across all datatakes referring to the same location during each year's dry season (to minimize artifacts due to snow and clouds, given that clouds were not removed from the processed images.). Where more than 18 data takes were present, the median was approximated as the median of median values taken across each batch of up to 18 data takes (the batch size was determined empirically, to fit within memory constraints.)
 \end{enumerate}
 
+\newpage
+
+\section{Supplementary data layers}
 
 \subsection{Incline Village test area}
 
-As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results (/autoref{fig:AOIlc}.
+As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results (/autoref{fig:AOIlc}. The dataset uses a a point cloud collected by Watershed Sciences In, collected in a two week survey in August 2010. The average first-return density is 11.82 pts m$^{-2}$ and the dataset can be accessed via the OpenTopography database\footnote{Lake Tahoe point cloud: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032011.26910.1}}.
 
 
 \begin{figure}[H]
@@ -601,7 +594,42 @@ As part of our surface development testing, a small region north of Lake Tahoe w
       \captionof{figure}{Lemon Canyon and Lake Tahoe Test Regions}\label{fig:AOIlc}
   \end{figure}
 
-Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
+\subsection{Data package}
+
+Included with this report is a collection of zipped images and data from our testing. In the folder, one will find two main sub directories named 'data' and 'images'. The data directory contains all the GeoTiffs (DTM, DSM, CHM) from our testing in Lemon Canyon and the Lake Tahoe Region.  Along with the surfaces are the terrain shaded tiffs (HS) used for visualization purposes.  Surfaces are also broken into two projections: California Albers (EPSG:3310) and Web Mercator (EPSG:3857).  The image directory contains all the terrain images used in the report.  In addition, the asscociated QGIS files used to create these images are included.  Please note, it may be necessary to relink the file paths to make these files work properly.
+
+
+  Results for surface generation in Lake Tahoe Test Region (Incline Village)
+
+  \begin{figure}[H]
+    \centering
+      \begin{subfigure}{.45\linewidth}
+        \includegraphics[scale=0.50]{s3/images/lakeTahoe/googleEarth.png}
+        \captionsetup{justification=centering}
+        \caption{Google Earth Satellite}\label{fig:taba}
+      \end{subfigure}
+      \begin{subfigure}{.45\linewidth}
+        \includegraphics[scale=0.50]{s3/images/lakeTahoe/DSMfly.png}
+        \captionsetup{justification=centering}
+        \caption{DSM Dragonfly}\label{fig:tabb}
+      \end{subfigure}
+  
+      \vspace{0.25cm}
+      \begin{subfigure}{.45\linewidth}
+        \includegraphics[scale=0.50]{s3/images/lakeTahoe/DTMfly.png}
+        \captionsetup{justification=centering}
+        \caption{DTM Dragonfly}\label{fig:tabc}
+      \end{subfigure}
+      \begin{subfigure}{.45\linewidth}
+        \includegraphics[scale=0.50]{s3/images/lakeTahoe/DTMtopo.png}
+        \captionsetup{justification=centering}
+        \caption{DTM OpenTopography}\label{fig:tabd}
+      \end{subfigure}
+    \caption {Surface Output Visualisations for Lake Tahoe Region (Incline Village)} \label{tab:title}
+  \end{figure}
+
+
+Results for Canopy Height Model (CHM) generation in Lake Tahoe Region (Incline Village)
 
 \begin{figure}[H]
   \centering
@@ -627,41 +655,7 @@ Results for Canopy Height Model (CHM) generation in Lake Tahoe Region
     \begin{tabularx}{\textwidth}{XXXXX}
       \cellcolor{black}\textcolor{White}0 & \cellcolor{darkPurple}\textcolor{White}{10} & \cellcolor{Purple}\textcolor{White}{20} & \cellcolor{Pink}\textcolor{White}{30} & \cellcolor{Yellow}\textcolor{lightGray}{40+ meters}
     \end{tabularx}
-    \caption {CHM Output Results} \label{tab:title}
+    \caption {CHM Output Visualisations for Lake Tahoe Region (Incline Village)} \label{tab:title}
 
 \end{figure}
 
-\newpage
-
-Results for surface generation in Lake Tahoe Test Region
-
-\begin{figure}[H]
-  \centering
-    \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lakeTahoe/googleEarth.png}
-      \captionsetup{justification=centering}
-      \caption{Google Earth Satellite}\label{fig:taba}
-    \end{subfigure}
-    \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lakeTahoe/DSMfly.png}
-      \captionsetup{justification=centering}
-      \caption{DSM Dragonfly}\label{fig:tabb}
-    \end{subfigure}
-
-    \vspace{0.25cm}
-    \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lakeTahoe/DTMfly.png}
-      \captionsetup{justification=centering}
-      \caption{DTM Dragonfly}\label{fig:tabc}
-    \end{subfigure}
-    \begin{subfigure}{.45\linewidth}
-      \includegraphics[scale=0.50]{s3/images/lakeTahoe/DTMtopo.png}
-      \captionsetup{justification=centering}
-      \caption{DTM OpenTopography}\label{fig:tabd}
-    \end{subfigure}
-  \caption {Surface Output Visualisations for Lake Tahoe Region} \label{tab:title}
-\end{figure}
-
-\subsection{Data Included}
-
-Included with this report is a collection of zipped images and data from our testing. In the folder, one will find two main sub directories named 'data' and 'images'. The data directory contains all the GeoTiffs (DTM, DSM, CHM) from our testing in Lemon Canyon and the Lake Tahoe Region.  Along with the surfaces are the terrain shaded tiffs (HS) used for visualization purposes.  Surfaces are also broken into two projections: California Albers (EPSG:3310) and Web Mercator (EPSG:3857).  The image directory contains all the terrain images used in the report.  In addition, the asscociated QGIS files used to create these images are included.  Please note, it may be necessary to relink the file paths to make these files work properly.

@@ -1,6 +1,6 @@
 ﻿Vegetation Indices,Equations,References
 NDVI,(NIR - Red)/(NIR + Red),(Tucker 1979)
-RGR (Red Green Ratio),Red / Green,(Sims \& Gamon 2002)
+RGR (Red Green Ratio),Red / Green,(Sims & Gamon 2002)
 EVI (Enhanced Vegetation Index),2.5*((NIR - Red)/ (NIR + 1 + 6 * Red + 7.5 * Blue)),(A. Huete et al. 2002)
 SR (Simple ratio),NIR/RED,"(Jordan 1969, Wicaksono et al. 2016)"
 SAVI (Soil-Adjusted Vegetation Index),(NIR - Red)/(NIR + Red + L)* (1 + L),(Huete 1988)
@@ -11,14 +11,14 @@ Red edge based,,
 PSRI (Plant Senescence Reflectance Index),(Red - Green)/RE2,(Hill 2013; Merzlyak et al. 1999)
 RE NDVI, (NIR- RE2)/(NIR + RE2), (Chen et al. 2007)
 NDVI1,(NIR - RE1)/(NIR + RE1),(Kross et al. 2015)
-NDVI2,(NIR - RE2)/(NIR + RE2),(Gitelson \& Merzlyak 1994; Kross et al. 2015)
+NDVI2,(NIR - RE2)/(NIR + RE2),(Gitelson & Merzlyak 1994; Kross et al. 2015)
 NDVI3,(NIR - RE3)/(NIR + RE3), (Sharma et al. 2015)
 NDVI4,(NIR - RE4)/(NIR + RE4),(Kross et al. 2015)
 Clg-RE1*,RE1 / Green - 1,(Gitelson et al. 2003)
 Clg-RE2*,RE2 / Green - 1,(Gitelson et al.  2003)
 Clg-RE3*,RE3 / Green - 1,(Gitelson et al. 2003)
 IRECI (Inverted Red-Edge Chlorophyll Index)**,(RE3 - Red)/(RE1/RE2),(Castillo et al. 2017)
-MTCI (terrestrial chlorophyll index),RE2 - RE1)/(RE1 - Red),(Dash \& Curran 2004)
+MTCI (terrestrial chlorophyll index),RE2 - RE1)/(RE1 - Red),(Dash & Curran 2004)
 MCARI (modified chlorophyll absorption in reflectance index),[(RE1 - Red) - 0.2 * (RE1 - Green)]×(RE1/Red),(Daughtry et al. 2000)
 MSRren (Modified Simple Ratio red-edge narrow),[(RE4 / RE1) - 1] / sqrt[(RE4 / RE1) + 1],(Fernandez-Manso et al. 2016)
 PSSRa (pigment specific simple ratio),RE3 / Red,"(Blackburn, 1998)"
