@@ -659,3 +659,11 @@ Results for Canopy Height Model (CHM) generation in Lake Tahoe Region (Incline V
 
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.85]{/images/modelResultsScale.png}
+  \captionsetup{justification=centering}
+  \caption{Caption to be added}
+  \label{fig:noName}
+ \end{figure}
+ 
