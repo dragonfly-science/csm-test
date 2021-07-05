@@ -485,7 +485,7 @@
 
 The Geospatial Data Abstraction Library or GDAL, is an open source library specifically developed for working with raster and vector geospatial data. For raster processing, GDAL libraries are implemented in the backend across the majority of geospatial software tools used today including ArcGIS, FME, and QGIS. The power in GDAL is its command line capability for geospatial data processing. GDAL is relatively easy to script/scale, is well doucmented, and works with virtually all major geospatial data types.
 
-For the purposes of our project, we are leveraging GDAL 3.2.2 for all our important raster processing:
+For the purposes of this project, we are leveraging GDAL 3.2.2 for raster processing:
 \begin{itemize}
     \item Reprojections (\texttt{gdalwarp})
     \item Resampling (\texttt{gdal\_translate/gdalwarp})
@@ -496,7 +496,7 @@ For the purposes of our project, we are leveraging GDAL 3.2.2 for all our import
     \item Rasterization (\texttt{gdal\_rasterize})
 \end{itemize}
 
-Vector processing is made avialable through GDAL via the ogr2ogr command.  In our case ogr2ogr is primarily utilized for data transformations and basic clipping. More complex operations are handled using PostGIS.
+Vector processing is made avialable through GDAL via the ogr2ogr command.  Ogr2ogr is primarily utilized for data transformations and basic clipping. More complex operations are handled using PostGIS.
 
 Additionally, we are implementing GDAL's capabilities to create:
 \begin{itemize}
@@ -510,37 +510,37 @@ Additionally, we are implementing GDAL's capabilities to create:
 
 PDAL (2.3.0) is an open library written in C++ for managing and processing point cloud data. This tool is similar to LASTools in the Windows environment and offers similar capabilities. PDAL is an easily scripted tool allowing for scaling. At its core, PDAL utilizes JSON configurations called pipelines and allows us to string multiple processes into JSON documents. This method for developing individual complex pipelines for point clouds gives us the control needed to run these processes across myriad cores.  PDAL is also developed to handle varied point cloud data types outside of the traditional ASPRS LAS. This may be important as we begin to generate surfaces from varied sources.
 
-In our project, we are implementing PDAL for point cloud filtering plus, generation of Digital Terrain Models (DTM) and Digital Surface Models (DSM). In a basic PDAL process we will:
+PDAL is implemented for point cloud filtering plus, generation of Digital Terrain Models (DTM) and Digital Surface Models (DSM). In a basic PDAL process we will:
 \begin{enumerate}
     \item Refine point clouds into ground and non-ground points
     \item Generate Digital Terrain Model (DTM) interpolation from ground points
     \item Generate Digital Surface Model (DSM) interpolation from highest points
 \end{enumerate}
 
-PDAL is not developed specifically for the generation of surface grids (rasters); however, it does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Notably, the IDW method does not interpolate over large areas where data is not present. Specifically, in our surface generations, this results in regions of 'nodata' where there are insufficient ground points for interpolation.  This is a known outcome and currently addressed by increasing the window size for the IDW to search for neighboring points.  Currently, we are confident in this solution for addressing 'nodata' regions of the surface model; however, we are continuing to research other solutions (e.g. Triangulated Irregular Networks) and additional interpolation tools like GRASS GIS and SAGA GIS.
+PDAL is not developed specifically for the generation of surface grids (rasters); however, it does provide this capability when generating output in geoTIFF format. For the generation of surface rasters, an interpolation method is necessary to create a uniform surface. PDAL integrates an additional library called, points2grid to accomplish this. Points2grid utilizes the Inverse Distance Weighted (IDW) method for its interpolations. This method is powerful in creating accurate interpolations, but can have limitations. Notably, the IDW method does not interpolate over large areas where data is not present. Specifically, when generating sufaces, this results in regions of 'nodata' where there are insufficient ground points for interpolation.  This is a known outcome and currently addressed by increasing the window size for the IDW to search for neighboring points.  Currently, we are confident in this solution for addressing 'nodata' regions of the surface model; however, we are continuing to research other solutions (e.g. Triangulated Irregular Networks) and additional interpolation tools like GRASS GIS and SAGA GIS.
 
 \subsubsection{PostGIS/PostgreSQL Usage}
 
-PostgreSQL (13.3) is used to manage vector data as tables. PostGIS is an extension for PostgreSQL providing capabilities to manage these tables as geospatial layers. Vector data is uploaded to PostgreSQL using ogr2ogr. This method allows us to directly load 'file geodatabase' file types to our database without the need to covert to shapefile first. Conversion to shapefile truncates the column names; therefore, this is very useful tool helping keep our data intact. Utilizing ogr2ogr as our upload also allows us to force all geometries to multipolygon, further cleaning and generalizing the data.
+PostgreSQL (13.3) is used to manage vector data as tables. PostGIS is an extension for PostgreSQL providing capabilities to manage these tables as geospatial layers. Vector data is uploaded to PostgreSQL using ogr2ogr. This method allows us to directly load 'file geodatabase' file types to PostgreSQL databases without the need to covert to shapefile first. Conversion to shapefile truncates the column names; therefore, this is very useful tool keeping data intact. Utilizing ogr2ogr for uploads also allows us to force all geometries to multipolygon, further cleaning and generalizing the data.
 
-In testing, we worked both with the Calveg and FRID layers, with the goal of producing clean rasterized data layers for comparison. We did not use these layers for our modelling this round, however, we did gain positive results in the tests with PostgreSQL/PostGIS and plan to implemet our lerning in the future. Both the Calveg and FRID (vegetation classification layers) required cleaning and correction of invalid geometries. These are large complex data sets containing millions of vertices and complex geometries. PostGIS (2.4) is an excellent tool for handling these types of large operations. Cleaning is a necessary step for upstream processes like rasterization, but also necessary to work with the data properly.  Once clean, we export the tables using ogr2ogr. Using this command as an export provides us the opportunity to build a single unified shapefile.  Working with a single shapefile, although large, permits easy clips of the data using a bounding box. In the future, it is more likely we will skip the export back to shapefile and query regions directly from the PostgreSQL table instead, leveraging the speed and power of properly indexed data.  For now, our process is tested and functioning.
+In testing, both with the Calveg and FRID layers were used with the goal of producing clean rasterized data layers for comparison. The layers were not used in this modelling round, however, promising results were obtained in the tests with PostgreSQL/PostGIS and the plan is to implemet those learning in the future. Both the Calveg and FRID (vegetation classification layers) required cleaning and correction of invalid geometries. These are large complex data sets containing millions of vertices and complex geometries. PostGIS (2.4) is an excellent tool for handling these types of large operations. Cleaning is a necessary step for upstream processes like rasterization, but also necessary to work with the data properly.  Once clean, we export the tables using ogr2ogr. Using this command as an export provides us the opportunity to build a single unified shapefile.  Working with a single shapefile, although large, permits easy clips of the data using a bounding box. In the future, it is more likely we will skip the export back to shapefile and query regions directly from the PostgreSQL table instead, leveraging the speed and power of properly indexed data.  For now, the process is tested and functioning as expected.
 
 \subsubsection{Vector Rasterization}
 
-Rasterization of vectors is necessary for our machine learning models. If we are doing pixel to pixel comparisons, the vector data must be in the same format.  Rather than rasterizing the entire vector data set, we clip the data in the shapefile as needed and perfrom the rasterization on the fly.  At the time of the conversion to raster we pass the necessary extents and resolution for the output. We've found this method to be quick since the read and storage of vector data is more efficient.
+Rasterization of vectors is necessary for the machine learning models. If we are doing pixel to pixel comparisons, the vector data must be in the same format.  Rather than rasterizing the entire vector data set, we clip the data in the shapefile as needed and perfrom the rasterization on the fly.  At the time of the conversion to raster we pass the necessary extents and resolution for the output. We've found this method to be quick since the read and storage of vector data is more efficient.
 
 Results from the generation of the DTM and DSM are then used to calculate the Canopy Height Model (CHM).
 
 \subsubsection{Sentinel 2 Handling}
 
-Handling and manipulation of Sentinel 2 data is performed using GDAL. Raw Sentinel data comes to us in JP2 format and is projected in its corresponding UTM zone. Our first operation is to bring all the Sentinel into a singular projection, California Albers (EPSG:3310). For the purposes of geospatial operations, we also convert images into GeoTiff format. If needed, Sentinel-2 images are re-sampled into 10m resolution. Our re-sampling method is to use gdal\_translate and to split the pixel, e.g a 20m resolution pixel is split into four new pixels to achieve 10m resolution.
+Handling and manipulation of Sentinel-2 data is performed using GDAL. Raw Sentinel data comes in JP2 format and is projected in its corresponding UTM zone. The first operation on Sentinel-2 is to bring all the images into a singular projection, California Albers (EPSG:3310). For the purposes of geospatial operations, the data is converted into GeoTiff format. If needed, Sentinel-2 images are re-sampled into 10m resolution. The re-sampling method uses gdal\_translate to split the pixel, e.g a 20m resolution pixel is split into four new pixels to achieve 10m resolution.
 
 \subsubsection{Pixel Alignment}
 
-In order to have clean pixel sampling, we need to ensure all our data aligns to be the best of our abilities.  This is ensured through several processes.
+In order to have clean pixel sampling, we need to ensure all layers align with each other, pixel to pixel.  This is ensured through several processes:
 
 \begin{itemize}
-  \item Projection: All data for our project is developed to be in the same projection wih the same origin.
+  \item Projection: All data for this project is developed to be in the same projection with the same origin.
   \item Resolution: Each data set is always forced into a 10m resolution when GDAL commands allow.
   \item Extents:  Extents are always captured the the beginning of a process and reapplied to the outputs.
 \end{itemize}
@@ -579,7 +579,7 @@ The data processing consisted of the following concrete steps:
 
 \subsection{Incline Village test area}
 
-As part of our surface development testing, a small region north of Lake Tahoe was chosen to help confirm our results (/autoref{fig:AOIlc}. The dataset uses a a point cloud collected by Watershed Sciences In, collected in a two week survey in August 2010. The average first-return density is 11.82 pts m$^{-2}$ and the dataset can be accessed via the OpenTopography database\footnote{Lake Tahoe point cloud: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032011.26910.1}}.
+As part of the surface development testing, a small region north of Lake Tahoe was chosen to help confirm results (/autoref{fig:AOIlc}. The dataset uses a a point cloud collected by Watershed Sciences In, collected in a two week survey in August 2010. The average first-return density is 11.82 pts m$^{-2}$ and the dataset can be accessed via the OpenTopography database\footnote{Lake Tahoe point cloud: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032011.26910.1}}.
 
 
 \begin{figure}[H]
@@ -607,7 +607,7 @@ We demonstrate that the machine-learning can be deployed readily over an entire 
 
 \subsection{Data package}
 
-Included with this report is a collection of zipped images and data from our testing. In the folder, one will find two main sub directories named 'data' and 'images'. The data directory contains all the GeoTiffs (DTM, DSM, CHM) from our testing in Lemon Canyon and the Lake Tahoe Region.  Along with the surfaces are the terrain shaded tiffs (HS) used for visualization purposes.  Surfaces are also broken into two projections: California Albers (EPSG:3310) and Web Mercator (EPSG:3857).  The image directory contains all the terrain images used in the report.  In addition, the asscociated QGIS files used to create these images are included.  Please note, it may be necessary to relink the file paths to make these files work properly.
+Included with this report is a collection of zipped images and data from testing. In the folder, one will find two main sub directories named 'data' and 'images'. The data directory contains all the GeoTiffs (DTM, DSM, CHM) from the testing in Lemon Canyon and the Lake Tahoe Region.  Along with the surfaces are the terrain shaded tiffs (HS) used for visualization purposes.  Surfaces are also broken into two projections: California Albers (EPSG:3310) and Web Mercator (EPSG:3857).  The image directory contains all the terrain images used in the report.  In addition, the asscociated QGIS files used to create these images are included.  Please note, it may be necessary to relink the file paths to make these files work properly.Raster files are not mosaicked, but instead, joined using a a Virtual Raster Tile (VRT) file type. VRT's may be loaded directly into QGIS without the need to load individual raster files 
 
 
   Results for surface generation in Lake Tahoe Test Region (Incline Village)
