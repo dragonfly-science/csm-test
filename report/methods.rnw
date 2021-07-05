@@ -109,10 +109,10 @@ To upscale LiDAR-derived CHM information with Sentinel-2 imagery, a multi-step p
 and extract information from a range of different data sources. Because of the size of the training datast, two
  Sentinel-2 bands (10~m, red \& near-infrared) were used as inputs for illustrating this proof of concept. Nevertheless,
   additional spectral vegetation indices and classification
- layers were also prepared using GDAL and PostgreSQL/PostGIS (see Appendix B), which will be incorporated as additional labels in future models.
+ layers were also prepared using GDAL and PostgreSQL/PostGIS (see \autoref{app:tools}), which will be incorporated as additional labels in future models.
  Once these frameworks were established, items could be exported into a scalable production data infrastructure for machine-learning processes.
   We used Amazon Web Service (AWS) S3 for image storage, a stand-alone Hive metastore backed by a Postgres database for
-  tabular data storage (vector/metadata) and a Trino and Dask environment for tabular and image data processing, respectively (see Appendix B).
+  tabular data storage (vector/metadata) and a Trino and Dask environment for tabular and image data processing, respectively (see \autoref{app:tools}).
 %link in Appendix sec label for automated linking
 
 For the data pre-processing, it was necessary to identify Sentinel-2 data of interest based on 9 tiles of the Military
