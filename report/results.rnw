@@ -53,9 +53,9 @@ and DSM.topo, which incorporated all available points in the surface generation 
       \includegraphics[scale=0.50]{s3/images/lemonCanyon/DTMfly.png}
          \end{subfigure}
     \begin{subfigure}{.45\linewidth}
-     \caption{DTM.topo}\label{fig:DTMtopo}
      \captionsetup{justification=centering}
-      \includegraphics[scale=0.50]{s3/images/lemonCanyon/DTMtopo.png}
+     \caption{DTM.topo}\label{fig:DTMtopo}
+           \includegraphics[scale=0.50]{s3/images/lemonCanyon/DTMtopo.png}
          \end{subfigure}
   \caption {Visualisation of surface outputs from the digital surface model (DSM) and the digital terrain model (DTM) developed
   in this project (DSM.fly and DTM.fly) and from the OpenTopography DTM (DTM.topo). Also shown is a blend of DSM.fly with Google Earth.} \label{fig:dsm-assess}
