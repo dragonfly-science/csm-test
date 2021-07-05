@@ -496,7 +496,7 @@ For the purposes of this project, we are leveraging GDAL 3.2.2 for raster proces
     \item Rasterization (\texttt{gdal\_rasterize})
 \end{itemize}
 
-Vector processing is made avialable through GDAL via the ogr2ogr command.  Ogr2ogr is primarily utilized for data transformations and basic clipping. More complex operations are handled using PostGIS.
+Vector processing is made available through GDAL via the ogr2ogr command.  Ogr2ogr is primarily utilized for data transformations and basic clipping. More complex operations are handled using PostGIS.
 
 Additionally, we are implementing GDAL's capabilities to create:
 \begin{itemize}
