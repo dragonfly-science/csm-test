@@ -508,7 +508,7 @@ Additionally, we are implementing GDAL's capabilities to create:
 
 \subsubsection{Point Cloud Data Abstraction Library (PDAL) Usage}
 
-PDAL (2.3.0) is an open library written in C++ for managing and processing point cloud data. This tool is similar to LASTools in the Windows environment and offers similar capabilities. PDAL is an easily scripted tool allowing for scaling. At its core, PDAL utilizes JSON configurations called pipelines and allows us to string multiple processes into JSON documents. This method for developing individual complex pipelines for point clouds gives us the control needed to run these processes across myriad cores.  PDAL is also developed to handle varied point cloud data types outside of the traditional ASPRS LAS. This may be important as we begin to generate surfaces from varied sources.
+PDAL (2.3.0) is an open library written in C++ for managing and processing point cloud data. Like LASTools in the Windows environment, PDAL offers similar capabilities. PDAL is an easily scripted tool allowing for scaling. At its core, PDAL utilizes JSON configurations called pipelines and allows us to string multiple processes into JSON documents. This method for developing individual complex pipelines for point clouds gives us the control needed to run these processes across myriad cores.  PDAL is also developed to handle varied point cloud data types outside of the traditional ASPRS LAS. This may be important as we begin to generate surfaces from varied sources.
 
 PDAL is implemented for point cloud filtering plus, generation of Digital Terrain Models (DTM) and Digital Surface Models (DSM). In a basic PDAL process we will:
 \begin{enumerate}
