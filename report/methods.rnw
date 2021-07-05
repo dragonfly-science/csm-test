@@ -10,17 +10,17 @@
 %  \item United States Geological Survey (USGS) LiDAR point clouds and surface generation for CHM. %what is CHM
 %  \item LiDAR verification plots data
 %  \item Calveg vegetation classification data
-%  \item Project scaling 
+%  \item Project scaling
 %\end{itemize}
 %
 
 The LiDAR upscaling approach was preceded by a demonstration and evaluation of our processes to produce a CHM from unclassified LiDAR point cloud data. This proof of concept then upscaled the CHM by training Sentinel-2-derived spectral indices on this information to infer mean canopy height pixels for areas vegetation height information was not available.
 
-The current test region was located in Lemon Canyon, California, approximately 50~km north of Lake Tahoe (\autoref{fig:lemoncanyon}). 
+The current test region was located in Lemon Canyon, California, approximately 50~km north of Lake Tahoe (\autoref{fig:lemoncanyon}).
 This area was selected as a test region based on the valley structure and its range of distinct topographical features (e.g., slopes, aspects);
- in addition, one of the available LiDAR verification plots is located within the test region's boundaries ($\sim$ 2.7~km$^2$). For this plot, 
- a subset of the 2014 LiDAR dataset was downloaded from the National Center for Airborne Laser Mapping (NCALM, University of Houston), 
- at an accuracy of 5 to 35~cm (8.93~pts~m$^{-2}$)  from a publicly-available source (OpenTopography 2014). The data source provided a 
+ in addition, one of the available LiDAR verification plots is located within the test region's boundaries ($\sim$ 2.7~km$^2$). For this plot,
+ a subset of the 2014 LiDAR dataset was downloaded from the National Center for Airborne Laser Mapping (NCALM, University of Houston),
+ at an accuracy of 5 to 35~cm (8.93~pts~m$^{-2}$)  from a publicly-available source (OpenTopography 2014). The data source provided a
  pre-calculated digital terrain model (DTM), digital surface model (DSM) and derived CHM.
 
 \begin{figure}[h]
@@ -30,19 +30,19 @@ This area was selected as a test region based on the valley structure and its ra
     \label{fig:lemoncanyon}
 \end{figure}
 
-One of the challenges associated with an extensive data source is merging the vendor-provided point clouds into an efficient, scalable process 
-consistent across the entire state. Current processes at Vibrant Planet rely on vendor-provided DTMs, and use the software Fusion 
-to derive a DSM and a resulting  CHM. Because vendor-provided CHMs are not universally available for all datasets, and the 
-processes used to derive these CHMs are unknown, the current project developed a process to generate a DTM, 
-DSM, and CHM using the Point Data Abstraction Library (PDAL). This process allowed the use of the entire point-cloud database and 
-ensured replicability with future LiDAR dataset regardless of vendor-specific point classification differences. As an overall raster 
-processing tool, this process relied greatly on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, 
+One of the challenges associated with an extensive data source is merging the vendor-provided point clouds into an efficient, scalable process
+consistent across the entire state. Current processes at Vibrant Planet rely on vendor-provided DTMs, and use the software Fusion
+to derive a DSM and a resulting  CHM. Because vendor-provided CHMs are not universally available for all datasets, and the
+processes used to derive these CHMs are unknown, the current project developed a process to generate a DTM,
+DSM, and CHM using the Point Data Abstraction Library (PDAL). This process allowed the use of the entire point-cloud database and
+ensured replicability with future LiDAR dataset regardless of vendor-specific point classification differences. As an overall raster
+processing tool, this process relied greatly on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations,
 reprojections, and raster calculations. Because GDAL is not suited for point cloud data processing, we used PDAL for these operations.
 
-Particularly, the generation of a DTM was a crucial process, which is prone to produce gaps due to a lack of ground information 
-at the centre of large trees with dense canopy structure. In addition to general data-processing algorithms used for the DSM  (e.g., outlier classification), 
+Particularly, the generation of a DTM was a crucial process, which is prone to produce gaps due to a lack of ground information
+at the centre of large trees with dense canopy structure. In addition to general data-processing algorithms used for the DSM  (e.g., outlier classification),
 the PDAL framework for generating a DTM included a ground-filtering process (Progressive Morphological Filter; \cite{zhang_progressive_2003})
- to ensure the DTM exclusively incorporates points identified as ground. Once both layers were generated, the CHM was calculated by 
+ to ensure the DTM exclusively incorporates points identified as ground. Once both layers were generated, the CHM was calculated by
  subtracting the ground information (DTM) from the vegetation surface information (DSM):
 
 \begin{equation}
@@ -50,15 +50,15 @@ CHM = DSM - DTM.
 \label {eq:chm}
 \end{equation}
 
-The CHM was performed with  
+The CHM was performed with
  the GDAL command line tool \texttt{gdal\_calc.py} to retain or switch data formats (e.g., UInt16 and Float32)
- 
+
 \subsection{Accuracy assessment of the CHM}
 
-For the following comparison of layers, products from Vibrant Planet are referred to by the suffix *.vp, products from OpenTopography  by *.topo, and 
+For the following comparison of layers, products from Vibrant Planet are referred to by the suffix *.vp, products from OpenTopography  by *.topo, and
 products from Dragonfly by *.fly.
 
-In the accuracy assessment, the model provided by OpenTopography was used as a reference against the 
+In the accuracy assessment, the model provided by OpenTopography was used as a reference against the
 outputs generated by Fusion and PDAL:
 
 \begin{enumerate}
@@ -67,7 +67,7 @@ outputs generated by Fusion and PDAL:
 	\item CHM.fly generated with PDAL and GDAL using the raw point cloud.
 \end{enumerate}
 
-Although the OpenTopography processes for producing the corresponding layers are not documented, 
+Although the OpenTopography processes for producing the corresponding layers are not documented,
 the products have been tested in regions with distinctive ridges and steep terrain (e.g., Grand Canyon\footnote{Opentopography CHM: \url{https://opentopography.org/news/opentopography-releases-canopy-height-model-tool}}); this product was officially released in January 2021. For the purpose of this assessment, it was used as a reference CHM.
  To calculate a CHM within Fusion, Vibrant Planet was provided with the DTM and point cloud from this data source. For the third CHM model,
   the raw point cloud was used to generate the Dragonfly CHM model using PDAL and GDAL frameworks:
@@ -85,38 +85,38 @@ The resulting CHM.vp was used in the consecutive accuracy assessment to compare 
 
 %CHM.fly (3), PDAL workflow:
 
-For generating the final CHM.fly with PDAL, we first produced a range of preliminary outputs and 
-verified alignment, projection and pixel values with the existing datasets. Particularly the production of a 
-gap-free DTM was a crucial process, where a prior ground point filter had to be implemented to extract true 
-last-return information from points which have been reflected by other surface features and above-ground vegetation. 
-It is inevitable that the ground filter produces gaps within the point cloud for large trees with dense canopies. Therefore, 
-it was necessary to carefully select and adjust the ground filter, and include an interpolation process which did not 
+For generating the final CHM.fly with PDAL, we first produced a range of preliminary outputs and
+verified alignment, projection and pixel values with the existing datasets. Particularly the production of a
+gap-free DTM was a crucial process, where a prior ground point filter had to be implemented to extract true
+last-return information from points which have been reflected by other surface features and above-ground vegetation.
+It is inevitable that the ground filter produces gaps within the point cloud for large trees with dense canopies. Therefore,
+it was necessary to carefully select and adjust the ground filter, and include an interpolation process which did not
 exaggerate the height within the DTM. Successful %what does successful mean?
 generation of a DTM was verified by creating a hillshade output. This verification
-assessed  that the interpolation process did not inadvertently create ‘surface bumps’ as a result of incorporating 
-mis-identified ground points at the centre of trees into the process. The consecutive production of a gap-free DSM was more 
-straight-forward, because  it did not require an initial point classification. For this process, all points were used 
-and the interpolation ‘drapes’ a surface on top of the point cloud. Once DTM.fly and DSM.fly were generated, the CHM.fly 
-was calculated using a raster calculation in GDAL by subtracting the ground information from the surface information. 
+assessed  that the interpolation process did not inadvertently create ‘surface bumps’ as a result of incorporating
+mis-identified ground points at the centre of trees into the process. The consecutive production of a gap-free DSM was more
+straight-forward, because  it did not require an initial point classification. For this process, all points were used
+and the interpolation ‘drapes’ a surface on top of the point cloud. Once DTM.fly and DSM.fly were generated, the CHM.fly
+was calculated using a raster calculation in GDAL by subtracting the ground information from the surface information.
 The result was the CHM.fly for the test region Lemon Canyon, extending approximately  2.7 km$^2$, ~ 2.6 Million pixels at a resolution of 1 m$^2$.
 
-To assess the difference between the three different CHMs, the outputs by Vibrant Planet and by Dragonfly were subtracted from the OpenTopography CHM. 
+To assess the difference between the three different CHMs, the outputs by Vibrant Planet and by Dragonfly were subtracted from the OpenTopography CHM.
 The resulting layer was analysed within QGIS raster statistics to calculate differences.
 
 \subsection{Proof of concept: Upscaling canopy height with Sentinel-2 imagery}
 
-To upscale LiDAR-derived CHM information with Sentinel-2 imagery, a multi-step process was deployed to ingest, align 
-and extract information from a range of different data sources. Because of the size of the training datast, two 
+To upscale LiDAR-derived CHM information with Sentinel-2 imagery, a multi-step process was deployed to ingest, align
+and extract information from a range of different data sources. Because of the size of the training datast, two
  Sentinel-2 bands (10~m, red \& near-infrared) were used as inputs for illustrating this proof of concept. Nevertheless,
   additional spectral vegetation indices and classification
- layers were also prepared using GDAL and PostgreSQL/PostGIS (see Appendix B), which will be incorporated as additional labels in future models. 
+ layers were also prepared using GDAL and PostgreSQL/PostGIS (see Appendix B), which will be incorporated as additional labels in future models.
  Once these frameworks were established, items could be exported into a scalable production data infrastructure for machine-learning processes.
-  We used Amazon Web Service (AWS) S3 for image storage, a stand-alone Hive metastore backed by a Postgres database for 
-  tabular data storage (vector/metadata) and a Trino and Dask environment for tabular and image data processing, respectively (see Appendix B). 
+  We used Amazon Web Service (AWS) S3 for image storage, a stand-alone Hive metastore backed by a Postgres database for
+  tabular data storage (vector/metadata) and a Trino and Dask environment for tabular and image data processing, respectively (see Appendix B).
 %link in Appendix sec label for automated linking
 
-For the data pre-processing, it was necessary to identify Sentinel-2 data of interest based on 9 tiles of the Military 
-Grid Reference System (MGRS) for California, and reproject them in the California Albers reference system. 
+For the data pre-processing, it was necessary to identify Sentinel-2 data of interest based on 9 tiles of the Military
+Grid Reference System (MGRS) for California, and reproject them in the California Albers reference system.
 Via an SQL filter we were able to query the metadata to identify pixels with the least amount of noise (e.g. < 35 \% cloud obstruction), representing the most accurate spectral depiction of ground information.
 Based on the MGRS, imageries were clipped to uniform tiles with 40~km sides; annual gap-free images were produced using median spectral values for temporally overlaying pixels (~ 18+) with acceptable noise values for the dry season (Apr 15 - Oct 15). The pre-processing resulted in a composite image for each band and for each year. This image
 represents one layer of features for the machine-learning model (see example below \autoref{fig:sent2db}).
@@ -125,28 +125,28 @@ represents one layer of features for the machine-learning model (see example bel
 \centering
 \includegraphics[scale=0.85]{images/bandScale.png}
     \captionsetup{justification=centering}
-    \captionof{figure}{Example of a cloud-free composite Sentinel-2 image using mean spectral reflectance 
+    \captionof{figure}{Example of a cloud-free composite Sentinel-2 image using mean spectral reflectance
     values within a period of interest (here: dry season).}
     \label{fig:sent2db}
 \end{figure}
 
 %The methods highlighted in this section do not aim to solve the prediction of CHM values but instead lay down the groundwork needed to move towards deep learning solutions that make use of all our multi-modal satellite data, whilst doing away with handcrafted features such as NDVI and NBR. They therefore serve as an overview of the engineering process, highlighting the construction of the machine learning training pipeline, basic machine learning modelling, the calculation of basic accuracy metrics and the packaging of the models in simple portable format allowing for a flexible, fast and efficient inference across large datasets.
 
-The Lemon Canyon region is approximately 188 by 155 pixels, equating to a spatial area of 1.8~km by 1.5~km. The band 4 (B4, red) and band 8 (B8, near-infrared) 
-spectrums of this region were superposed to form a multispectrum tensor of 2 by 188 by 155 pixels. 
-To place the multispectrum values into 
+The Lemon Canyon region is approximately 188 by 155 pixels, equating to a spatial area of 1.8~km by 1.5~km. The band 4 (B4, red) and band 8 (B8, near-infrared)
+spectrums of this region were superposed to form a multispectrum tensor of 2 by 188 by 155 pixels.
+To place the multispectrum values into
 a standard normal distribution required by the deep-learning models, Z-score normalisation was applied to tuples representing B4 and B8 features.
-The  Pytorch Python library was used for adaptive and scalable model-training procedures with specialised graphical and tensor processing units. 
-The models selected for the training process were a linear regression model and a 2-layer multilayer perceptron using leaky-RELU non-linearity. 
-Both of these models were trained using backpropagation, with an error function of mean squared error. The spectral information was 
+The  Pytorch Python library was used for adaptive and scalable model-training procedures with specialised graphical and tensor processing units.
+The models selected for the training process were a linear regression model and a 2-layer multilayer perceptron using leaky-RELU non-linearity.
+Both of these models were trained using backpropagation, with an error function of mean squared error. The spectral information was
 moved into the Pytorch data structure and split across a train, validation and test set, at a ratio of 40:10:50; this ratio corresponded with
- 10,578 training examples, 2644 
-validation examples, and 13,223 test examples (illustrated in \autoref{fig:spec-inf}). 
-%Z-score normalisation was applied to tuples representing B4 and B8 features, to place the multi-spectrum values into 
+ 10,578 training examples, 2644
+validation examples, and 13,223 test examples (illustrated in \autoref{fig:spec-inf}).
+%Z-score normalisation was applied to tuples representing B4 and B8 features, to place the multi-spectrum values into
 %a standard normal distribution required by our deep learning models. We used the Pytorch Python library for adaptive and scalable model training procedures with specialized graphical/tensor processing units. The models picked to form part of our training scaffolding are a linear regression model and a 2 layer multilayer perceptron using leaky-RELU non-linearity. Both of these models are trained using backpropagation, with an error function of mean squared error. The spectral information has been piped into Pytorch data structure and split across a train, validation and test set 40:10:50 ratio, translating to 10578 train examples, 2644 validation examples and 13223 test examples. This train-val-test split is visualized below:
 
 
-%The Pytorch Python library is picked as our machine library of choice. This library is currently the most popular deep learning library, as it allows for fast and efficient prototyping, and simple model deployment. This allows us to scale up training easily using specialized hardwares such as Graphical processing units (GPU)/ Tensor Processing Units (TPU)s and perform cheap inference across CPUs. 
+%The Pytorch Python library is picked as our machine library of choice. This library is currently the most popular deep learning library, as it allows for fast and efficient prototyping, and simple model deployment. This allows us to scale up training easily using specialized hardwares such as Graphical processing units (GPU)/ Tensor Processing Units (TPU)s and perform cheap inference across CPUs.
 
 %The models picked to form part of our training scaffolding are a linear regression model and a 2 layer multilayer perceptron using leaky-RELU non-linearity. Both of these models are trained using backpropagation, with an error function of mean squared error.
 
@@ -156,8 +156,8 @@ validation examples, and 13,223 test examples (illustrated in \autoref{fig:spec-
 \begin{center}
 \includegraphics[scale=0.50]{images/train-data.png}
 \end{center}
-    \caption{Illustration of the spectral information split into train (40\%), 
-    validation (10\%), and test (50\%)  regions for the Lemon Canyon test region. Pixel scales provided on the 
+    \caption{Illustration of the spectral information split into train (40\%),
+    validation (10\%), and test (50\%)  regions for the Lemon Canyon test region. Pixel scales provided on the
     axis with canopy height normalised greyscale (0--255).}
     \label{fig:spec-inf}
 \end{figure}
@@ -167,14 +167,11 @@ Model performance was measured using Mean Absolute Error (MAE), as described bel
 \begin{equation}
 \mathrm{MAE}=\frac{\sum_{i=1}^{n}\left|y_{i}-x_{i}\right|}{n},
 \end{equation}
-
-where: $y_{i} \quad=$ prediction, 
-$x_{i} \quad=$ true value, 
-$n     \quad=$ total number of data points.
+where: $y_{i}$ is the predicted canopy height, $x_{i}$ is the true value, and $n$ is total number of data points.
 
 This metric was selected instead of the Root Mean Squared Error (RMSE), which is sensitive to upper bound errors. This sensitivity
 means that the R.M.S.E. has the tendency to increase its value more than M.A.E. as the test sample size increases.
-%Comparing the trained models across the test data resulted in M.A.E. errors 
+%Comparing the trained models across the test data resulted in M.A.E. errors
 %The trained models when compared across the test data results in the M.A.E. errors shown in table below:
 %there is no table????
 
@@ -182,9 +179,9 @@ means that the R.M.S.E. has the tendency to increase its value more than M.A.E. 
 
 
 
- 
-% 
-% There is a small amount of freely available CHM models for the state of California. The data that is available is lacking in transparency about its creation methods or is only available as small downloads. USGS does make a large number of raw classified point clouds publicly accessible, so we decided to develop our own workflows to generate a CHM assuring a scalable, replicable, and repeatable approach to our method.  Large scale access to the data is still an issue; however, the ability to develop our own surface models is straight forward with software like PDAL. For our test case, we receive all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010 and vary in resolution, sampling technique, and provider. 
+
+%
+% There is a small amount of freely available CHM models for the state of California. The data that is available is lacking in transparency about its creation methods or is only available as small downloads. USGS does make a large number of raw classified point clouds publicly accessible, so we decided to develop our own workflows to generate a CHM assuring a scalable, replicable, and repeatable approach to our method.  Large scale access to the data is still an issue; however, the ability to develop our own surface models is straight forward with software like PDAL. For our test case, we receive all currently available LiDAR point clouds for a given region from the Opentopography database\footnote{Opentopography LiDAR database: \url{https://portal.opentopography.org/datasets}}. These point clouds date back to 2010 and vary in resolution, sampling technique, and provider.
 %
 %
 %
@@ -219,10 +216,10 @@ means that the R.M.S.E. has the tendency to increase its value more than M.A.E. 
 %\begin{itemize}
 %    \item the Geospatial Data Abstraction Library (GDAL)
 %    \item the Point Cloud Data Abstraction Library (PDAL)
-%    \item PostgreSQL/PostGIS 
+%    \item PostgreSQL/PostGIS
 %\end{itemize}
 
-%As an overall raster processing tool, we rely heavily on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, reprojections, and raster calculations. GDAL is not suited for point cloud data processing, therefore, we move to PDAL for these operations. PDAL's supports point classification, point cloud filtration, and is specilized is working with large collections point cloud data.  When processing vectors, we first convert the data for use as PostgreSQL/PostGIS tables. With data in tables, we then tidy the data by repairing broken geometries and removing uncessary columns. At this stage vector tables may be further processed with standard geospatial operations using PostGIS operations. Tables are then processed, prepped, and exported for rasterization.  
+%As an overall raster processing tool, we rely heavily on the Geospatial Data Abstraction Library (GDAL) for standard operations like data transformations, reprojections, and raster calculations. GDAL is not suited for point cloud data processing, therefore, we move to PDAL for these operations. PDAL's supports point classification, point cloud filtration, and is specilized is working with large collections point cloud data.  When processing vectors, we first convert the data for use as PostgreSQL/PostGIS tables. With data in tables, we then tidy the data by repairing broken geometries and removing uncessary columns. At this stage vector tables may be further processed with standard geospatial operations using PostGIS operations. Tables are then processed, prepped, and exported for rasterization.
 
 
 
@@ -230,9 +227,9 @@ means that the R.M.S.E. has the tendency to increase its value more than M.A.E. 
 
 
 
-%The model developed in the current project was based on Vibrant Planet's CHM. The CHM was used to train a machine-learning process against satellite pixel (Sentinel-2) information. The Sentinel-2 data were from Copernicus Sentinel-2, a constellation of two polar-orbiting satellites collecting global visible and near infrared imagery.  
+%The model developed in the current project was based on Vibrant Planet's CHM. The CHM was used to train a machine-learning process against satellite pixel (Sentinel-2) information. The Sentinel-2 data were from Copernicus Sentinel-2, a constellation of two polar-orbiting satellites collecting global visible and near infrared imagery.
 %For the purpose of this project, Sentinel-2 was used to generate vegetation indices like Normalized Burn Ratio (NBR) and Normalized Difference Vegetation Index (NDVI)
-% \citep{pandit_estimating_2018, wang_estimating_2020}. These indices  can be correlated with outside vegetation feature layers and associated Sentinel-2 bands (near-infrared, red-edge, shortwave-infrared) at higher resolutions (10 to 20~m) than traditionally-used Landsat data (30~m). Forest ecologists and geospatial scientists commonly use the NBR (\cite{kennedy_detecting_2010}) and the NDVI to correlate spectral responses with vegetation features (e.g., biomass; \cite{ghosh_aboveground_2018}) and track forest fires. Particularly the three available red-edge sensors and associated indices are valuable in discriminating the different levels of burn 
-% severity in forest ecosystems \citep{fernandez-manso_sentinel-2a_2016}. 
+% \citep{pandit_estimating_2018, wang_estimating_2020}. These indices  can be correlated with outside vegetation feature layers and associated Sentinel-2 bands (near-infrared, red-edge, shortwave-infrared) at higher resolutions (10 to 20~m) than traditionally-used Landsat data (30~m). Forest ecologists and geospatial scientists commonly use the NBR (\cite{kennedy_detecting_2010}) and the NDVI to correlate spectral responses with vegetation features (e.g., biomass; \cite{ghosh_aboveground_2018}) and track forest fires. Particularly the three available red-edge sensors and associated indices are valuable in discriminating the different levels of burn
+% severity in forest ecosystems \citep{fernandez-manso_sentinel-2a_2016}.
 %
 %For the initial testing, Sentinel-2 L2A ground reflectance data are used. These data are collected at a five-day cadence for any given location, and are comprised of twelve spectral bands at a resolution ranging from 10 to 60~m per pixel. Sentinel-2 L2A is available from May 2018 to the present.  Using California-wide Sentinel-2 imagery requires re-projection into a uniform coordinate system and workflows to implement a gridded tiling system for this project. Implementation of these workflows means that the entire  database can be used via S3 and query gap-free imagery with low cloud-obstruction; this imagery can then be used to derive spectral indices for the training process with LiDAR information.  This process allows an assessment of the full potential of Sentinel-2 data for time-series analysis to monitor vegetation disturbance, recovery, and improve existing vegetation classifications.
