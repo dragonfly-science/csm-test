@@ -61,34 +61,34 @@ et al. 2018, Wang et al. 2020)}
   \begin{tabular}{llr}
     Vegetation Indices & Equations & References \tabularnewline
     \addlinespace
-    NDVI &	(NIR - Red)/(NIR + Red) &	\citep{tucker_red_1979}	\\
-    RGR (Red Green Ratio) &	Red / Green &	\citep{sims_relationships_2002} \\		
-    EVI (Enhanced Vegetation Index) &	2.5*((NIR - Red)/ (NIR + 1 + 6 * Red + 7.5 * Blue)) &	\citep{huete_overview_2002} \\
-    SR (Simple ratio) &	NIR/RED & \citep{jordan_derivation_1969, wicaksono_mangrove_2016}	\\	
-    SAVI (Soil-Adjusted Vegetation Index) &	(NIR - Red)/(NIR + Red + L)* (1 + L) &	\citep{huete_soil-adjusted_1988}	\\
-    DVI &	NIR - Red &	\citep{zhu_exploring_2017} \\
-    FDI (Forest Discrimination Index) &	NIR - (Green + Red) &	\citep{kamal_object-based_2015} \\
-    TNDVI (Transformed Normal Difference vegetation index) &	sqrt[(NIR - Red)/(NIR + Red) + 0.5] &	\citep{castillo_estimation_2017} \\
+    NDVI &	(NIR - Red)/(NIR + Red) &	\citet{tucker_red_1979}	\\
+    RGR (Red Green Ratio) &	Red / Green &	\citet{sims_relationships_2002} \\		
+    EVI (Enhanced Vegetation Index) &	2.5*((NIR - Red)/ (NIR + 1 + 6 * Red + 7.5 * Blue)) &	\citet{huete_overview_2002} \\
+    SR (Simple ratio) &	NIR/RED & \citet{jordan_derivation_1969, wicaksono_mangrove_2016}	\\	
+    SAVI (Soil-Adjusted Vegetation Index) &	(NIR - Red)/(NIR + Red + L)* (1 + L) &	\citet{huete_soil-adjusted_1988}	\\
+    DVI &	NIR - Red &	\citet{zhu_exploring_2017} \\
+    FDI (Forest Discrimination Index) &	NIR - (Green + Red) &	\citet{kamal_object-based_2015} \\
+    TNDVI (Transformed Normal Difference vegetation index) &	sqrt[(NIR - Red)/(NIR + Red) + 0.5] &	\citet{castillo_estimation_2017} \\
     Red edge based				
-    PSRI (Plant Senescence Reflectance Index) &	(Red - Green)/RE2 &	\citep{hill_vegetation_2013, merzlyak_non-destructive_1999}	\\
-    RE NDVI &	 (NIR- RE2)/(NIR + RE2)	& \citep{sharma_active-optical_2015} \\
-    NDVI1 &	(NIR - RE1)/(NIR + RE1) &	\citep{kross_assessment_2015} \\	
-    NDVI2 &	(NIR - RE2)/(NIR + RE2) & \citep{gitelson_spectral_1994, kross_assessment_2015}	\\
-    NDVI3 &	(NIR - RE3)/(NIR + RE3) & \citep{sharma_active-optical_2015} \\
-    NDVI4 &	(NIR - RE4)/(NIR + RE4) &	\citep{kross_assessment_2015} \\
-    Clg-RE1\footnote{Subtraction of NIR reciprocal reflectance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content \citep{gitelson_relationships_2003}} &	RE1 / Green - 1 &	\citep{gitelson_relationships_2003}	\\
-    Clg-RE2 &	RE2 / Green - 1 &	\citep{gitelson_relationships_2003}	\\	
-    Clg-RE3 &	RE3 / Green - 1 &	\citep{gitelson_relationships_2003}	\\		
-    IRECI (Inverted Red-Edge Chlorophyll Index\footnote{IRECI had highest correlation to biomass (r = 0.8) in a Mangrove Forest (Philippines, \cite{castillo_estimation_2017}) and further improved by supplementing elevation information}) &	(RE3 - Red)/(RE1/RE2) &	\citep{castillo_estimation_2017} \\	
-    MTCI (terrestrial chlorophyll index) &	RE2 - RE1)/(RE1 - Red) &	\citep{dash_meris_2004}	\\
-    MCARI (modified chlorophyll absorption in reflectance index) &	[(RE1 - Red) - 0.2 * (RE1 - Green)]×(RE1/Red) &	\citep{daughtry_estimating_2000} \\		
-    MSRren (Modified Simple Ratio red-edge narrow) &	[(RE4 / RE1) - 1] / sqrt[(RE4 / RE1) + 1] &	\citep{fernandez-manso_sentinel-2a_2016} \\		
-    PSSRa (pigment specific simple ratio) &	RE3 / Red &	\citep{blackburn_spectral_1998}	\\
-    S2REP (Sentinel-2-red-edge position) &	RE1 + 35*(0.5*(RE3 + Red)/2) - RE1)/(RE2 -RE1)] &	 \citep{frampton_evaluating_2013} \\
-    RECI (Inverted Red-Edge Chlorophyll Index) &	NIR - Red/(RE1/RE2)	& \citep{frampton_evaluating_2013} \\
-    Shortwave infrared based\footnote{SWIR bands are used as important indicators in forest regeneration studies \citep{boonprong_random_2018} and raw bands are useful for vegetation mapping \citep{immitzer_first_2016}. Large changes for seasonal reflectance have been identified for European forest species \citep{grabska_forest_2019}}			
-    NDII (Normalized Difference Infrared Index) &	(NIR - SWIR1)/(NIR + SWIR1) &	\citep{hardisky_influence_1983}	\\
-    MNDWI (Normalised difference water index\footnote{The water index can be used to elineate water bodies \citep{ji_analysis_2009}}) &	 (Green-SWIR1)/(Green + SWIR1) &	\citep{ji_analysis_2009} \\
+    PSRI (Plant Senescence Reflectance Index) &	(Red - Green)/RE2 &	\citet{hill_vegetation_2013, merzlyak_non-destructive_1999}	\\
+    RE NDVI &	 (NIR- RE2)/(NIR + RE2)	& \citet{sharma_active-optical_2015} \\
+    NDVI1 &	(NIR - RE1)/(NIR + RE1) &	\citet{kross_assessment_2015} \\	
+    NDVI2 &	(NIR - RE2)/(NIR + RE2) & \citet{gitelson_spectral_1994, kross_assessment_2015}	\\
+    NDVI3 &	(NIR - RE3)/(NIR + RE3) & \citet{sharma_active-optical_2015} \\
+    NDVI4 &	(NIR - RE4)/(NIR + RE4) &	\citet{kross_assessment_2015} \\
+    Clg-RE1\footnote{Subtraction of NIR reciprocal reflectance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content \citep{gitelson_relationships_2003}} &	RE1 / Green - 1 &	\citet{gitelson_relationships_2003}	\\
+    Clg-RE2 &	RE2 / Green - 1 &	\citet{gitelson_relationships_2003}	\\	
+    Clg-RE3 &	RE3 / Green - 1 &	\citet{gitelson_relationships_2003}	\\		
+    IRECI (Inverted Red-Edge Chlorophyll Index\footnote{IRECI had highest correlation to biomass (r = 0.8) in a Mangrove Forest (Philippines, \cite{castillo_estimation_2017}) and further improved by supplementing elevation information}) &	(RE3 - Red)/(RE1/RE2) &	\citet{castillo_estimation_2017} \\	
+    MTCI (terrestrial chlorophyll index) &	RE2 - RE1)/(RE1 - Red) &	\citet{dash_meris_2004}	\\
+    MCARI (modified chlorophyll absorption in reflectance index) &	[(RE1 - Red) - 0.2 * (RE1 - Green)]×(RE1/Red) &	\citet{daughtry_estimating_2000} \\		
+    MSRren (Modified Simple Ratio red-edge narrow) &	[(RE4 / RE1) - 1] / sqrt[(RE4 / RE1) + 1] &	\citet{fernandez-manso_sentinel-2a_2016} \\		
+    PSSRa (pigment specific simple ratio) &	RE3 / Red &	\citet{blackburn_spectral_1998}	\\
+    S2REP (Sentinel-2-red-edge position) &	RE1 + 35*(0.5*(RE3 + Red)/2) - RE1)/(RE2 -RE1)] &	 \citet{frampton_evaluating_2013} \\
+    RECI (Inverted Red-Edge Chlorophyll Index) &	NIR - Red/(RE1/RE2)	& \citet{frampton_evaluating_2013} \\
+    Shortwave infrared based\footnote{SWIR bands are used as important indicators in forest regeneration studies \citet{boonprong_random_2018} and raw bands are useful for vegetation mapping \citep{immitzer_first_2016}. Large changes for seasonal reflectance have been identified for European forest species \citep{grabska_forest_2019}}			
+    NDII (Normalized Difference Infrared Index) &	(NIR - SWIR1)/(NIR + SWIR1) &	\citet{hardisky_influence_1983}	\\
+    MNDWI (Normalised difference water index\footnote{The water index can be used to elineate water bodies \citep{ji_analysis_2009}}) &	 (Green-SWIR1)/(Green + SWIR1) &	\citet{ji_analysis_2009} \\
   \end{tabular}
   \end{center}  
 \end{scriptsize}
