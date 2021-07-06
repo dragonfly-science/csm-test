@@ -1,61 +1,85 @@
 \newpage
 
-%% \section{Data sources}
-%%
-%% \subsection{Sentinel 2}
-%%
-%% Compared to Landsat multispectral bands, the Sentinel-2 bands (\autoref{tab:sentinel2}) provide three red-edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass. SNAP is an open source common architecture for ESA Toolboxes ideal for the exploitation of Earth Observation data \footnote{Available here: \url{https://step.esa.int/main/toolboxes/snap/}}. The software provides toolboxes to derive information (e.g. vegetation indices) from Sentinel data.
-%%
-%% \begin{small}
-%% \begin{table}[hbp]
-%%   \caption{Overview of Sentinel-2 bands\protect\footnotemark}
-%%   \label{tab:sentinel2}
-%%   \begin{tabular}{cllr}
-%%     Band & Description & Wavelength (µm) & Resolution (m) \tabularnewline
-%%     \addlinespace
-%% <<r1, echo=FALSE>>=
-%% sentinelbands <- read.csv(file="../tables/sentinel2.csv", header = TRUE)
-%% require(xtable)
-%% options(
-%%   xtable.include.rownames = FALSE,
-%%   xtable.include.colnames = FALSE,
-%%   xtable.only.contents = TRUE,
-%%   xtable.floating = FALSE,
-%%   xtable.hline.after = -1
-%%   )
-%% print(xtable(sentinelbands))
-%% @
-%%   \end{tabular}
-%% \end{table}
-%% \end{small}
-%% \footnotetext{Available here: \url{https://www.arcgis.com/home/item.html?id=fd61b9e0c69c4e14bebd50a9a968348c}}
-%%
-%% \newpage
-%%
-%% \paragraph{Vegetation Indices} \
-%%
-%% Vegetation indices (\autoref{tab:vegindices}) can be calculated readily using individual Sentinel-2 or Landsat bands. based on near-infrared wavelengths have weaker relationships with biomass than those including shortwave-infrared wavelengths, especially for forest sites with complex stand structures \citep{lu_survey_2016}. The results for vegetation indices may show stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass \citep{lu_survey_2016}.
-%%
-%%
-%% \begin{small}
-%% \begin{table}[hbp]
-%%   \caption{Vegetation Indices derived from Sentinel 2 information (adapted from Pandit
-%% et al. 2018, Wang et al. 2020)}
-%%   \label{tab:vegindices}
-%%   \begin{tiny}
-%%   \begin{tabular}{llr}
-%%     Vegetation Indices & Equations & References \tabularnewline
-%%     \addlinespace
-%% <<r2, echo=FALSE>>=
-%% vegindices <- read.csv(file="../tables/vegindices.csv", header = TRUE)
-%% print(xtable(vegindices))
-%% @
-%%   \end{tabular}
-%% \end{tiny}
-%% \end{table}
-%% \end{small}
-%%
-%%
+ction{Data sources}
+
+\subsection{Sentinel 2}
+
+Compared to Landsat multispectral bands, the Sentinel-2 bands (\autoref{tab:sentinel2}) provide three red-edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass. SNAP is an open source common architecture for ESA Toolboxes ideal for the exploitation of Earth Observation data \footnote{Available here: \url{https://step.esa.int/main/toolboxes/snap/}}. The software provides toolboxes to derive information (e.g. vegetation indices) from Sentinel data.
+
+\begin{small}
+\begin{table}[hbp]
+  \caption{Overview of Sentinel-2 bands\protect\footnotemark}
+  \label{tab:sentinel2}
+  \begin{tabular}{cllr}
+    Band & Description & Wavelength (µm) & Resolution (m) \tabularnewline
+    \addlinespace
+<<r1, echo=FALSE>>=
+sentinelbands <- read.csv(file="../tables/sentinel2.csv", header = TRUE)
+require(xtable)
+options(
+  xtable.include.rownames = FALSE,
+  xtable.include.colnames = FALSE,
+  xtable.only.contents = TRUE,
+  xtable.floating = FALSE,
+  xtable.hline.after = -1
+  )
+print(xtable(sentinelbands))
+@
+  \end{tabular}
+\end{table}
+\end{small}
+\footnotetext{Available here: \url{https://www.arcgis.com/home/item.html?id=fd61b9e0c69c4e14bebd50a9a968348c}}
+
+\newpage
+
+\paragraph{Vegetation Indices} \
+
+Vegetation indices (\autoref{tab:vegindices}) can be calculated readily using individual Sentinel-2 or Landsat bands. based on near-infrared wavelengths have weaker relationships with biomass than those including shortwave-infrared wavelengths, especially for forest sites with complex stand structures \citep{lu_survey_2016}. The results for vegetation indices may show stronger relationships with biomass than individual spectral bands, somehow independent of different biophysical conditions. However, in a study area with poor soil conditions and relatively simple forest stand structure, near-infrared band or relevant vegetation indices had a strong relationship with biomass \citep{lu_survey_2016}.
+
+
+\begin{small}
+\begin{table}[hbp]
+  \caption{Vegetation Indices derived from Sentinel 2 information (adapted from Pandit
+et al. 2018, Wang et al. 2020)}
+  \label{tab:vegindices}
+  \begin{tiny}
+  \begin{tabular}{llr}
+    Vegetation Indices & Equations & References \tabularnewline
+    \addlinespace
+    NDVI & (NIR - Red)/(NIR + Red) & \citep{tucker_red_1979} \\
+  RGR (Red Green Ratio) & Red / Green & (Sims \& Gamon 2002) \\
+  EVI (Enhanced Vegetation Index) & 2.5*((NIR - Red)/ (NIR + 1 + 6 * Red + 7.5 * Blue)) & (A. Huete et al. 2002) \\
+  SR (Simple ratio) & NIR/RED & (Jordan 1969, Wicaksono et al. 2016) \\
+  SAVI (Soil-Adjusted Vegetation Index) & (NIR - Red)/(NIR + Red + L)* (1 + L) & (Huete 1988) \\
+  DVI & NIR - Red & (Zhu et al. 2017) \\
+  FDI (Forest Discrimination Index) & NIR - (Green + Red) & (Kamal et al. 2015) \\
+  TNDVI (Transformed Normal Difference vegetation index) & sqrt[(NIR - Red)/(NIR + Red) + 0.5] & (Castillo et al. 2017) \\
+  Red edge based &  &  \\
+  PSRI (Plant Senescence Reflectance Index) & (Red - Green)/RE2 & (Hill 2013; Merzlyak et al. 1999) \\
+  RE NDVI &  (NIR- RE2)/(NIR + RE2) &  (Chen et al. 2007) \\
+  NDVI1 & (NIR - RE1)/(NIR + RE1) & (Kross et al. 2015) \\
+  NDVI2 & (NIR - RE2)/(NIR + RE2) & (Gitelson \& Merzlyak 1994; Kross et al. 2015) \\
+  NDVI3 & (NIR - RE3)/(NIR + RE3) &  (Sharma et al. 2015) \\
+  NDVI4 & (NIR - RE4)/(NIR + RE4) & (Kross et al. 2015) \\
+  Clg-RE1* & RE1 / Green - 1 & (Gitelson et al. 2003) \\
+  Clg-RE2* & RE2 / Green - 1 & (Gitelson et al.  2003) \\
+  Clg-RE3* & RE3 / Green - 1 & (Gitelson et al. 2003) \\
+  IRECI (Inverted Red-Edge Chlorophyll Index)** & (RE3 - Red)/(RE1/RE2) & (Castillo et al. 2017) \\
+  MTCI (terrestrial chlorophyll index) & RE2 - RE1)/(RE1 - Red) & (Dash \& Curran 2004) \\
+  MCARI (modified chlorophyll absorption in reflectance index) & [(RE1 - Red) - 0.2 * (RE1 - Green)]×(RE1/Red) & (Daughtry et al. 2000) \\
+  MSRren (Modified Simple Ratio red-edge narrow) & [(RE4 / RE1) - 1] / sqrt[(RE4 / RE1) + 1] & (Fernandez-Manso et al. 2016) \\
+  PSSRa (pigment specific simple ratio) & RE3 / Red & (Blackburn, 1998) \\
+  S2REP (Sentinel-2-red-edge position) & RE1 + 35*(0.5*(RE3 + Red)/2) - RE1)/(RE2 -RE1)] &  (Frampton et al. 2013) \\
+  RECI (Inverted Red-Edge Chlorophyll Index) & NIR - Red/(RE1/RE2) & (Frampton et al. 2013) \\
+    Shortwave infrared based\footnote{SWIR bands are used as important indicators in forest regeneration studies \citep{boonprong_random_2018} and raw bands are useful for vegetation mapping \citep{immitzer_first_2016}. Large changes for seasonal reflectance have been identified for European forest species \citep{grabska_forest_2019}} &  &  \\
+  NDII (Normalized Difference Infrared Index) & (NIR - SWIR1)/(NIR + SWIR1) & (Hardisky et al. 1983) \\
+  MNDWI (Normalised difference water index)**** &  (Green-SWIR1)/(Green + SWIR1) & (Ji et al. 2009) \\
+  \end{tabular}
+\end{tiny}
+\end{table}
+\end{small}
+
+
 %% References to include from the table: \citep{tucker_red_1979,sims_relationships_2002, huete_overview_2002, jordan_derivation_1969, wicaksono_mangrove_2016, huete_soil-adjusted_1988, zhu_exploring_2017, kamal_object-based_2015, castillo_estimation_2017, hill_vegetation_2013, merzlyak_non-destructive_1999, kross_assessment_2015, gitelson_spectral_1994, sharma_active-optical_2015, gitelson_relationships_2003, dash_meris_2004, daughtry_estimating_2000, fernandez-manso_sentinel-2a_2016, blackburn_spectral_1998, frampton_evaluating_2013, hardisky_influence_1983, ji_analysis_2009}
 %%
 %% 1* Subtraction of NIR reciprocal reflectance from from reciprocal reflectance (520 to 550 nm and 695 to 705) relates closely to total chlorophyll content \citep{gitelson_relationships_2003}
