@@ -3,7 +3,7 @@
 \section{Data sources}
 \label{app:literature}
 
-\subsection{Sentinel 2}
+\subsection{Sentinel-2}
 
 Compared to Landsat multispectral bands, the Sentinel-2 bands (\autoref{tab:sentinel2}) provide three red-edge bands and one NIR band with improved spatial resolution. The Sentinel 2 bands can be used to derive various vegetation indices useful for discriminating between species and estimating forest biomass. SNAP is an open source common architecture for ESA Toolboxes ideal for the exploitation of Earth Observation data \footnote{Available here: \url{https://step.esa.int/main/toolboxes/snap/}}. The software provides toolboxes to derive information (e.g. vegetation indices) from Sentinel data.
 
@@ -666,7 +666,7 @@ The data processing consisted of the following concrete steps:
 
 \subsection{Incline Village test area}
 
-As part of the surface development testing, a small region north of Lake Tahoe was chosen to help confirm results (/autoref{fig:AOIlc}. The dataset uses a a point cloud collected by Watershed Sciences In, collected in a two week survey in August 2010. The average first-return density is 11.82 pts m$^{-2}$ and the dataset can be accessed via the OpenTopography database\footnote{Lake Tahoe point cloud: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032011.26910.1}}.
+As part of the surface development testing, a small region north of Lake Tahoe was chosen to help confirm results (\autoref{ffig:AOIlc}). The dataset uses a a point cloud collected by Watershed Sciences In, collected in a two week survey in August 2010. The average first-return density is 11.82 pts m$^{-2}$ and the dataset can be accessed via the OpenTopography database\footnote{Lake Tahoe point cloud: \url{https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032011.26910.1}}.
 
 
 \begin{figure}[H]

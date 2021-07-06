@@ -18,10 +18,10 @@ CHM to train two spectral bands (red \& near-infrared) to upscale mean canopy he
 and test area. The prototype splits the Lemon canyon area into separate training, test and validation datasets, representing mean canopy height per Sentinel-2 pixels (10 m) by producing artificial gaps in the output.
 
 
-\subsection{Accuracy assessment of the CHMs}
+\subsection{Accuracy assessment of the CHM}
 
-The accuracy assessment of the CHMs was conducted using the 2.7-km$^2$ Lemon Canyon test region (\autoref{fig:dsm-assess}). Although
-the United States Forest Service (USFS) LiDAR point cloud dates back to 2014, the field plot located within the test region was surveyed in 2015, with trees present classified as \textit{Pinus jeffreyi}\footnote{Access here: \url{https://www.conifers.org/pi/Pinus_jeffreyi.php}}. This pine species is found on arid mountain slopes in southern Oregon, Sierra Nevada, and California and typically reaches heights between 24 and 39~m \citep{kral_pinus_1993}.
+The accuracy assessment of the CHMs was conducted using the 2.7-km$^2$ Lemon Canyon test region (\autoref{fig:dsm-assess}). While
+the United States Forest Service (USFS) LiDAR point cloud dates back to 2014, the field plot located within the test region was surveyed in 2015, with present trees classified as \textit{Pinus jeffreyi}\footnote{Tree classification: \url{https://www.conifers.org/pi/Pinus_jeffreyi.php}}. This pine species is found on arid mountain slopes in southern Oregon, Sierra Nevada, and California and typically reaches heights between 24 and 39~m \citep{kral_pinus_1993}.
 
 %In the following layer comparison we refer to Vibrant Planet products as *.vp, Opentopography as *.topo and Dragonfly as *.fly.
 
@@ -78,7 +78,7 @@ with a maximum canopy height of 36.56~m.
 The results suggested that CHM.fly calculated higher tree estimates than CHM.topo. This difference was likely due to the enhanced resolution in
 the DTM.fly, which was lowering the overall elevation surface by 0.41~m. This effect was further  propagated into the CHM.fly,
  which was on average 0.36~m higher than CHM.topo. Both models, CHM.topo and CHM.fly, labeled trees in Lemon Canyon with a
- maximum height of 36.39~m and 36.56~m, respectively, confirming expected maximum heights documented for \textit{Pinus jeffreyi},
+ maximum height of 36.39~m and 36.56~m, respectively, confirming expected maximum heights documented for \textit{Pinus jeffreyi}.
  In contrast, CHM.vp  identified trees to be more than double in height (78~m). Although the LiDAR verification plot located within the test region
   provided accurate tree height measurements for 14 trees,
   we were only able to use dominant trees (a total of 4 trees at 12 to 13~m height) to identify them within the radius of the field plot
