@@ -30,6 +30,7 @@ This area was selected as a test region based on the valley structure and its ra
     \label{fig:lemoncanyon}
 \end{figure}
 
+
 One of the challenges associated with an extensive data source is merging the vendor-provided point clouds into an efficient, scalable process
 consistent across the entire state. Current processes at Vibrant Planet rely on vendor-provided DTMs, and use the software Fusion
 to derive a DSM and a resulting  CHM. Because vendor-provided CHMs are not universally available for all datasets, and the

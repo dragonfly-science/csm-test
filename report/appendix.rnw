@@ -1,6 +1,6 @@
 \newpage
 
-ction{Data sources}
+\section{Data sources}
 
 \subsection{Sentinel 2}
 
