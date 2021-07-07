@@ -34,7 +34,7 @@ Once processes to generate CHMs from raw point clouds are established, the infor
 
 % There is one more 'cleaning" that is performed as well. This is checking for cloud cover extent and 'cleaning' out unusable data before it reaches our process.
 
-This report provides an overview of the approach and datasets used to develop a CHM test case and the consecutive upscaling of LiDAR-derived canopy height information via Sentinel-2 imagery. Detailed documentation of geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) that were part of this project is available in the appendix and in the linked repositories.
+This report provides an overview of the approach and datasets used to develop a CHM test case and the consecutive upscaling of LiDAR-derived canopy height information from localised data sets to the whole of California via Sentinel-2 imagery. Detailed documentation of geospatial processes, machine-learning concepts and data ingestions via Amazon Web Services (AWS) that were part of this project is available in the appendix and in the linked repositories.
 %include link to Appendix
 %Within this report we will present and evaluate our own workflows to generate CHM to operate independently from current limitations.
 
