@@ -131,9 +131,8 @@ the DTM.fly, which was lowering the overall elevation surface by 0.41~m. This ef
 
 The results for the machine-learning concept revealed that a simple model deployed off a
 complex data infrastructure was able to predict canopy height information for areas where these data were unavailable.
-The model predicted trees that differed on average 4.052 to 8.5~m in size than trees identified in the validation dataset.
-This output was slightly improved for the multi-layer perceptron, which predicted trees that differed on average
- 3.947 - 8.43~m in size (\autoref{tab:mean-error}).
+The model predicted a canopy height that differed on average by 4.052m ($\pm$ 8.5m) in size than canopy height identified in the validation dataset.
+This output was slightly improved for the multi-layer perceptron, which predicted average residuals of 3.947m ($\pm$ 8.43m) in size (\autoref{tab:mean-error}).
 
 
 \begin{table}[!h]
