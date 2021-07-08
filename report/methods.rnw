@@ -138,7 +138,7 @@ spectrums of this region were superposed to form a multispectrum tensor of 2 by 
 To place the multispectrum values into
 a standard normal distribution required by the deep-learning models, Z-score normalisation was applied to tuples representing B4 and B8 features.
 The  Pytorch Python library was used for adaptive and scalable model-training procedures with specialised graphical and tensor processing units.
-The models selected for the training process were a linear regression model and a 2-layer multilayer perceptron using leaky-RELU non-linearity.
+The models selected for the training process were a linear regression model and a 2-layer multilayer perceptron using Leaky-ReLU non-linearity.
 Both of these models were trained using backpropagation, with an error function of mean squared error. The spectral information was
 moved into the Pytorch data structure and split across a train, validation and test set, at a ratio of 40:10:50; this ratio corresponded with
  10,578 training examples, 2644
