@@ -1,0 +1,47 @@
+\documentclass{dragonfly-report}
+
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{knitr}
+\usepackage{placeins}
+\usepackage[table]{xcolor}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{pdflscape}
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+\usepackage{flafter}
+
+
+\title{Preparation of a Canopy Height Model for California}{Preparation of a Canopy Height Model for the State of California}
+\subtitle{Proof of concept and methods report prepared for Vibrant Planet}
+\author{Fabian Döweler \and Ian Reese}
+
+\titleimage{images/forest.jpg}
+\singleimage{by}{\url{https://www.flickr.com/photos/schweppe/21556590/}}
+
+\addbibresource{../references/method_vp_ref.bib}
+
+% Only display to subsections
+\setcounter{tocdepth}{2}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagestyle{plain}
+\input{executive}
+\input{build/introduction}
+\input{build/methods}
+\input{build/results}
+\input{build/discussion}
+%\input{acknowledgments}
+\printbibliography
+\clearpage
+\FloatBarrier
+\appendices
+\input{build/appendix}
+\end{document}
